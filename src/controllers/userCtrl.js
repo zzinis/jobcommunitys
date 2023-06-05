@@ -17,7 +17,7 @@ module.exports = {
       const user = await models.User.findOne({
         where: { id },
       });
-      res.status(200).json({ data: user });
+      res.render("profile", { user });
     } catch (err) {
       console.log(err);
       return res.status(400).json({ errMesage: "조회 실패" });
@@ -77,7 +77,7 @@ module.exports = {
       let expire = new Date();
       expire.setMinutes(expire.getMinutes() + 60);
 
-      res.cookie(cookieKey, NUMBER(`${userId}`));
+      res.cookie("userCookie", userId.toString(), { expires: expire });
       res.status(200).json({ message: "로그인 성공" });
     } catch (err) {
       console.log(err);
