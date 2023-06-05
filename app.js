@@ -1,15 +1,19 @@
 const express = require("express");
 const app = express();
+const path = require("path");
+
 const PORT = 8000;
-const mainRouter = require("./routes/mainRouter");
+const indexRouter = require("./src/routes/indexRouter");
 
 app.set("view engine", "ejs");
-app.use("/views", express.static(__dirname + "/views"));
+app.set("views", path.join(__dirname, "src", "views"));
+
+app.use("/views", express.static(path.join(__dirname, "src", "views")));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/", mainRouter);
+app.use("/", indexRouter);
 
 app.get("*", (req, res) => {
   res.render("404");
