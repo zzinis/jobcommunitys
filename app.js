@@ -37,13 +37,15 @@ async function initData() {
         category_name: "이직",
       });
     }
-  } catch (error) {}
+  } catch (error) { }
 }
 initData();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src", "views"));
 
 app.use("/views", express.static(path.join(__dirname, "src", "views")));
+app.use("/public", express.static(__dirname + "public"));
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
