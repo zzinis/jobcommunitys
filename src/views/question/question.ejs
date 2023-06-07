@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="hidden" id="questionId" value="<%= question.id %>" />
+    <input type="hidden" id="userId" value="<%= question.user.id %>" />
+
+    <h2><%= question.title %></h2>
+    <p><%= question.content %></p>
+    <p>작성자: <%= question.user.nickname %></p>
+
+    <h3>답변 <%= answers.length %>개</h3>
+    <% if (answers && answers.length > 0) { %> <%
+    answers.forEach(function(answer) { %>
+    <div>
+      <p><%= answer.content %></p>
+      <p>작성자: <%= answer.user.nickname %></p>
+    </div>
+    <% }) %> <% } else { %>
+    <p>답변이 없습니다.</p>
+    <% } %>
+  </body>
+</html>

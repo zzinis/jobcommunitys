@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <a href="/questions/write">질문하기</a>
+    </div>
+    <br>
+    <% if (questions.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th>내용</th>
+          <th>날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% questions.forEach((question) => { %>
+        <tr>
+          <td>
+            <a href="/questions/<%= question.id %>"><%= question.title %></a>
+          </td>
+          <td><%= question.content %> (<%= question.answerCount %>)</td>
+          <td><%= question.created_at%></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <p>No questions found.</p>
+    <% } %> <% if (totalPages > 1) { %>
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+      <a href="/questions?page=<%= currentPage - 1 %>"><</a>
+      <% } %> <% for (let i = 1; i <= totalPages; i++) { %> <% if (i ===
+      currentPage) { %>
+      <a class="current" href="/questions?page=<%= i %>"><%= i %></a>
+      <% } else { %>
+      <a href="/questions?page=<%= i %>"><%= i %></a>
+      <% } %> <% } %> <% if (currentPage < totalPages) { %>
+      <a href="/questions?page=<%= currentPage + 1 %>">></a>
+      <% } %>
+    </div>
+    <% } %>
+  </body>
+</html>
