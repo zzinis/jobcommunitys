@@ -12,9 +12,7 @@ exports.getQuestions = async (req, res) => {
     const sort = req.query.sort ? req.query.sort : "";
     const category_id = req.query.category ? parseInt(req.query.category) : "";
     let order = [["id", "DESC"]];
-    console.log(
-      "sort ===> " + req.query.sort + "|| category_id ==> " + category_id
-    );
+
     if (sort === "" || sort === "reg_dt") {
       order = [["id", "DESC"]];
     } else if (sort === "favorite") {
@@ -71,6 +69,7 @@ exports.getQuestions = async (req, res) => {
       limit: limit,
       raw: true,
     });
+
     const questions = result.map((question) => {
       return {
         id: question.id,
@@ -89,13 +88,65 @@ exports.getQuestions = async (req, res) => {
         },
       };
     });
-
+    const popularResult = await db.question.findAll({
+      attributes: [
+        "id",
+        "title",
+        "content",
+        "favorite",
+        "category_id",
+        "views",
+        [
+          sequelize.literal(
+            `(SELECT COUNT(*) FROM answer WHERE answer.question_id = question.id)`
+          ),
+          "answerCount",
+        ],
+      ],
+      include: [
+        {
+          model: db.user,
+          attributes: ["nickname"],
+          as: "user",
+        },
+        {
+          model: db.category,
+          attributes: ["category_name"],
+          as: "category",
+        },
+      ],
+      order: [
+        ["views", "DESC"],
+        ["favorite", "DESC"],
+      ],
+      offset: 0,
+      limit: 10,
+      raw: true,
+    });
+    const popular = popularResult.map((question) => {
+      return {
+        id: question.id,
+        title: question.title,
+        content: question.content,
+        favorite: question.favorite,
+        category_id: question.category_id,
+        answerCount: question.answerCount,
+        views: question.views,
+        user: {
+          nickname: question["user.nickname"],
+        },
+        category: {
+          category_name: question["category.category_name"],
+        },
+      };
+    });
     const resData = {
       questions: questions,
       currentPage: page,
       totalPages: totalPages,
       sort: sort,
       category_id: category_id,
+      popular: popular,
     };
     res.render("question/questions", resData);
   } catch (err) {
