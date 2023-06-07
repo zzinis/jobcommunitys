@@ -4,9 +4,77 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>MAIN PAGE</title>
   </head>
   <body>
-    <h1>여기는 main</h1>
+    <!-- 검색 영역 -->
+    <div class="search-area">
+      <input type="text" id="searchWord" placeholder="검색어를 입력하세요" />
+      <button type="button" onclick="search()">Search</button>
+    </div>
+
+    <!-- TOP 5 영역 -->
+    <div class="top-list-area">
+      <div class="view-top" style="float: left; border: 1px solid black">
+        <h4>조회순 TOP5</h4>
+        <% if (viewsTops.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>조회수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% viewsTops.forEach((viewsTop) => { %>
+            <tr>
+              <td>
+                <a href="/questions/<%= viewsTop.id %>"
+                  ><%= viewsTop.title %></a
+                >
+              </td>
+              <td><%= viewsTop.views%></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <p>No questions found.</p>
+        <% } %>
+      </div>
+      <div class="like-top" style="float: left; border: 1px solid black">
+        <h4>좋아요 TOP5</h4>
+        <% if (favoriteTops.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>좋아요</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% favoriteTops.forEach((favoriteTop) => { %>
+            <tr>
+              <td>
+                <a href="/questions/<%= favoriteTop.id %>"
+                  ><%= favoriteTop.title %></a
+                >
+              </td>
+              <td><%= favoriteTop.favorite%></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <p>No questions found.</p>
+        <% } %>
+      </div>
+    </div>
+    <script>
+      function search() {
+        var searchWord = document.getElementById("searchWord").value;
+        window.location.href = "/questions/search?word=" + searchWord;
+      }
+    </script>
   </body>
 </html>

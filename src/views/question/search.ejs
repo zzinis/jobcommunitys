@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>검색결과</title>
+  </head>
+  <body>
+    <h3>검색 결과</h3>
+    <!-- 검색 영역 -->
+    <div class="search-area">
+      <input type="text" id="searchWord" placeholder="검색어를 입력하세요" />
+      <button type="button" onclick="search()">Search</button>
+    </div>
+    <!-- 검색 결과 영역 -->
+    <div class="search-result-area">
+      <% if (questions.length > 0) { %>
+      <div class="search-result-yes">
+        <table>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% questions.forEach((question) => { %>
+            <tr>
+              <td>
+                <a href="/questions/<%= question.id %>"
+                  ><%= question.title %></a
+                >
+              </td>
+              <td><%= question.content %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+      <% } else { %>
+      <div class="search-result-no">해당하는 내용이 없습니다.</div>
+      <% } %>
+    </div>
+
+    <script>
+      function search() {
+        var searchWord = document.getElementById("searchWord").value;
+        window.location.href = "/questions/search?word=" + searchWord;
+      }
+    </script>
+  </body>
+</html>
