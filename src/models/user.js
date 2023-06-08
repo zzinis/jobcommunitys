@@ -1,10 +1,10 @@
 //user테이블 정의
 const User = (Sequelize, DataTypes) => {
   return Sequelize.define(
-    "User", //시퀄라이즈에서 사용하는 이름
+    "user", //시퀄라이즈에서 사용하는 이름
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
