@@ -27,6 +27,11 @@ module.exports = {
   postSignup: async (req, res) => {
     try {
       const { email, username, pw, newcomer, nickname } = req.body;
+      const requiredData = [email, username, pw, newcomer, nickname];
+
+      if (!requiredData.every((data) => data)) {
+        return res.status(400).json({ message: "필수값을 모두 입력해주세요." });
+      }
       const isExistEmail = await models.user.findOne({
         where: { email },
       });
