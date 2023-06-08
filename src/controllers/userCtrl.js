@@ -26,8 +26,8 @@ module.exports = {
 
   postSignup: async (req, res) => {
     try {
-      const { email, username, password, newcomer, nickname } = req.body;
-      const isExistEmail = await models.User.findOne({
+      const { email, username, pw, newcomer, nickname } = req.body;
+      const isExistEmail = await models.user.findOne({
         where: { email },
       });
 
@@ -36,9 +36,9 @@ module.exports = {
       }
 
       const saltRounds = 10;
-      const hashedPw = await bcrypt.hash(password, saltRounds);
+      const hashedPw = await bcrypt.hash(pw, saltRounds);
 
-      await models.User.create({
+      await models.user.create({
         email,
         username,
         password: hashedPw,
