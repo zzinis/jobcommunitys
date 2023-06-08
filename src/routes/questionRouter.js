@@ -15,7 +15,8 @@ router.post("/write", controller.postQuestion); // 질문 작성 post
 router.get("/:question_id", controller.getQuestion); // 질문 개별 조회
 router.get("/complete/:question_id", controller.getQuestion); // 질문 개별 조회
 
-router.patch("/:question_id", controller.patchQuesiton); // 질문 수정
+router.get("/patch/:question_id", controller.getQuestionPatchPage); // 질문 수정 페이지 렌더링
+router.patch("/patch/:question_id", controller.patchQuesiton); // 질문 수정
 router.delete("/:question_id", controller.deleteQuesiton); // 질문 삭제
 
 // 공감

@@ -2,6 +2,7 @@ const db = require("../models");
 const { Op } = require("sequelize");
 const question = require("../models/question");
 const sequelize = db.sequelize;
+const cookieParser = require("cookie-parser");
 
 // 답변 조회
 exports.getAnswers = async (req, res) => {
@@ -27,6 +28,12 @@ exports.getAnswers = async (req, res) => {
 // 답변 작성
 exports.postAnswer = async (req, res) => {
   try {
+    // 로그인 유무에 대한 처리
+    const userIdAuth = req.cookies.userId; // 로그인한 유저 ID 값 (인증된 값)
+    const userId = userIdAuth ? userIdAuth : null; // 현재 사용자의 ID
+    const loginOrNot = userId ? true : false; // 현재 로그인한 상태를 확인하는 변수
+    console.log(loginOrNot);
+
     // 해당하는 질문이 있는지 조회
     const questionId = req.params.question_id;
     const question = await db.question.findByPk(questionId);
@@ -34,24 +41,34 @@ exports.postAnswer = async (req, res) => {
       return res.status(404).send("존재하지 않는 질문입니다.");
     }
 
+    if (!loginOrNot) {
+      return res.status(403).send("로그인 후 답변을 작성해주세요");
+    }
     // 질문이 존재하면 답변 작성 진행
-    const data = {
-      questionId: questionId,
-      content: req.body.content,
-      userId: req.body.user_id,
-    };
-
     const result = await db.answer.create({
-      question_id: data.questionId,
-      content: data.content,
-      user_id: data.userId,
+      question_id: questionId,
+      content: req.body.comment,
+      user_id: userId,
       created_at: new Date(),
     });
-
+    const userNickName = await db.user.findByPk(userId, {
+      attributes: ["nickname"],
+    });
+    const answerCount = await db.answer.count({
+      where: {
+        question_id: questionId
+      }
+    });
     if (!result) {
       return res.status(404).send("답변 작성을 실패하였습니다.");
     }
-    res.send("답변 작성이 완료되었습니다.");
+    const resData = {
+      result: "답변 작성이 완료되었습니다.",
+      nickname: userNickName.nickname,
+      content: req.body.comment,
+      answerCount: answerCount,
+    };
+    res.send(resData);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");

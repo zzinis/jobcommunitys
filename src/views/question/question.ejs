@@ -22,7 +22,11 @@
 
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <style>
+      textarea:focus {
+        outline: none;
+      }
+    </style>
     <title>Document</title>
   </head>
 
@@ -150,11 +154,12 @@
             <span> 💼 커리어 </span>
             <% } %> <% if(question.category_id == 3) { %>
             <span> 🚀 기술스택 </span>
-            <% } %>
+            <% } %> <% if( yourQuestion ){ %>
             <div class="button">
-              <button class="edit">수정하기</button>
+              <button class="edit" onclick="patchQuestion()">수정하기</button>
               <button class="del" onclick="deleteQuestion()">삭제하기</button>
             </div>
+            <% } %>
           </div>
           <h1 class="title"><%= question.title %></h1>
           <div class="popular_info">
@@ -165,9 +170,10 @@
         </div>
         <div class="box_mid"><%= question.content %></div>
         <div class="box_btn">
-          <button>
-            <span
+          <button onclick="toggleLike()">
+            <span class="like-heart"
               ><svg
+                id="like-heart-button"
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
@@ -180,15 +186,27 @@
                   d="M9.63478 4.32414L8.95864 5.02432C8.70739 5.28451 8.36121 5.43146 7.99951 5.43146C7.6378 5.43146 7.29162 5.28451 7.04037 5.02432L6.36423 4.32414C5.51806 3.44787 4.1661 3.44787 3.31993 4.32414C2.44848 5.22658 2.44848 6.70838 3.31993 7.61082L3.99408 8.30894L7.99951 12.4221L12.0029 8.311L12.0068 8.30698L12.6791 7.61082C13.0926 7.18281 13.333 6.59233 13.333 5.96748C13.333 5.34263 13.0928 4.75237 12.6793 4.32436C12.2675 3.89773 11.7186 3.66659 11.1569 3.66659C10.5953 3.66659 10.0466 3.8975 9.63478 4.32414ZM12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98423 7.06024 3.15135C7.15093 3.22814 7.23877 3.31034 7.32337 3.39794L7.99951 4.09812L8.67564 3.39794C8.7597 3.31085 8.84758 3.22864 8.93889 3.15148C9.5623 2.62464 10.3451 2.33325 11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719Z"
                   fill="#A4A4A4"
                 ></path>
+                <% if(isLiked) { %>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
+                  fill="#00dd6d"
+                ></path>
+                <% } else { %>
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
                   d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
                   fill="none"
                 ></path>
+                <% } %>
+                <span>&nbsp;공감</span>
+                <span id="like-count">
+                  <%= question.favorite != 0 ? question.favorite : '' %>
+                </span>
               </svg>
-              공감</span
-            >
+            </span>
           </button>
         </div>
         <div class="box_bottom">
@@ -197,7 +215,26 @@
           <% } else { %>
           <div class="reply_title">답변</div>
           <% } %>
-          <form>
+          <form name="comment-form">
+            <% if(loginOrNot) { %>
+            <div class="reply_form" style="background-color: #fff">
+              <textarea
+                name="comment"
+                placeholder="답변을 입력해주세요."
+                maxlength="3000"
+              ></textarea>
+              <div class="reply_btn">
+                <button
+                  type="button"
+                  width="auto"
+                  style="background-color: #00dd6d"
+                  onclick="postAnswer()"
+                >
+                  등록
+                </button>
+              </div>
+            </div>
+            <% } else { %>
             <div class="reply_form">
               <textarea
                 name="comment"
@@ -209,44 +246,48 @@
                 <button type="button" width="auto">등록</button>
               </div>
             </div>
-            <% if(answers.length > 0) { %> <% answers.forEach((answer, index) =>
-            { %>
-            <div class="reply_header" style="padding-top: 15px">
-              <span><%= answer.user.nickname %></span>
-            </div>
-            <% if (index !== answers.length - 1) { %>
-            <div
-              class="reply_comment"
-              style="
-                padding: 12px 0px 10px;
-                line-height: 24px;
-                border-bottom: 1px solid rgb(228, 228, 228);
-              "
-            >
-              <span><%= answer.content %></span>
-            </div>
-            <% } else { %>
-            <div
-              class="reply_comment"
-              style="padding: 12px 0px 10px; line-height: 24px"
-            >
-              <span><%= answer.content %></span>
-            </div>
-            <% }%> <%});%>
-            <div class="reply_title"></div>
-            <% } else { %>
-            <div class="reply_txt">
-              <div class="reply_answer">댓글이 없습니다.</div>
-            </div>
             <% } %>
+            <div id="replyContainer">
+            <% if(answers.length > 0) { %> <% answers.forEach((answer,
+              index) => { %>
+              <div class="reply_header" style="padding-top: 15px">
+                <span><%= answer.user.nickname %></span>
+              </div>
+              <% if (index !== answers.length - 1) { %>
+              <div
+                class="reply_comment"
+                style="
+                  padding: 12px 0px 10px;
+                  line-height: 24px;
+                  border-bottom: 1px solid rgb(228, 228, 228);
+                "
+              >
+                <span><%= answer.content %></span>
+              </div>
+              <% } else { %>
+              <div
+                class="reply_comment"
+                style="padding: 12px 0px 10px; line-height: 24px"
+              >
+                <span><%= answer.content %></span>
+              </div>
+              <% }%> <%});%>
+              <div class="reply_title"></div>
+              <% } else { %>
+              <div class="reply_txt">
+                <div class="reply_answer">댓글이 없습니다.</div>
+              </div>
+              <% } %>
+            </div>
+            </div>
           </form>
-        </div>
       </div>
     </section>
 
     <input type="hidden" id="questionId" value="<%= question.id %>" />
     <input type="hidden" id="userId" value="<%= question.user.id %>" />
     <script>
+      // 질문 삭제
       function deleteQuestion() {
         let qId = document.getElementById("questionId").value;
         let userId = document.getElementById("userId").value;
@@ -263,16 +304,145 @@
           })
           .catch(function (error) {
             if (error.response) {
-              // 서버 응답 오류
               alert("서버 응답 오류입니다. 다시 시도해주세요.");
+            } else if (error.request) {
+              alert("요청 전송 오류입니다. 다시 시도해주세요.");
+            } else {
+              alert("오류가 발생했습니다. 다시 시도해주세요.");
+            }
+            window.location.href = "/questions"; // 메인 페이지 URL로 이동
+          });
+      }
+
+      // 질문 수정
+      function patchQuestion() {
+        const qId = document.getElementById("questionId").value;
+        window.location.href = "/questions/patch/" + qId;
+      }
+
+      // 공감 (하트 애니메이션 및 데이터 처리)
+      function toggleLike() {
+        var pathElements = document.querySelectorAll("#like-heart-button path");
+
+        var secondPathElement = pathElements[1];
+
+        var currentFill = secondPathElement.getAttribute("fill");
+
+        if (currentFill === "#00dd6d") {
+          togglelikeQuestion(false);
+          secondPathElement.setAttribute("fill", "none");
+        } else {
+          togglelikeQuestion(true);
+          secondPathElement.setAttribute("fill", "#00dd6d");
+        }
+      }
+      // 공감 데이터 처리
+      function togglelikeQuestion(like, heartElement) {
+        if (like) {
+          axios({
+            url: document.getElementById("questionId").value + "/likes",
+            method: "PATCH",
+          }).then(function (res) {
+            var likeCountElement = document.getElementById("like-count");
+            likeCountElement.textContent =
+              res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
+          });
+        } else {
+          axios({
+            url: document.getElementById("questionId").value + "/unlikes",
+            method: "PATCH",
+          }).then(function (res) {
+            var likeCountElement = document.getElementById("like-count");
+            likeCountElement.textContent =
+              res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
+          });
+        }
+      }
+
+      // 답변 작성
+      function postAnswer() {
+        const form = document.forms["comment-form"];
+        const qId = document.getElementById("questionId").value;
+        const comment = form.comment.value;
+
+        if (!comment.length > 0) {
+          alert("댓글을 입력해주세요.");
+          return false;
+        }
+
+        const data = {
+          comment: comment,
+        };
+
+        const URL = `/questions/${qId}/answers`;
+        axios({
+          url: URL,
+          method: "POST",
+          data: data,
+        })
+          .then(function (res) {
+            alert(res.data.result);
+            var replyTitle = document.querySelector('.reply_title');
+            replyTitle.textContent = '답변 ' + res.data.answerCount + '개';
+
+            document.querySelector('.reply_form textarea').value = ''
+            // reply_form
+            // 댓글 정보를 표시할 HTML 요소 생성
+            var replyContainer = document.querySelector('#replyContainer');
+            var replyTxt = replyContainer.querySelector('.reply_txt');
+
+            if (replyTxt) {
+              replyContainer.removeChild(replyTxt); // 댓글이 없는 안내 텍스트 제거
+            }
+            var replyHeader = document.createElement("div");
+            replyHeader.classList.add("reply_header");
+            replyHeader.style.paddingTop = "15px";
+            var nicknameSpan = document.createElement("span");
+            nicknameSpan.textContent = res.data.nickname;
+            replyHeader.appendChild(nicknameSpan);
+
+            var replyContainer = document.querySelector('#replyContainer');
+
+            // 댓글이 처음 작성되었을 때는 border-bottom 스타일을 추가하지 않음
+            if (replyContainer.children.length > 0) {
+              var replyComment = document.createElement('div');
+              replyComment.classList.add('reply_comment');
+              replyComment.style.padding = '12px 0px 10px';
+              replyComment.style.lineHeight = '24px';
+              replyComment.style.borderBottom = '1px solid rgb(228, 228, 228)';
+              var contentSpan = document.createElement('span');
+              contentSpan.textContent = res.data.content;
+              replyComment.appendChild(contentSpan);
+
+              replyContainer.prepend(replyComment);
+            } else {
+              var replyComment = document.createElement('div');
+              replyComment.classList.add('reply_comment');
+              replyComment.style.padding = '12px 0px 10px';
+              replyComment.style.lineHeight = '24px';
+              var contentSpan = document.createElement('span');
+              contentSpan.textContent = res.data.content;
+              replyComment.appendChild(contentSpan);
+
+              replyContainer.appendChild(replyComment);
+            }
+
+
+            // 생성한 HTML 요소를 해당 위치에 추가
+            var replyContainer = document.querySelector("#replyContainer");
+            replyContainer.prepend(replyComment);
+            replyContainer.prepend(replyHeader);
+          })
+          .catch(function (error) {
+            if (error.response) {
+              // 서버 응답 오류
+              alert(error.response.data);
             } else if (error.request) {
               // 요청 전송 오류
               alert("요청 전송 오류입니다. 다시 시도해주세요.");
             } else {
-              // 그 외 오류
-              alert("오류가 발생했습니다. 다시 시도해주세요.");
+              console.log(error);
             }
-            window.location.href = "/questions"; // 메인 페이지 URL로 이동
           });
       }
     </script>
