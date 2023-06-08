@@ -25,7 +25,7 @@ const Question = (Sequelize, DataTypes) => {
         comment: "생성일시",
       },
       user_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false,
         comment: "생성자(회원id)",
         references: {

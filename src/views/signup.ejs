@@ -11,14 +11,16 @@
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <title>Document</title>
 </head>
 
 <body>
-  <section class="loginmodal">
+  <section class="signModal">
     <div class="wrap">
       <div class="top">
-        <button type="button" id="close" value="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+        <button type="button" id="closebtn" value="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
             viewBox="0 0 24 24">
             <g fill="none" fill-rule="evenodd">
               <g>
@@ -33,28 +35,84 @@
             </g>
           </svg></button>
       </div>
-      <div class="login_txt">
-        <p>반가워요</p>
-        <p>점핏에서 커리어점프해요!</p>
+      <div class="sign_txt">
+        <p>회원가입</p>
+        <span>기업 고객이신 경우, 기업서비스에서 가입을 진행해주세요.</ㄴp>
       </div>
-      <div class="login_form">
+      <div class="sign_form">
         <label for="email">이메일</label>
-        <input type="text" name="email" id="email">
+        <div class="emailform">
+          <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요.">
+          <button type="button">메일인증</button>
+        </div>
+        <div class="nameform">
+          <label for="username">이름</label>
+          <input type="text" name="username" id="username" placeholder="이름을 입력해주세요.">
+        </div>
+        <div class="pwform">
+
+          <label for="pw">비밀번호</label>
+          <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해 주세요.">
+        </div>
+        <div class="nicknameform">
+          <label for="nickname">닉네임</label>
+          <input type="text" name="nickname" id="nickname" placeholder="사용하실 닉네임을 입력해주세요.">
+        </div>
+        <div class="newcomer">
+          <label for="newcomer"></label>
+            <input type="radio" name="newcomer" id="newcomer" value="newcomer"> 신입
+            <input type="radio" name="comer" id="comer" value="comer"> 경력
+        </div>
+        
+
       </div>
-      <button type="button">점핏 시작하기</button>
-      <div class="login_check">
-        <input type="checkbox" name="autologin" id="autologin">
-        <label for="autologin">자동 로그인</label>
+
+      <div class="sign_check">
+        <div class="autocheckbox">
+          <input type="checkbox" name="autocheck" id="autocheck">
+          <label for="autocheck">전체 동의</label>
+        </div>
+        <ul class="checklist">
+          <li> <input type="checkbox" name="check">
+            <label for="check">만 15세 이상입니다<span>(필수)</span></label>
+          </li>
+          <li><input type="checkbox" name="check">
+            <label for="check">개인회원 이용약관 동의<span>(필수)</span></label>
+          </li>
+          <li><input type="checkbox" name="check">
+            <label for="check">개인정보 수집 및 이용 동의<span>(필수)</span></label>
+          </li>
+          <li><input type="checkbox" name="check">
+            <label for="check">마케팅 수신 동의</label>
+          </li>
+
+        </ul>
+
       </div>
+
+      <button type="button" onclick="signup()">회원가입</button>
+
     </div>
   </section>
+
   <script>
     // 로그인창, 회원가입창 js
     const loginbtn = document.querySelector('.login_btn');
     const logintab = document.querySelector('.loginBtns')
+    const signtab = document.querySelector('.signBtn');
 
     const closebtn = document.querySelector('#close');
+    const signclose = document.querySelector('#closebtn');
+    const signmodal = document.querySelector('.signModal');
     const loginmodal = document.querySelector('.loginmodal');
+    logintab.addEventListener('click', function (e) {
+      e.preventDefault();
+      loginmodal.classList.add('on');
+    })
+    signtab.addEventListener('click', function (e) {
+      e.preventDefault();
+      signmodal.classList.add('on');
+    })
 
     loginbtn.addEventListener('click', function (e) {
       e.preventDefault();
@@ -63,10 +121,60 @@
     closebtn.addEventListener('click', function (e) {
       e.preventDefault();
       loginmodal.classList.remove('on');
+
+    })
+    signclose.addEventListener('click', function (e) {
+      e.preventDefault();
+      signmodal.classList.remove('on');
     })
 
+    // 회원가입 전체동의 체크
+    $("#autocheck").click(function () {
+      if ($("#autocheck").is(":checked")) {
+        $("input[name=check]").prop("checked", true);
+      } else {
+        $("input[name=check]").prop("checked", false);
+      }
+    });
 
+    $("input[name=check]").click(function () {
+      var totalArr = $("input[name=check]").length;
+      var checked = $("input[name=check]:checked").length;
+
+      if (totalArr != ckecked) {
+        $("#autocheck").prop("checked", false);
+      } else {
+        $("#autocheck").prop("checked", true);
+      }
+    });
+
+    function signup() {
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const pw = document.getElementById('pw').value;
+      const nickname = document.getElementById('nickname').value;
+      
+      const newcomer = document.getElementById('newcomer');
+
+      const newcomerChecked = newcomer.checked;
+
+      const data = { 
+        email : email,
+        username: username,
+        pw: pw,
+        nickname:nickname,
+        newcomer:newcomerChecked
+      }
+
+      axios.post('/users/signup', data).then((res)=> {
+        console.log(res);
+
+      }).catch((err)=> {
+        console.error(err)
+        alert("회원가입에 실패하였습니다.")
+      })
+    }
   </script>
-</body>
+</body> 
 
 </html>
