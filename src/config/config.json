@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "4321aaaa",
-    "database": "kdt7",
+    "database": "jobcommunity",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
