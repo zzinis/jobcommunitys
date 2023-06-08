@@ -40,23 +40,23 @@
         <span>기업 고객이신 경우, 기업서비스에서 가입을 진행해주세요.</ㄴp>
       </div>
       <div class="sign_form">
-        <label for="email">이메일</label>
         <div class="emailform">
-          <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요.">
+          <label for="email">이메일</label>
+          <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요." required>
           <button type="button">메일인증</button>
         </div>
         <div class="nameform">
           <label for="username">이름</label>
-          <input type="text" name="username" id="username" placeholder="이름을 입력해주세요.">
+          <input type="text" name="username" id="username" placeholder="이름을 입력해주세요." required>
         </div>
         <div class="pwform">
 
           <label for="pw">비밀번호</label>
-          <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해 주세요.">
+          <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해 주세요." required>
         </div>
         <div class="nicknameform">
           <label for="nickname">닉네임</label>
-          <input type="text" name="nickname" id="nickname" placeholder="사용하실 닉네임을 입력해주세요.">
+          <input type="text" name="nickname" id="nickname" placeholder="사용하실 닉네임을 입력해주세요." required>
         </div>
         <div class="newcomer">
           <label for="newcomer"></label>
@@ -167,11 +167,14 @@
       }
 
       axios.post('/users/signup', data).then((res)=> {
-        console.log(res);
-
-      }).catch((err)=> {
-        console.error(err)
-        alert("회원가입에 실패하였습니다.")
+        const { message } = res.data
+        alert(message)
+      }).catch(err => {
+        if(err.response){
+          alert(err.response.data.message)
+        }else{
+          alert('회원가입에 실패하였습니다.')
+        }
       })
     }
   </script>
