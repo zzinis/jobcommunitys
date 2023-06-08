@@ -61,7 +61,7 @@ db.question.belongsTo(db.category, {
 db.question.hasMany(db.answer, { as: "answers", foreignKey: "question_id" });
 db.question.hasMany(db.favorite, {
   as: "favorites",
-  foreignKey: "post_id",
+  foreignKey: "question_id",
 });
 db.question.belongsTo(db.user, { as: "user", foreignKey: "user_id" });
 
