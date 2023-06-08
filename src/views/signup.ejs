@@ -11,6 +11,8 @@
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <title>Document</title>
 </head>
 
@@ -52,6 +54,16 @@
           <label for="pw">비밀번호</label>
           <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해 주세요.">
         </div>
+        <div class="nicknameform">
+          <label for="nickname">닉네임</label>
+          <input type="text" name="nickname" id="nickname" placeholder="사용하실 닉네임을 입력해주세요.">
+        </div>
+        <div class="newcomer">
+          <label for="newcomer"></label>
+            <input type="radio" name="branchType" value="new"> 신입
+            <input type="radio" name="branchType" value="comer"> 경력
+        </div>
+        
 
       </div>
 
@@ -78,7 +90,7 @@
 
       </div>
 
-      <button type="button">회원가입</button>
+      <button type="button" onclick="signup()">회원가입</button>
 
     </div>
   </section>
@@ -135,7 +147,34 @@
         $("#autocheck").prop("checked", true);
       }
     });
+
+    function signup() {
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const pw = document.getElementById('pw').value;
+      const nickname = document.getElementById('nickname').value;
+      
+      const newcomerRadio = document.getElementById('newcomerRadio');
+
+      const newcomer = newcomerRadio.checked;
+
+      const data = { 
+        email : email,
+        username: username,
+        pw: pw,
+        nickname:nickname,
+        newcomer:newcomer
+      }
+
+      axios.post('/users/signup', data).then((res)=> {
+        console.log(res);
+
+      }).catch((err)=> {
+        console.error(err)
+        alert("회원가입에 실패하였습니다.")
+      })
+    }
   </script>
-</body>
+</body> 
 
 </html>
