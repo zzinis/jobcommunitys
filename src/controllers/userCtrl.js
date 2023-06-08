@@ -30,14 +30,18 @@ module.exports = {
       const requiredData = [email, username, pw, newcomer, nickname];
 
       if (!requiredData.every((data) => data)) {
-        return res.status(400).json({ message: "필수값을 모두 입력해주세요." });
+        return res
+          .status(400)
+          .json({ errMessage: "필수값을 모두 입력해주세요." });
       }
       const isExistEmail = await models.user.findOne({
         where: { email },
       });
 
       if (isExistEmail) {
-        return res.status(401).json({ message: "이미 존재하는 이메일입니다." });
+        return res
+          .status(401)
+          .json({ errMessage: "이미 존재하는 이메일입니다." });
       }
 
       const saltRounds = 10;
@@ -61,10 +65,9 @@ module.exports = {
     try {
       const { email, password } = req.body;
 
-      const user = await models.User.findOne({
+      const user = await models.user.findOne({
         where: { email },
       });
-
       if (!user) {
         return res
           .status(401)
@@ -78,11 +81,11 @@ module.exports = {
           .status(401)
           .json({ errMessage: "아이디나 비밀번호가 일치하지 않습니다." });
       }
-      const userId = user.id;
-      let expire = new Date();
-      expire.setMinutes(expire.getMinutes() + 60);
+      // const userId = user.id;
+      // let expire = new Date();
+      // expire.setMinutes(expire.getMinutes() + 60);
 
-      res.cookie(cookieKey, NUMBER(`${userId}`));
+      // res.cookie(cookieKey, NUMBER(`${userId}`));
       res.status(200).json({ message: "로그인 성공" });
     } catch (err) {
       console.log(err);
