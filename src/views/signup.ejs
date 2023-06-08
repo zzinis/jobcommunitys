@@ -60,8 +60,8 @@
         </div>
         <div class="newcomer">
           <label for="newcomer"></label>
-            <input type="radio" name="branchType" value="new"> 신입
-            <input type="radio" name="branchType" value="comer"> 경력
+            <input type="radio" name="newcomer" id="newcomer" value="newcomer"> 신입
+            <input type="radio" name="comer" id="comer" value="comer"> 경력
         </div>
         
 
@@ -154,16 +154,16 @@
       const pw = document.getElementById('pw').value;
       const nickname = document.getElementById('nickname').value;
       
-      const newcomerRadio = document.getElementById('newcomerRadio');
+      const newcomer = document.getElementById('newcomer');
 
-      const newcomer = newcomerRadio.checked;
+      const newcomerChecked = newcomer.checked;
 
       const data = { 
         email : email,
         username: username,
         pw: pw,
         nickname:nickname,
-        newcomer:newcomer
+        newcomer:newcomerChecked
       }
 
       axios.post('/users/signup', data).then((res)=> {
