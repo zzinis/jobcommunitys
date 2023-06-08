@@ -2,30 +2,69 @@ const db = require("../models");
 const { Op } = require("sequelize");
 const sequelize = db.sequelize;
 
-// 질문 전체 조회
 exports.getQuestions = async (req, res) => {
   try {
-    // 페이징 처리
     const page = req.query.page ? parseInt(req.query.page) : 1;
-    const limit = 10; // 페이지당 갯수
-    const totalQuestion = await db.question.count();
-    // 페이지 계산
-    const totalPages = Math.ceil(totalQuestion / limit);
-    const offset = (page - 1) * limit; // 조회할 시작 위치
+    const limit = 10;
 
-    // 질문 + 해당 질문에 대한 대답
+    const offset = (page - 1) * limit;
+    const whereCondition = {};
+    const sort = req.query.sort ? req.query.sort : "";
+    const category_id = req.query.category ? parseInt(req.query.category) : "";
+    let order = [["id", "DESC"]];
+
+    if (sort === "" || sort === "reg_dt") {
+      order = [["id", "DESC"]];
+    } else if (sort === "favorite") {
+      order = [
+        ["favorite", "DESC"],
+        ["id", "DESC"],
+      ];
+    } else if (sort === "views") {
+      order = [
+        ["views", "DESC"],
+        ["id", "DESC"],
+      ];
+    }
+
+    if (category_id !== "" && !isNaN(category_id)) {
+      whereCondition.category_id = category_id;
+    }
+
+    const totalQuestion = await db.question.count({
+      where: whereCondition,
+    });
+    const totalPages = Math.ceil(totalQuestion / limit);
     const result = await db.question.findAll({
-      attributes: {
-        include: [
-          [
-            sequelize.literal(
-              `(SELECT COUNT(*) FROM answer WHERE answer.question_id = question.id)`
-            ),
-            "answerCount",
-          ],
+      attributes: [
+        "id",
+        "title",
+        "content",
+        "favorite",
+        "category_id",
+        "created_at",
+        "views",
+        [
+          sequelize.literal(
+            `(SELECT COUNT(*) FROM answer WHERE answer.question_id = question.id)`
+          ),
+          "answerCount",
         ],
-      },
-      order: [["id", "DESC"]],
+      ],
+      include: [
+        {
+          model: db.user,
+          attributes: ["nickname"],
+          as: "user",
+        },
+        {
+          model: db.category,
+          attributes: ["category_name"],
+          as: "category",
+        },
+      ],
+      where: whereCondition,
+      order: order,
       offset: offset,
       limit: limit,
       raw: true,
@@ -33,19 +72,82 @@ exports.getQuestions = async (req, res) => {
 
     const questions = result.map((question) => {
       return {
-        ...question,
+        id: question.id,
+        title: question.title,
+        content: question.content,
+        favorite: question.favorite,
+        category_id: question.category_id,
         created_at: formatDate(question.created_at),
+        answerCount: question.answerCount,
+        views: question.views,
+        user: {
+          nickname: question["user.nickname"],
+        },
+        category: {
+          category_name: question["category.category_name"],
+        },
       };
     });
-
-    // 응답값으로 넘길 데이터
+    const popularResult = await db.question.findAll({
+      attributes: [
+        "id",
+        "title",
+        "content",
+        "favorite",
+        "category_id",
+        "views",
+        [
+          sequelize.literal(
+            `(SELECT COUNT(*) FROM answer WHERE answer.question_id = question.id)`
+          ),
+          "answerCount",
+        ],
+      ],
+      include: [
+        {
+          model: db.user,
+          attributes: ["nickname"],
+          as: "user",
+        },
+        {
+          model: db.category,
+          attributes: ["category_name"],
+          as: "category",
+        },
+      ],
+      order: [
+        ["views", "DESC"],
+        ["favorite", "DESC"],
+      ],
+      offset: 0,
+      limit: 10,
+      raw: true,
+    });
+    const popular = popularResult.map((question) => {
+      return {
+        id: question.id,
+        title: question.title,
+        content: question.content,
+        favorite: question.favorite,
+        category_id: question.category_id,
+        answerCount: question.answerCount,
+        views: question.views,
+        user: {
+          nickname: question["user.nickname"],
+        },
+        category: {
+          category_name: question["category.category_name"],
+        },
+      };
+    });
     const resData = {
       questions: questions,
       currentPage: page,
       totalPages: totalPages,
+      sort: sort,
+      category_id: category_id,
+      popular: popular,
     };
-    // res.send(resData);
-    // ejs 렌더링
     res.render("question/questions", resData);
   } catch (err) {
     console.error(err);
@@ -91,8 +193,8 @@ exports.searchQuestions = async (req, res) => {
       totalPages: totalPages, // 총 페이지
     };
 
-    // res.send(resData);
-    res.render("question/search", resData);
+    res.send(resData);
+    // res.render("question/search", resData);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
@@ -109,7 +211,15 @@ exports.getQuestion = async (req, res) => {
     const questionId = req.params.question_id;
     const userId = req.user ? req.user.id : null; // 현재 사용자의 ID
     const result = await db.question.findByPk(questionId, {
-      attributes: ["id", "title", "content", "user_id"],
+      attributes: [
+        "id",
+        "title",
+        "content",
+        "user_id",
+        "views",
+        "favorite",
+        "category_id",
+      ],
       include: [
         {
           model: db.answer,
@@ -129,7 +239,7 @@ exports.getQuestion = async (req, res) => {
           model: db.favorite,
           as: "favorites",
           where: {
-            user_id: userId, 
+            user_id: userId,
             question_id: questionId,
           },
           required: false, // 조인된 모델이 없어도 결과에 포함시킴
@@ -142,7 +252,6 @@ exports.getQuestion = async (req, res) => {
     if (!result) {
       return res.status(404).send("존재하지 않는 질문입니다.");
     }
-
     // 조회수 증가
     result.views += 1;
     await result.save();
@@ -158,13 +267,13 @@ exports.getQuestion = async (req, res) => {
     };
 
     // res.send(resData);
+
     res.render("question/question", resData);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
 };
-
 
 // 질문 작성 페이지 렌더링
 exports.getQuestionWritePage = async (req, res) => {

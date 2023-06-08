@@ -6,6 +6,8 @@ const PORT = 8000;
 const indexRouter = require("./src/routes/indexRouter");
 
 const { sequelize } = require("./src/models");
+const root = process.cwd();
+
 // TODO: 해당 부분 삭제
 // DB 동기화
 // sequelize 설정 - 동기화 진행
@@ -17,6 +19,7 @@ sequelize
   .catch((err) => {
     console.error(err);
   });
+
 
 // forien key 조건에 의해 데이터가 안들어갈 수 있어서 초기값을 미리 설정하고 진행한다.
 async function initData() {
