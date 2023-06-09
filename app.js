@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const cookieParser = require("cookie-parser");
 const db = require("./src/models");
 const PORT = 8000;
 const indexRouter = require("./src/routes/indexRouter");
@@ -19,7 +20,6 @@ sequelize
   .catch((err) => {
     console.error(err);
   });
-
 
 // forien key 조건에 의해 데이터가 안들어갈 수 있어서 초기값을 미리 설정하고 진행한다.
 async function initData() {
@@ -40,15 +40,15 @@ async function initData() {
         category_name: "이직",
       });
     }
-  } catch (error) { }
+  } catch (error) {}
 }
 initData();
+app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src", "views"));
 
 app.use("/views", express.static(path.join(__dirname, "src", "views")));
 app.use("/public", express.static(__dirname + "public"));
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
