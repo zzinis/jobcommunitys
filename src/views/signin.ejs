@@ -11,6 +11,8 @@
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <title>Document</title>
 </head>
 
@@ -37,11 +39,13 @@
         <p>반가워요</p>
         <p>점핏에서 커리어점프해요!</p>
       </div>
-      <div class="login_form">
+      <class="login_form">
         <label for="email">이메일</label>
-        <input type="text" name="email" id="email">
+        <input type="text" name="email" id="email"> <br>
+        <label for="password">비밀번호</label>
+        <input type="password" name="password" id="password">
       </div>
-      <button type="button">점핏 시작하기</button>
+        <button type="button" onclick="signin()">점핏 시작하기</button>
       <div class="login_check">
         <input type="checkbox" name="autologin" id="autologin">
         <label for="autologin">자동 로그인</label>
@@ -65,6 +69,25 @@
       loginmodal.classList.remove('on');
     })
 
+    function signin(){
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if(!email || !password){
+        return alert('이메일과 비밀번호를 입력해주세요.')
+      }
+
+      const data = { email, password }
+
+      axios.post('/users/signin', data).then((res) => {
+        alert(res.data.message)
+        window.location.href = '/'
+      }).catch(err => {
+        console.log(err);
+        alert(err.response.data.errMessage)
+      })
+
+    }
 
   </script>
 </body>
