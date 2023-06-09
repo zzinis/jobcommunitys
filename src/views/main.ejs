@@ -10,7 +10,7 @@
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-  <link rel="stylesheet" href="views/css/style.css">
+  <link rel="stylesheet" href="/views/css/style.css">
   <title>MAIN PAGE</title>
 </head>
 
@@ -66,8 +66,8 @@
                 fill="#5CF636"></path>
             </svg></a></h1>
         <nav class="search_box">
-          <input type="text" placeholder="검색어를 입력해주세요" maxlength="50" autocomplete="off" value>
-          <button class="search_button">
+          <input type="text" placeholder="검색어를 입력해주세요" maxlength="50" autocomplete="off" onkeydown="handleKeyPress(event)">
+          <button class="search_button" onclick="searchQuestion()">
             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
               <style>
                 svg {
@@ -577,6 +577,17 @@
 
           //쿠키 생성 코드 
           document.cookie = "popup=done; expires=" + duedate;
+        }
+
+        function searchQuestion() {
+          const word = document.querySelector('.search_box input').value
+          window.location.href = `/questions/search?word=${word}`
+        }
+
+        function handleKeyPress(event) {
+          if (event.key === 'Enter') {
+            searchQuestion();
+          }
         }
       </script>
 </body>

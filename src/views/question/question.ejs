@@ -112,9 +112,9 @@
               placeholder="검색어를 입력해주세요"
               maxlength="50"
               autocomplete="off"
-              value
+              onkeydown="handleKeyPress(event)"
             />
-            <button class="search_button">
+            <button class="search_button" onclick="searchQuestion()">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -252,6 +252,12 @@
               index) => { %>
               <div class="reply_header" style="padding-top: 15px">
                 <span><%= answer.user.nickname %></span>
+                <% if (answer.isYourAnswer) { %>
+                  <span class="reply_btn">
+                    <span><a onclick="editAnswer(this, <%= answer.id %>)">수정</a></span>
+                    <span><a onclick="deleteAnswer(this, <%= answer.id %>)">삭제</a></span>
+                  </span>
+                  <% } %>
               </div>
               <% if (index !== answers.length - 1) { %>
               <div
@@ -286,6 +292,7 @@
 
     <input type="hidden" id="questionId" value="<%= question.id %>" />
     <input type="hidden" id="userId" value="<%= question.user.id %>" />
+    <input type="hidden" id="answerId"/>
     <script>
       // 질문 삭제
       function deleteQuestion() {
@@ -380,58 +387,9 @@
           method: "POST",
           data: data,
         })
-          .then(function (res) {
-            alert(res.data.result);
-            var replyTitle = document.querySelector('.reply_title');
-            replyTitle.textContent = '답변 ' + res.data.answerCount + '개';
-
-            document.querySelector('.reply_form textarea').value = ''
-            // reply_form
-            // 댓글 정보를 표시할 HTML 요소 생성
-            var replyContainer = document.querySelector('#replyContainer');
-            var replyTxt = replyContainer.querySelector('.reply_txt');
-
-            if (replyTxt) {
-              replyContainer.removeChild(replyTxt); // 댓글이 없는 안내 텍스트 제거
-            }
-            var replyHeader = document.createElement("div");
-            replyHeader.classList.add("reply_header");
-            replyHeader.style.paddingTop = "15px";
-            var nicknameSpan = document.createElement("span");
-            nicknameSpan.textContent = res.data.nickname;
-            replyHeader.appendChild(nicknameSpan);
-
-            var replyContainer = document.querySelector('#replyContainer');
-
-            // 댓글이 처음 작성되었을 때는 border-bottom 스타일을 추가하지 않음
-            if (replyContainer.children.length > 0) {
-              var replyComment = document.createElement('div');
-              replyComment.classList.add('reply_comment');
-              replyComment.style.padding = '12px 0px 10px';
-              replyComment.style.lineHeight = '24px';
-              replyComment.style.borderBottom = '1px solid rgb(228, 228, 228)';
-              var contentSpan = document.createElement('span');
-              contentSpan.textContent = res.data.content;
-              replyComment.appendChild(contentSpan);
-
-              replyContainer.prepend(replyComment);
-            } else {
-              var replyComment = document.createElement('div');
-              replyComment.classList.add('reply_comment');
-              replyComment.style.padding = '12px 0px 10px';
-              replyComment.style.lineHeight = '24px';
-              var contentSpan = document.createElement('span');
-              contentSpan.textContent = res.data.content;
-              replyComment.appendChild(contentSpan);
-
-              replyContainer.appendChild(replyComment);
-            }
-
-
-            // 생성한 HTML 요소를 해당 위치에 추가
-            var replyContainer = document.querySelector("#replyContainer");
-            replyContainer.prepend(replyComment);
-            replyContainer.prepend(replyHeader);
+          .then(function (response) {
+            alert(response.data.result);
+            window.location.href = response.data.redirectURL;
           })
           .catch(function (error) {
             if (error.response) {
@@ -444,6 +402,128 @@
               console.log(error);
             }
           });
+      }
+
+      // 답변 수정 버튼 클릭시 이벤트
+      function editAnswer(buttonElement, answerId) {
+        document.getElementById("answerId").value = answerId;
+        var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
+        var answerContent = replyComment.querySelector("span").innerText;
+      
+        var textarea = document.createElement("textarea");
+        textarea.value = answerContent;
+        textarea.name = "commentEdit";
+        textarea.maxLength = "3000";
+      
+        var previousContentInput = document.createElement("input");
+        previousContentInput.type = "hidden";
+        previousContentInput.name = "previousContent";
+        previousContentInput.value = answerContent;
+      
+        var replyBtn = buttonElement.parentNode.parentNode;
+        replyBtn.innerHTML = '<button type="button" width="auto" style="background-color: #00dd6d" onclick="updateAnswer(this)">수정 완료</button><button type="button" width="auto" onclick="cancelEdit(this)">수정 취소</button>';
+      
+        replyComment.innerHTML = '';
+        replyComment.appendChild(previousContentInput);
+        replyComment.appendChild(textarea);
+      }
+      
+
+      
+      // 수정 취소 버튼 클릭시 이벤트
+      function cancelEdit(buttonElement) {
+        let answerId = document.getElementById("answerId").value;
+        var replyContainer = document.getElementById("replyContainer");
+        var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
+        var previousContentInput = replyComment.querySelector("input[name='previousContent']");
+        var answerContent = previousContentInput.value;
+      
+        // Restore the original answer content when canceling the edit
+        replyComment.innerHTML = '<span>' + answerContent + '</span>';
+      
+        var replyBtn = buttonElement.parentNode;
+        replyBtn.innerHTML = '<span><a onclick="editAnswer(this, ' + answerId + ')">수정</a></span> <span><a onclick="deleteAnswer(this, ' + answerId + ')">삭제</a></span>';
+      
+      }
+      
+      
+      
+      
+      // 답변 수정 완료 버튼 클릭 이벤트 핸들러
+      function updateAnswer(buttonElement) {
+        let qId = document.getElementById("questionId").value;
+        let aId = document.getElementById("answerId").value;
+        const URL = `/questions/${qId}/answers/${aId}`;
+        
+        var replyContainer = document.getElementById("replyContainer");
+        var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
+        var answerContent = replyComment.querySelector("textarea[name='commentEdit']").value;
+        var previousContentInput = replyComment.querySelector("input[name='previousContent']");
+      
+        if (!previousContentInput) {
+          console.error("Previous content input not found.");
+          return;
+        }
+      
+        axios
+          .patch(URL, { content: answerContent }) // Specify the ID of the answer to be updated
+          .then(function (response) {
+            console.log(response);
+            alert(response.data.result);
+            window.location.href = response.data.redirectURL;
+          })
+          .catch(function (error) {
+            console.error("Failed to update answer.", error);
+          });
+      }
+      
+      // 답변 삭제 버튼 클릭 이벤트 핸들러
+      function deleteAnswer(index, answerId) {
+
+        var confirmDelete = confirm("답변을 삭제하시겠습니까?");
+        if (!confirmDelete) {
+          return;
+        }
+        let qId = document.getElementById("questionId").value;
+        const URL = `/questions/${qId}/answers/${answerId}`;
+        var replyContainer = document.getElementById("replyContainer");
+        var replyHeaders = replyContainer.querySelectorAll(".reply_header");
+        var replyComments = replyContainer.querySelectorAll(".reply_comment");
+        console.log(replyContainer);
+        if (replyHeaders.length <= index) {
+          console.error("Invalid index:", index);
+          return;
+        }
+
+        if (replyComments.length <= index) {
+          console.error("Invalid index:", index);
+          return;
+        }
+        var replyHeader = replyHeaders[index];
+        var replyComment = replyComments[index];
+      
+        // 답변 삭제 로직 수행
+        axios
+          .delete(URL)
+          .then(function (response) {
+            console.log(response);
+            alert(response.data.result);
+            window.location.href = response.data.redirectURL;
+          })
+          .catch(function (error) {
+            console.error("Failed to delete answer.", error);
+          });
+      }
+      
+      function searchQuestion() {
+        const word = document.querySelector('.search_box input').value
+        window.location.href = `/questions/search?word=${word}`
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+          searchQuestion();
+        }
       }
     </script>
   </body>
