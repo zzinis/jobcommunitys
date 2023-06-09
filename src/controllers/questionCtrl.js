@@ -19,7 +19,7 @@ exports.getQuestions = async (req, res) => {
     ////////////////////////////////////////////////////////////////////////////////////
     const searchWord = req.query.word ? req.query.word : ""; // 검색어
     const page = req.query.page ? parseInt(req.query.page) : 1;
-    const limit = 10;
+    const limit = 6;
 
     const offset = (page - 1) * limit;
     const whereCondition = {};
