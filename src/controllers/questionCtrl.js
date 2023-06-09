@@ -17,7 +17,7 @@ exports.getQuestions = async (req, res) => {
     req.session.userId = "1";
     const loginOrNot = req.session.userId ? true : false; // 로그인 유무 판별
     ////////////////////////////////////////////////////////////////////////////////////
-
+    const searchWord = req.query.word ? req.query.word : ""; // 검색어
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const limit = 10;
 
@@ -44,7 +44,11 @@ exports.getQuestions = async (req, res) => {
     if (category_id !== "" && !isNaN(category_id)) {
       whereCondition.category_id = category_id;
     }
-
+    if (searchWord !== "") {
+      whereCondition.title = {
+        [Op.like]: `%${searchWord}%`,
+      };
+    }
     const totalQuestion = await db.question.count({
       where: whereCondition,
     });
@@ -170,52 +174,6 @@ exports.getQuestions = async (req, res) => {
   }
 };
 
-// 질문 검색
-exports.searchQuestions = async (req, res) => {
-  try {
-    const search = req.query.word; // 검색어
-    const page = req.query.page ? parseInt(req.query.page) : 1;
-    const limit = 10;
-
-    // 검색어로 질문 수 계산
-    const totalQuestion = await db.question.count({
-      where: {
-        title: {
-          [Op.like]: `%${search}%`,
-        },
-      },
-    });
-
-    const totalPages = Math.ceil(totalQuestion / limit);
-    const offset = (page - 1) * limit;
-
-    const result = await db.question.findAll({
-      attributes: ["id", "title", "content", "views", "favorite", "created_at"],
-      where: {
-        title: {
-          [Op.like]: `%${search}%`,
-        },
-      },
-      order: [["id", "DESC"]],
-      offset: offset,
-      limit: limit,
-    });
-
-    const resData = {
-      total: totalQuestion, // 해당하는 질문 수
-      questions: result, // 해당하는 질문 데이터
-      currentPage: page, // 현재 페이지
-      totalPages: totalPages, // 총 페이지
-    };
-
-    res.send(resData);
-    // res.render("question/search", resData);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal Server Error");
-  }
-};
-
 // 질문 개별 조회
 exports.getQuestion = async (req, res) => {
   try {
@@ -280,17 +238,23 @@ exports.getQuestion = async (req, res) => {
         question_id: questionId,
       },
     });
-    const isLiked = userFavorite > 0;
 
+    const isLiked = userFavorite > 0;
+    const answers = result.answers;
+    // 현재 로그인한 사용자와 답변 작성자의 ID 비교하여 isYourAnswer 값 설정
+    if (loginOrNot) {
+      for (const answer of answers) {
+        answer.isYourAnswer = parseInt(userId) === parseInt(answer.user_id);
+      }
+    }
     // 응답 데이터
     const resData = {
       question: result,
-      answers: result.answers,
+      answers: answers,
       isLiked: isLiked,
       loginOrNot: loginOrNot,
       yourQuestion: yourQuestion,
     };
-
     res.render("question/question", resData);
   } catch (error) {
     console.error(error);
@@ -348,6 +312,7 @@ exports.getQuestionPatchPage = async (req, res) => {
   };
   res.render("question/write", resData);
 };
+
 // 질문 수정
 exports.patchQuesiton = async (req, res) => {
   try {

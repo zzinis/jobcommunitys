@@ -4,7 +4,8 @@
     "password": "4321aaaa",
     "database": "jobcommunity",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "Asia/Seoul"
   },
   "test": {
     "username": "root",
