@@ -1,5 +1,6 @@
 const models = require("../models");
 const { Op, NUMBER } = require("sequelize");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 module.exports = {
@@ -81,11 +82,15 @@ module.exports = {
           .status(401)
           .json({ errMessage: "아이디나 비밀번호가 일치하지 않습니다." });
       }
-      // const userId = user.id;
-      // let expire = new Date();
-      // expire.setMinutes(expire.getMinutes() + 60);
 
-      // res.cookie(cookieKey, NUMBER(`${userId}`));
+      // let expires = new Date();
+      // expires.setMinutes(expires.getMinutes() + 60);
+      //jwt 를 이용한 토큰 발급
+      const token = jwt.sign({ userId: user.id }, "jomcommunity-key", {
+        expiresIn: "1h",
+      });
+
+      res.cookie("authorization", `Bearer ${token}`);
       res.status(200).json({ message: "로그인 성공" });
     } catch (err) {
       console.log(err);
