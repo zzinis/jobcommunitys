@@ -1,8 +1,22 @@
 const db = require("../models");
 const { Op } = require("sequelize");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const secretKey = "jomcommunity-key";
 
 exports.getMain = async (req, res) => {
   try {
+    const token = req.headers.authorization; // 클라이언트에서 전송된 JWT 토큰
+
+    let userId = null;
+    let loginOrNot = false;
+    if (token) {
+      // 토큰이 존재하는 경우, 토큰을 검증하여 사용자 정보를 확인
+      const decoded = jwt.verify(token, secretKey);
+      userId = decoded.userId;
+      loginOrNot = true;
+    }
+
     // 조회순 TOP 10
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
@@ -16,6 +30,7 @@ exports.getMain = async (req, res) => {
       order: [["views", "DESC"]],
       limit: 5,
     });
+
     // 공감순 TOP 10
     const favoriteTops = await db.question.findAll({
       //   where: {
@@ -26,11 +41,14 @@ exports.getMain = async (req, res) => {
       order: [["favorite", "DESC"]],
       limit: 5,
     });
+
     const resData = {
       viewsTops: viewsTops,
       favoriteTops: favoriteTops,
+      loginOrNot: loginOrNot,
+      userId: userId,
     };
-    // res.send(resData);
+    
     res.render("main", resData);
   } catch (err) {
     console.error(err);
