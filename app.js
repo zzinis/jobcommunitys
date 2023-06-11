@@ -24,10 +24,6 @@ app.use(
     // }
   })
 );
-// 쿠키로 로그인 여부 처리 (user id 값 넘기기)
-const cookieKey = "secretCookie";
-const cookieParser = require("cookie-parser");
-app.use(cookieParser(cookieKey));
 // TODO: 해당 부분 삭제
 // DB 동기화
 // sequelize 설정 - 동기화 진행
