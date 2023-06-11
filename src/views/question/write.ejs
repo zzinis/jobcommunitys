@@ -7,72 +7,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/views/css/write.css">
+  <link rel="stylesheet" href="/views/css/style.css" />
   <title>질문 작성</title>
+  <style>
+    textarea {
+      resize: none;
+    }
+
+    .category-button {
+      display: inline-block;
+      padding: 7px 16px;
+      background-color: #fff;
+      border-radius: 300px;
+      border: 1px solid rgb(206, 206, 206);
+      line-height: 22px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+
+    .category-button.on {
+      display: inline-block;
+      padding: 7px 16px;
+      background-color: #00dd6d;
+      color: #fff;
+      border-radius: 300px;
+      line-height: 22px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-right: 10px;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const categoryButtons = document.querySelectorAll(".category-button");
+      const inputCategoryId = document.querySelector(".inputCategoryId");
+
+      categoryButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const categoryId = button.getAttribute("data-category");
+          inputCategoryId.value = categoryId;
+
+          // 기존에 활성화된 버튼의 'on' 클래스 제거
+          categoryButtons.forEach(function (btn) {
+            btn.classList.remove("on");
+          });
+
+          // 클릭된 버튼에 'on' 클래스 추가
+          button.classList.add("on");
+        });
+      });
+    });
+  </script>
   <!-- axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
   <div>
-
     <header id="header">
       <div class="wrap">
         <div class="top_box">
-          <h1><a href="/"><svg width="72" height="32" viewBox="0 0 72 32" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="2" width="64" height="28" fill="white"></rect>
-                <path
-                  d="M6.45929 14.9032L9.54585 18.3227C11.811 17.1497 13.9019 15.4228 15.7096 13.3413C16.9853 15.1646 18.7309 16.7608 20.548 17.8684L24.5462 13.8951C22.2313 12.5261 20.1621 10.6063 18.9518 8.32559C19.2443 7.70641 19.5118 7.36726 19.7483 6.71697H24.7889L25.7254 2.1618H10.4233L9.45873 6.71697H14.2442C12.7631 10.3325 10.165 12.9181 6.45618 14.9063L6.45929 14.9032Z"
-                  fill="black"></path>
-                <path
-                  d="M9.51158 18.5156L6.21033 14.8597L6.38457 14.7663C10.1463 12.7501 12.5764 10.2391 14.0107 6.86943H9.26889L10.2957 2H25.9121L25.8778 2.18358L24.9164 6.86943H19.8572C19.7203 7.22725 19.5709 7.49483 19.4154 7.77486C19.322 7.94288 19.2256 8.11712 19.126 8.31937C20.2492 10.3947 22.2001 12.3238 24.627 13.7582L24.8013 13.8609L20.5728 18.0613L20.4701 17.9991C18.6282 16.879 16.9417 15.317 15.7003 13.5902C13.849 15.6935 11.8047 17.3301 9.62048 18.4596L9.51469 18.5156H9.51158ZM6.70816 14.9468L9.58315 18.1298C11.7425 16.9941 13.7649 15.3482 15.5945 13.2386L15.7252 13.0892L15.8403 13.2541C17.0444 14.9779 18.7059 16.5429 20.5293 17.6724L24.2972 13.9262C21.8765 12.4576 19.9319 10.5036 18.8148 8.40027L18.7775 8.33181L18.8117 8.26025C18.9269 8.01756 19.0358 7.81842 19.1447 7.62551C19.3096 7.32993 19.462 7.04989 19.6051 6.66407L19.6425 6.5614H24.6675L25.5418 2.31426H10.5477L9.64849 6.5614H14.4744L14.3872 6.77609C12.956 10.2703 10.5135 12.8683 6.70505 14.9468H6.70816Z"
-                  fill="black"></path>
-                <path
-                  d="M24.0266 11.9131H27.2003L25.7534 18.8859H31.3696L34.8544 2.15557H29.2227L27.9937 8.11401H24.8044L24.0266 11.9131Z"
-                  fill="black"></path>
-                <path
-                  d="M31.4972 19.0415H25.5636L27.0105 12.0687H23.8368L24.6769 7.95533H27.8661L29.0983 2H35.0474L31.5003 19.0415H31.4972ZM25.9464 18.7303H31.2452L34.6616 2.31115H29.3503L28.1213 8.26647H24.932L24.2164 11.7575H27.3901L25.9432 18.7303H25.9464Z"
-                  fill="black"></path>
-                <path
-                  d="M5.19287 29.8444H29.0577L31.3478 19.001H7.4829L5.19287 29.8444ZM12.0754 23.4628H24.8044L24.4061 25.3515H11.674L12.0723 23.4628H12.0754Z"
-                  fill="black"></path>
-                <path
-                  d="M29.1854 30H5L7.35848 18.8454H31.5438L29.1854 30ZM5.38271 29.6889H28.9333L31.158 19.1566H7.61051L5.38271 29.6889ZM24.5306 25.5071H11.4843L11.9479 23.3073H24.9973L24.5337 25.5071H24.5306ZM11.8639 25.1959H24.2817L24.6146 23.6184H12.1999L11.867 25.1959H11.8639Z"
-                  fill="black"></path>
-                <path
-                  d="M52.9009 14.3618H50.5828L51.8897 8.10779H46.9424L45.6356 14.3618H42.9753L44.2821 8.10779H39.4594L38.1557 14.3618H35.819L34.9167 18.6899H51.9986L52.9009 14.3618Z"
-                  fill="black"></path>
-                <path
-                  d="M52.126 18.8454H34.7268L35.6944 14.2031H38.0311L39.3348 7.95222H44.475L43.1682 14.2031H45.5111L46.8179 7.95222H52.0825L50.7757 14.2031H53.0937L52.126 18.8454ZM35.1095 18.5343H51.874L52.711 14.5143H50.393L51.6998 8.26336H47.0699L45.7631 14.5143H42.7854L44.0923 8.26336H39.5869L38.2832 14.5143H35.9465L35.1095 18.5343Z"
-                  fill="black"></path>
-                <path d="M55.4429 2.15869H38.3704L37.4214 6.71697H54.4971L55.4429 2.15869Z" fill="black">
-                </path>
-                <path
-                  d="M54.6246 6.87254H37.2316L38.2459 2.00311H55.6358L54.6246 6.87254ZM37.6143 6.5614H54.3726L55.2531 2.31426H38.4979L37.6143 6.5614Z"
-                  fill="black"></path>
-                <path
-                  d="M51.1772 20.9954L46.2922 19.4646C43.9555 23.4379 38.8402 24.9781 33.529 25.4666L35.3741 29.832C39.0114 29.4088 43.0749 27.7473 46.3326 25.2737C48.8934 27.4891 53.0254 29.3435 56.8182 29.7355L59.9173 25.2426C56.0933 24.8505 52.5587 24.4834 50.1846 22.4641C50.5424 22.0067 50.8723 21.5182 51.1772 20.9986V20.9954Z"
-                  fill="black"></path>
-                <path
-                  d="M35.2744 30L33.3018 25.3328L33.5133 25.3141C39.9385 24.723 44.1919 22.7285 46.1583 19.3868L46.2205 19.281L51.4104 20.9052L51.3109 21.0732C51.0308 21.5524 50.7228 22.0098 50.3992 22.436C52.7453 24.3496 56.2394 24.7074 59.9327 25.0839L60.1941 25.1119L56.8928 29.8973L56.8026 29.888C53.1995 29.5177 49.0084 27.7473 46.3263 25.4728C43.1246 27.8749 39.0455 29.5613 35.3895 29.9876L35.2744 30ZM33.7529 25.6035L35.4704 29.664C39.0797 29.219 43.0966 27.5357 46.2392 25.1492L46.3388 25.0715L46.4352 25.1555C49.0457 27.4113 53.1746 29.1786 56.7435 29.5706L59.6402 25.3702C55.9345 24.9906 52.4497 24.5954 50.085 22.5823L49.9698 22.4858L50.0632 22.3676C50.3774 21.9662 50.673 21.5368 50.9437 21.0888L46.3637 19.6544C44.3381 22.9868 40.1003 24.9874 33.756 25.6066L33.7529 25.6035Z"
-                  fill="black"></path>
-                <path d="M58.9494 2.1618L55.5175 18.6743H61.0839L64.5189 2.1618H58.9494Z" fill="black">
-                </path>
-                <path
-                  d="M61.2116 18.8299H55.3247L58.822 2.00623H64.7089L61.2116 18.8299ZM55.7074 18.5187H60.9564L64.3261 2.31737H59.0771L55.7105 18.5187H55.7074Z"
-                  fill="black"></path>
-                <path
-                  d="M68 27C68 28.6567 66.6567 30 65 30C63.3433 30 62 28.6567 62 27C62 25.3433 63.3433 24 65 24C66.6567 24 68 25.3433 68 27Z"
-                  fill="#5CF636"></path>
-              </svg></a></h1>
+          <h1><a href="/"><img src="/views/img/logo1.png" alt="">
+            </a></h1>
           <nav class="search_box">
-            <input type="text" placeholder="검색어를 입력해주세요" maxlength="50" autocomplete="off" value>
-            <button class="search_button">
+            <input type="text" placeholder="검색어를 입력해주세요" maxlength="50" autocomplete="off"
+              onkeydown="handleKeyPress(event)" />
+            <button class="search_button" onclick="searchQuestion()">
               <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
                 <style>
                   svg {
-                    fill: #00dd6d
+                    fill: #022667;
                   }
                 </style>
                 <path
@@ -80,12 +85,11 @@
               </svg>
             </button>
           </nav>
-
         </div>
         <div class="bottom_box">
           <ul class="nav_tab">
             <li><a href="#">직무 탐색</a></li>
-            <li><a href="questions">취업 Q&A</a></li>
+            <li><a href="/questions">취업 Q&A</a></li>
           </ul>
           <ul class="login_tab">
             <li><button type="button" class="signBtn">회원가입</button></li>
@@ -93,30 +97,67 @@
           </ul>
         </div>
       </div>
-
     </header>
+    <% if(patch) { %>
+      <form name="patch">
+        <div class="wrap">
+          <p class="tit">질문하기</p>
+          <div class="category">
+            <span data-category="1" class="category-button <%= question.category_id === 1 ? 'on' : '' %>">👔 취업</span>
+            <span data-category="2" class="category-button <%= question.category_id === 2 ? 'on' : '' %>">🌳 커리어</span>
+            <span data-category="3" class="category-button <%= question.category_id === 3 ? 'on' : '' %>">🚀 기술스택</span>
+          </div>
 
-    <form name="post">
-      <div class="wrap">
-        <p class="tit">질문하기</p>
-        <div class="category">
-          <input type="radio" name="categoryId" value="1" checked /><label for="categoryId">취업</label>
-          <input type="radio" name="categoryId" value="2" checked /><label for="categoryId">이직</label>
+          <div class="txt_box">
+            <input type="text" name="title" placeholder="제목을 입력해주세요" value="<%= question.title%>" />
+            <textarea name="content" cols="30" rows="10" placeholder="내용을 입력해주세요">
+<%= question.content%></textarea>
+
+            <button type="button" onclick="patchQuestion()">수정하기</button>
+          </div>
         </div>
-        <div class="txt_box">
-          <input type="text" name="title" placeholder="제목을 입력해주세요" />
-          <textarea name="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
-          <button type="button" onclick="postQuestion()">등록하기</button>
-        </div>
-
-      </div>
-
-    </form>
+        <input type="hidden" name="questionId" value="<%=question.id%>" />
+        <input type="hidden" name="userId" value="<%=question.user_id%>" />
+        <input type="hidden" class="inputCategoryId" name="categoryId" value="<%=question.category_id%>" />
+      </form>
+      <% } else { %>
+        <form name="post">
+          <div class="wrap">
+            <p class="tit">질문하기</p>
+            <div class="category">
+              <div class="category">
+                <span class="category-button" data-category="1"> 👔 취업 </span>
+                <span class="category-button" data-category="2"> 🌳 커리어 </span>
+                <span class="category-button" data-category="3">
+                  🚀 기술스택</span>
+              </div>
+            </div>
+            <div class="txt_box">
+              <input type="text" name="title" placeholder="제목을 입력해주세요" />
+              <textarea name="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
+              <button type="button" onclick="postQuestion()">등록하기</button>
+            </div>
+          </div>
+          <input type="hidden" class="inputCategoryId" name="categoryId" />
+        </form>
+        <% }%>
   </div>
   <div class="result"></div>
   <script>
     function postQuestion() {
       const form = document.forms["post"];
+      if (form.title.value === "") {
+        alert("제목을 입력해주세요");
+        return false;
+      }
+      if (form.content.value === "") {
+        alert("내용을 입력해주세요");
+        return false;
+      }
+      if (form.categoryId.value === "") {
+        alert("카테고리를 선택해주세요");
+        return false;
+      }
       const data = {
         title: form.title.value,
         content: form.content.value,
@@ -124,12 +165,56 @@
       };
 
       axios({
-        url: "/questions/write",
+        url: "/questions/write/",
         method: "POST",
         data: data,
       }).then(function (res) {
-        console.log(res);
+        alert(res.data.message);
+        window.location.href = res.data.redirectURL;
       });
+    }
+
+    function patchQuestion() {
+      const form = document.forms["patch"];
+      const data = {
+        id: form.questionId.value,
+        userId: form.userId.value,
+        title: form.title.value,
+        content: form.content.value,
+        categoryId: form.categoryId.value,
+      };
+
+      axios({
+        url: "/questions/patch/" + data.id,
+        method: "PATCH",
+        data: data,
+      })
+        .then(function (res) {
+          alert(res.data.message);
+          window.location.href = res.data.redirectURL;
+        })
+        .catch(function (error) {
+          if (error.response) {
+            // 서버 응답 오류
+            alert(error.response.data);
+          } else if (error.request) {
+            // 요청 전송 오류
+            alert("요청 전송 오류입니다. 다시 시도해주세요.");
+          } else {
+            // 그 외 오류
+            alert("오류가 발생했습니다. 다시 시도해주세요.");
+          }
+        });
+    }
+
+    function searchQuestion() {
+      const word = document.querySelector(".search_box input").value;
+      window.location.href = `/questions/search?word=${word}`;
+    }
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        searchQuestion();
+      }
     }
   </script>
 </body>

@@ -5,10 +5,25 @@ const cookieParser = require("cookie-parser");
 const db = require("./src/models");
 const PORT = 8000;
 const indexRouter = require("./src/routes/indexRouter");
-
 const { sequelize } = require("./src/models");
-const root = process.cwd();
 
+const jwt = require("jsonwebtoken");
+const secretKey = "your-secret-key";
+const session = require("express-session");
+// TODO: 해당 부분 삭제
+// 세션 처리
+app.use(
+  session({
+    secret: "secretKey", // 쿠키의 secret값과 동일하게 설정하는 것이 좋음 (권장)
+    resave: false,
+    saveUninitialized: true,
+    name: "my-session",
+    // 쿠키 설정도 가능
+    // cookie: {
+    // maxAge: 60  * 1000,
+    // }
+  })
+);
 // TODO: 해당 부분 삭제
 // DB 동기화
 // sequelize 설정 - 동기화 진행
@@ -28,7 +43,10 @@ async function initData() {
       where: { category_name: "취업" },
     });
     const category2 = await db.category.findOne({
-      where: { category_name: "이직" },
+      where: { category_name: "커리어" },
+    });
+    const category3 = await db.category.findOne({
+      where: { category_name: "기술스펙" },
     });
     if (!category1) {
       await db.category.create({
@@ -38,6 +56,11 @@ async function initData() {
     if (!category2) {
       await db.category.create({
         category_name: "이직",
+      });
+    }
+    if (!category3) {
+      await db.category.create({
+        category_name: "기술스펙",
       });
     }
   } catch (error) {}

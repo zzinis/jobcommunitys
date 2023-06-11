@@ -1,1660 +1,1176 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Noto+Sans+KR:wght@400&family=Sigmar&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Noto Sans KR", sans-serif;
-  font-size: 15px;
-  letter-spacing: -0.5px;
-}
-
-a {
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-}
-
-ul,
-ol,
-li {
-  list-style: none;
-}
+@import url(reset.css);
+@import url(write.css);
+@import url(qna.css);
+@import url(404.css);
+@import url(answer.css);
 
 #header {
-  width: 100%;
-  height: 120px;
-  border-bottom: 1px solid #bbb;
+	width: 100%;
+	height: 120px;
+	border-bottom: 1px solid #bbb;
 }
 #header .wrap {
-  max-width: 1060px;
-  margin: 0 auto;
+	max-width: 1060px;
+	margin: 0 auto;
 }
 #header .wrap .top_box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 64px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 64px;
 }
 #header .wrap .top_box h1 a {
-  color: rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
+}
+#header .wrap .top_box h1 a img {
+	width: 160px;
+	height: 70px;
 }
 #header .wrap .top_box .search_box {
-  position: relative;
-  z-index: 2;
-  width: 480px;
-  height: 40px;
-  padding: 0px 20px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 50px;
-  border: 1.5px solid rgb(0, 211, 109);
+	position: relative;
+	z-index: 2;
+	width: 480px;
+	height: 40px;
+	padding: 0px 20px;
+	background-color: rgb(255, 255, 255);
+	border-radius: 50px;
+	border: 1.5px solid #6495ed;
 }
 #header .wrap .top_box .search_box input {
-  width: 100%;
-  padding: 0px 40px;
-  height: 40px;
-  border: none;
-  position: absolute;
-  right: 0;
-  background-color: transparent;
+	width: 100%;
+	padding: 0px 40px;
+	height: 40px;
+	border: none;
+	position: absolute;
+	right: 0;
+	background-color: transparent;
 }
 #header .wrap .top_box .search_box .search_button {
-  position: absolute;
-  left: 16px;
-  top: 10px;
-  border: none;
-  background: none;
-  cursor: pointer;
+	position: absolute;
+	left: 16px;
+	top: 10px;
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 #header .wrap .bottom_box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 56px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 56px;
 }
 #header .wrap .bottom_box .nav_tab {
-  display: flex;
-  margin-left: -20px;
+	display: flex;
+	margin-left: -20px;
 }
 #header .wrap .bottom_box .nav_tab li {
-  position: relative;
-  padding: 0px 20px;
+	position: relative;
+	padding: 0px 20px;
 }
 #header .wrap .bottom_box .nav_tab li a {
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px 4px;
-  font: 400 16px/24px "Noto Sans KR", sans-serif;
-  letter-spacing: -0.5px;
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px 4px;
+	font: 400 16px/24px "Noto Sans KR", sans-serif;
+	letter-spacing: -0.5px;
 }
 #header .wrap .bottom_box .login_tab {
-  display: flex;
-  margin-right: -12px;
+	display: flex;
+	margin-right: -12px;
 }
 #header .wrap .bottom_box .login_tab li {
-  position: relative;
-  padding: 0px 12px;
+	position: relative;
+	padding: 0px 12px;
 }
 #header .wrap .bottom_box .login_tab li > button {
-  display: inline-block;
-  position: relative;
-  padding: 10px 0px;
-  font: 15px/24px "Noto Sans KR", sans-serif;
-  color: rgb(34, 34, 34);
-  border: none;
-  background: none;
-  cursor: pointer;
+	display: inline-block;
+	position: relative;
+	padding: 10px 0px;
+	font: 15px/24px "Noto Sans KR", sans-serif;
+	color: rgb(34, 34, 34);
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 #header .wrap .bottom_box .login_tab li:nth-of-type(1)::after {
-  content: "";
-  position: absolute;
-  top: 21px;
-  right: -3px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50px;
-  background-color: rgb(198, 217, 217);
-}
-
-.qna .banner {
-  background: url("/views/img/c_qna_banner.jpg") center/cover rgb(14, 14, 14);
-  height: 260px;
-  margin: 0 auto;
-  width: 100%;
-}
-.qna .qna_box {
-  position: static;
-  margin: 0px auto;
-  width: 1060px;
-}
-.qna .qna_box .top_txt {
-  top: 215px;
-  position: absolute;
-  width: 1060px;
-  overflow-y: hidden;
-}
-.qna .qna_box .top_txt .top_txt_wrap {
-  display: flex;
-}
-.qna .qna_box .top_txt .top_txt_wrap h2 {
-  color: rgb(255, 255, 255);
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 32px;
-  margin-bottom: 12px;
-}
-.qna .qna_box .top_txt .btn {
-  position: absolute;
-  top: 0px;
-  right: 8px;
-}
-.qna .qna_box .top_txt .btn button {
-  background: none;
-}
-.qna .qna_box .top_txt .btn button svg {
-  fill: white;
-}
-.qna .qna_box .qna_list {
-  position: relative;
-  display: block;
-  top: -80px;
-}
-.qna .qna_box .qna_list .slider-wraps {
-  height: 190px;
-}
-.qna .qna_box .qna_list .slider-wraps .popular_card {
-  width: 320px;
-  height: 190px;
-  position: relative;
-  background-color: rgb(255, 255, 255);
-  border-radius: 12px;
-  cursor: pointer;
-  border: 1px solid #eee;
-  margin-right: 15px;
-}
-.qna .qna_box .qna_list .slider-wraps .popular_card .popular_category {
-  position: absolute;
-  top: 20px;
-  left: 24px;
-  padding: 7px 16px;
-  background-color: rgb(238, 241, 247);
-  display: inline-block;
-  border-radius: 300px;
-  line-height: 22px;
-  font-size: 14px;
-  font-weight: 500;
-}
-.qna .qna_box .qna_list .slider-wraps .popular_card .popular_name {
-  position: absolute;
-  box-sizing: border-box;
-  top: 68px;
-  width: 100%;
-  padding: 0px 24px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 27px;
-  letter-spacing: -0.5px;
-  max-height: 54px;
-}
-.qna .qna_box .qna_list .slider-wraps .popular_card .popular_info {
-  position: absolute;
-  bottom: 0px;
-  box-sizing: border-box;
-  padding: 0px 24px;
-  height: 48px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  line-height: 20px;
-  letter-spacing: -0.5px;
-  border-top: 1px solid rgb(245, 245, 248);
-}
-.qna
-  .qna_box
-  .qna_list
-  .slider-wraps
-  .popular_card
-  .popular_info
-  .popular_info_writer {
-  color: rgb(68, 68, 68);
-}
-.qna
-  .qna_box
-  .qna_list
-  .slider-wraps
-  .popular_card
-  .popular_info
-  .popular_info_count {
-  display: flex;
-  align-items: center;
-  color: rgb(102, 102, 102);
-}
-.qna
-  .qna_box
-  .qna_list
-  .slider-wraps
-  .popular_card
-  .popular_info
-  .popular_info_count
-  .popular_info_like {
-  display: flex;
-  align-items: center;
-}
-.qna
-  .qna_box
-  .qna_list
-  .slider-wraps
-  .popular_card
-  .popular_info
-  .popular_info_count
-  .popular_info_like
-  span {
-  height: 16px;
-}
-.qna
-  .qna_box
-  .qna_list
-  .slider-wraps
-  .popular_card
-  .popular_info
-  .popular_info_count
-  .popular_info_like
-  span
-  > svg {
-  fill: white;
-  background-color: white;
-}
-.qna .qna_content {
-  background-color: rgb(245, 245, 248);
-  padding: 108px 0px 156px;
-}
-.qna .qna_content .qna_content_wrap {
-  width: 1060px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-}
-.qna .qna_content .qna_content_wrap .wrap_left .qna_left_box {
-  position: relative;
-  width: 240px;
-  background-color: rgb(255, 255, 255);
-  box-sizing: border-box;
-  border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 36px;
-}
-.qna .qna_content .qna_content_wrap .wrap_left .qna_left_box .left_top {
-  padding: 24px 24px 20px;
-  border-bottom: 1px solid rgb(242, 242, 245);
-  position: relative;
-}
-.qna .qna_content .qna_content_wrap .wrap_left .qna_left_box .left_top button {
-  padding: 0px 28px;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 24px;
-  height: 48px;
-  border-radius: 8px;
-  background-color: rgb(0, 221, 109);
-  width: 100%;
-  min-width: 100%;
-  border: none;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_left
-  .qna_left_box
-  .left_top
-  button
-  a {
-  padding: 0px 28px;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 24px;
-  height: 48px;
-  border-radius: 8px;
-  color: white;
-  width: 100%;
-  min-width: 100%;
-  border: none;
-}
-.qna .qna_content .qna_content_wrap .wrap_left .qna_left_box .left_bottom {
-  padding: 14px 0px;
-}
-.qna .qna_content .qna_content_wrap .wrap_left .qna_left_box .left_bottom li {
-  position: relative;
-  padding: 10px 24px;
-  font-size: 15px;
-  line-height: 24px;
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-}
-.qna .qna_content .qna_content_wrap .wrap_right {
-  position: relative;
-  width: 780px;
-}
-.qna .qna_content .qna_content_wrap .wrap_right .content_tab {
-  display: flex;
-}
-.qna .qna_content .qna_content_wrap .wrap_right .content_tab li {
-  padding: 0px 19px 0px 0px;
-  position: relative;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
-}
-.qna .qna_content .qna_content_wrap .wrap_right .content_tab .on {
-  font-weight: 700;
-}
-.qna .qna_content .qna_content_wrap .wrap_right .content_txtbox {
-  background-color: rgb(255, 255, 255);
-  border-radius: 12px;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 36px;
-  margin: 16px 0px 0px;
-}
-.qna .qna_content .qna_content_wrap .wrap_right .content_txtbox .txtbox_txt {
-  width: 100%;
-  box-sizing: border-box;
-  position: relative;
-  cursor: pointer;
-  padding: 0px 24px;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_category {
-  padding: 24px 0px 0px;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_category
-  span {
-  display: inline-block;
-  padding: 7px 16px;
-  background-color: rgb(238, 241, 247);
-  border-radius: 300px;
-  line-height: 22px;
-  font-size: 14px;
-  font-weight: 500;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_name {
-  width: 100%;
-  padding: 12px 0px 0px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 27px;
-  letter-spacing: -0.5px;
-  max-height: 54px;
-  overflow-wrap: break-word;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_contents {
-  width: 100%;
-  max-height: 54px;
-  font-size: 15px;
-  line-height: 24px;
-  letter-spacing: -0.5px;
-  padding: 4px 0px 0px;
-  overflow-wrap: break-word;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info {
-  position: relative;
-  box-sizing: border-box;
-  padding: 12px 0px 24px;
-  height: 48px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  line-height: 20px;
-  letter-spacing: -0.5px;
-  border-bottom: 1px solid rgb(228, 228, 228);
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info
-  .popular_info_writer {
-  position: relative;
-  color: rgb(68, 68, 68);
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info
-  .popular_info_writer
-  span {
-  position: relative;
-  display: inline-block;
-  font-size: 13px;
-  line-height: 20px;
-  letter-spacing: -0.5px;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info
-  .popular_info_count {
-  display: flex;
-  align-items: center;
-  color: rgb(102, 102, 102);
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info
-  .popular_info_count
-  .popular_info_like {
-  display: flex;
-  align-items: center;
-  margin: 0px 14px 0px 0px;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info
-  .popular_info_count
-  .popular_info_like
-  span {
-  height: 16px;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info
-  .popular_info_count
-  .popular_info_comment {
-  display: flex;
-  align-items: center;
-}
-.qna
-  .qna_content
-  .qna_content_wrap
-  .wrap_right
-  .content_txtbox
-  .txtbox_txt
-  .popular_info
-  .popular_info_count
-  .popular_info_comment
-  span {
-  height: 16px;
+	content: "";
+	position: absolute;
+	top: 21px;
+	right: -3px;
+	width: 3px;
+	height: 3px;
+	border-radius: 50px;
+	background-color: rgb(198, 217, 217);
 }
 
 .loginmodal {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	display: none;
 }
 .loginmodal .wrap {
-  min-width: 360px;
-  max-width: 700px;
-  margin: 0 auto;
-  border: 1px solid #bbb;
-  height: 500px;
-  padding: 40px 30px;
-  position: fixed;
-  z-index: 999;
-  inset: 80px;
-  background-color: rgb(255, 255, 255);
+	min-width: 360px;
+	max-width: 700px;
+	margin: 0 auto;
+	border: 1px solid #bbb;
+	height: 500px;
+	padding: 40px 30px;
+	position: fixed;
+	z-index: 999;
+	inset: 80px;
+	background-color: rgb(255, 255, 255);
 }
 .loginmodal .wrap .top {
-  width: 100%;
-  height: 64px;
-  position: relative;
+	width: 100%;
+	height: 64px;
+	position: relative;
 }
 .loginmodal .wrap .top #close {
-  position: absolute;
-  top: 20px;
-  z-index: 2;
-  right: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
+	position: absolute;
+	top: 20px;
+	z-index: 2;
+	right: 20px;
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 .loginmodal .wrap .login_txt p {
-  font: 25px/1.4 "Noto Sans KR", sans-serif;
+	font: 25px/1.4 "Noto Sans KR", sans-serif;
 }
 .loginmodal .wrap .login_txt p:nth-of-type(2) {
-  font-weight: bold;
-  margin-bottom: 30px;
+	font-weight: bold;
+	margin-bottom: 30px;
 }
 .loginmodal .wrap .login_form label {
-  display: block;
-  margin-bottom: 10px;
+	display: block;
+	margin-bottom: 10px;
 }
 .loginmodal .wrap .login_form #email {
-  width: 100%;
-  height: 40px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  margin-bottom: 20px;
+	width: 100%;
+	height: 40px;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	margin-bottom: 20px;
 }
 .loginmodal .wrap > button {
-  width: 100%;
-  height: 50px;
-  background-color: black;
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 20px;
+	width: 100%;
+	height: 50px;
+	background-color: black;
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 4px;
+	margin-bottom: 20px;
 }
 .loginmodal .wrap > button:hover {
-  background-color: rgb(39, 39, 39);
+	background-color: rgb(39, 39, 39);
 }
 .loginmodal .wrap .login_check {
-  position: relative;
+	position: relative;
 }
 .loginmodal .wrap .login_check #autologin {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
 }
 .loginmodal .wrap .login_check label[for="autologin"] {
-  font: 16px/20px "Noto Sans KR", sans-serif;
-  position: absolute;
-  top: 0;
+	font: 16px/20px "Noto Sans KR", sans-serif;
+	position: absolute;
+	top: 0;
 }
 .loginmodal .on {
-  display: block;
+	display: block;
 }
 
 .signModal {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	display: none;
 }
 .signModal .wrap {
-  min-width: 360px;
-  max-width: 700px;
-  margin: 0 auto;
-  border: 1px solid #bbb;
-  height: 900px;
-  padding: 40px 30px;
-  position: fixed;
-  z-index: 999;
-  inset: 80px;
-  background-color: rgb(255, 255, 255);
+	min-width: 360px;
+	max-width: 700px;
+	margin: 0 auto;
+	border: 1px solid #bbb;
+	height: 900px;
+	padding: 40px 30px;
+	position: fixed;
+	z-index: 999;
+	inset: 80px;
+	background-color: rgb(255, 255, 255);
 }
 .signModal .wrap > .top {
-  width: 100%;
-  height: 64px;
-  position: relative;
+	width: 100%;
+	height: 64px;
+	position: relative;
 }
 .signModal .wrap > .top > #closebtn {
-  position: absolute;
-  top: 20px;
-  z-index: 2;
-  right: 0px;
-  border: none;
-  background: none;
-  cursor: pointer;
+	position: absolute;
+	top: 20px;
+	z-index: 2;
+	right: 0px;
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 .signModal .wrap .sign_txt p {
-  font: bold 25px/1 "Noto Sans KR", sans-serif;
-  margin-bottom: 10px;
+	font: bold 25px/1 "Noto Sans KR", sans-serif;
+	margin-bottom: 10px;
 }
 .signModal .wrap .sign_form {
-  margin-top: 30px;
+	margin-top: 30px;
 }
 .signModal .wrap .sign_form label {
-  display: block;
-  margin-bottom: 10px;
-  position: relative;
+	display: block;
+	margin-bottom: 10px;
+	position: relative;
 }
 .signModal .wrap .sign_form label[for="email"]::after {
-  content: "";
-  display: block;
-  background-color: red;
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  position: absolute;
-  top: 8px;
-  left: 45px;
+	content: "";
+	display: block;
+	background-color: red;
+	width: 5px;
+	height: 5px;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 45px;
 }
 .signModal .wrap .sign_form input {
-  width: 100%;
-  height: 45px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 0px 10px;
+	width: 100%;
+	height: 45px;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	margin-bottom: 20px;
+	padding: 0px 10px;
 }
 .signModal .wrap .sign_form .emailform {
-  display: flex;
-  height: 45px;
-  margin-bottom: 20px;
+	display: flex;
+	height: 45px;
+	margin-bottom: 20px;
 }
 .signModal .wrap .sign_form .emailform #email {
-  width: 87%;
-  margin-right: 5px;
+	width: 87%;
+	margin-right: 5px;
 }
 .signModal .wrap .sign_form .emailform > button {
-  width: 13%;
-  height: 45px;
-  background-color: rgb(255, 255, 255);
-  color: black;
-  border: 1px solid #bbb;
-  margin: 0;
+	width: 13%;
+	height: 45px;
+	background-color: rgb(255, 255, 255);
+	color: black;
+	border: 1px solid #bbb;
+	margin: 0;
 }
 .signModal .wrap .sign_form .nameform label[for="username"]::after {
-  content: "";
-  display: block;
-  background-color: red;
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  position: absolute;
-  top: 8px;
-  left: 32px;
+	content: "";
+	display: block;
+	background-color: red;
+	width: 5px;
+	height: 5px;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 32px;
 }
 .signModal .wrap .sign_form .pwform {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 .signModal .wrap .sign_form .pwform label[for="pw"]::after {
-  content: "";
-  display: block;
-  background-color: red;
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  position: absolute;
-  top: 8px;
-  left: 60px;
+	content: "";
+	display: block;
+	background-color: red;
+	width: 5px;
+	height: 5px;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 60px;
 }
 .signModal .wrap .sign_check {
-  position: relative;
+	position: relative;
 }
 .signModal .wrap .sign_check input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	display: inline-block;
 }
 .signModal .wrap .sign_check label[for="autocheck"] {
-  vertical-align: top;
-  line-height: 20px;
-  font-weight: bold;
-  display: inline-block;
-  margin-bottom: 15px;
+	vertical-align: top;
+	line-height: 20px;
+	font-weight: bold;
+	display: inline-block;
+	margin-bottom: 15px;
 }
 .signModal .wrap .sign_check label[for="check"] {
-  display: inline-block;
-  vertical-align: top;
-  line-height: 20px;
+	display: inline-block;
+	vertical-align: top;
+	line-height: 20px;
 }
 .signModal .wrap .sign_check label[for="check"] span {
-  margin-left: 5px;
-  color: red;
+	margin-left: 5px;
+	color: red;
 }
 .signModal .wrap .sign_check .autocheckbox::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: rgb(215, 215, 215);
+	content: "";
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: rgb(215, 215, 215);
 }
 .signModal .wrap .sign_check .checklist {
-  margin-top: 15px;
-  margin-bottom: 30px;
+	margin-top: 15px;
+	margin-bottom: 30px;
 }
 .signModal .wrap > button {
-  width: 100%;
-  height: 50px;
-  background-color: rgb(92, 92, 92);
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  margin-top: 30px;
+	width: 100%;
+	height: 50px;
+	background-color: rgb(92, 92, 92);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 4px;
+	margin-bottom: 20px;
+	margin-top: 30px;
 }
 .signModal .wrap > button:hover {
-  background-color: rgb(39, 39, 39);
+	background-color: rgb(39, 39, 39);
 }
 .signModal .on {
-  display: block;
+	display: block;
 }
 
 .on {
-  display: block;
-}
-
-#header {
-  width: 100%;
-  height: 120px;
-  border-bottom: 1px solid #bbb;
-}
-#header .wrap {
-  max-width: 1060px;
-  margin: 0 auto;
-}
-#header .wrap .top_box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 64px;
-}
-#header .wrap .top_box h1 a {
-  color: rgb(0, 0, 0);
-}
-#header .wrap .top_box .search_box {
-  position: relative;
-  z-index: 2;
-  width: 480px;
-  height: 40px;
-  padding: 0px 20px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 50px;
-  border: 1.5px solid rgb(0, 211, 109);
-}
-#header .wrap .top_box .search_box input {
-  width: 100%;
-  padding: 0px 40px;
-  height: 40px;
-  border: none;
-  position: absolute;
-  right: 0;
-  background-color: transparent;
-}
-#header .wrap .top_box .search_box .search_button {
-  position: absolute;
-  left: 16px;
-  top: 10px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-#header .wrap .bottom_box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 56px;
-}
-#header .wrap .bottom_box .nav_tab {
-  display: flex;
-  margin-left: -20px;
-}
-#header .wrap .bottom_box .nav_tab li {
-  position: relative;
-  padding: 0px 20px;
-}
-#header .wrap .bottom_box .nav_tab li a {
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px 4px;
-  font: 400 16px/24px "Noto Sans KR", sans-serif;
-  letter-spacing: -0.5px;
-}
-#header .wrap .bottom_box .login_tab {
-  display: flex;
-  margin-right: -12px;
-}
-#header .wrap .bottom_box .login_tab li {
-  position: relative;
-  padding: 0px 12px;
-}
-#header .wrap .bottom_box .login_tab li > button {
-  display: inline-block;
-  position: relative;
-  padding: 10px 0px;
-  font: 15px/24px "Noto Sans KR", sans-serif;
-  color: rgb(34, 34, 34);
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-#header .wrap .bottom_box .login_tab li:nth-of-type(1)::after {
-  content: "";
-  position: absolute;
-  top: 21px;
-  right: -3px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50px;
-  background-color: rgb(198, 217, 217);
+	display: block;
 }
 
 .slide_section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 40px auto 0px;
-  width: 1060px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 40px auto 0px;
+	width: 1060px;
 }
 .slide_section .left_content {
-  width: 700px;
+	width: 700px;
+	height: 260px;
 }
 .slide_section .left_content .slider-wrap {
-  position: relative;
-  display: block;
-  width: 700px;
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
-  border: 1px solid #bbb;
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+	border: 1px solid #bbb;
+	transition: all 1s ease-in;
 }
-.slide_section .left_content .slider-wrap .cont > p {
-  color: rgb(255, 255, 255);
-  position: absolute;
-  font: 32px/45px "Noto Sans KR", sans-serif;
-  left: 50px;
-  bottom: 110px;
-  max-width: 600px;
+.slide_section .left_content .slider-wrap .cont img {
+	width: 100%;
+	height: 260px;
+	z-index: 0;
 }
-.slide_section .left_content .slider-wrap button {
-  background: none;
-  border: 1px solid black;
-  border-radius: 50px;
-}
-.slide_section .left_content .slider-wrap .slick-prev {
-  position: absolute;
-  bottom: 40px;
-  left: 50px;
-  width: 40px;
-  height: 40px;
-}
-.slide_section .left_content .slider-wrap .slick-next {
-  position: absolute;
-  bottom: 40px;
-  left: 110px;
-  width: 40px;
-  height: 40px;
-}
-.slide_section .right_content {
-  width: 340px;
-}
-.slide_section .right_content .login_box {
-  height: 168px;
-  border: 1px solid rgb(228, 228, 228);
-  background-color: rgb(250, 250, 250);
-  padding: 32px 20px 20px;
-  border-radius: 4px;
-}
-.slide_section .right_content .login_box p {
-  font-size: 16px;
-  color: rbg(34, 34, 34);
-  margin-bottom: 5px;
-}
-.slide_section .right_content .login_box .login_button {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-}
-.slide_section .right_content .login_box .login_button .login_btn {
-  background: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 4px;
-  font: 15px/46px "Noto Sans KR", sans-serif;
-  height: 48px;
-  width: 100%;
-  margin-top: 10px;
-  transition: 0.5s;
-}
-.slide_section .right_content .login_box .login_button .login_btn:hover {
-  background-color: rgb(63, 63, 63);
-  transition: 0.5s;
-}
-.slide_section .right_content .notice_box {
-  padding: 10px 20px 26px;
-  border: 1px solid rgb(228, 228, 228);
-  margin-top: 10px;
-  height: 75px;
-  width: 100%;
-  border-radius: 4px;
-}
-.slide_section .right_content .notice_box h1 {
-  color: rgb(0, 221, 109);
-  font-size: 13px;
-  font-family: Montserrat, serif;
-}
-.slide_section .right_content .notice_box .notice_list {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 14px;
-}
-.slide_section .right_content .notice_box .notice_list span:nth-of-type(1) {
-  color: rgb(34, 34, 34);
-  cursor: pointer;
-  width: 80%;
-  font-size: 14px;
-}
-.slide_section .right_content .notice_box .notice_list span:nth-of-type(2) {
-  font-size: 14px;
-  color: rgb(153, 153, 153);
-}
-.slide_section .right_content .notice_box .notice_list span:hover {
-  text-decoration: underline;
+.slide_section .left_content .slider-wrap .cont .txt {
+	transform: translateX(0);
+	opacity: 0;
 }
 
+.slider-wrap .slick-active .txt {
+	animation-name: fadeInRight;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+.slide_section .left_content .slider-wrap .cont .txt p {
+	color: rgb(255, 255, 255);
+	position: absolute;
+	font: 28px/45px "Noto Sans KR", sans-serif;
+	bottom: 110px;
+	max-width: 600px;
+	z-index: 5;
+	padding: 0px 20px;
+	animation-delay: 1s;
+}
+@keyframes fadeInRight {
+	0% {
+		transform: translateX(-50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+.slide_section .left_content .slider-wrap button {
+	background: white;
+	border: 1px solid black;
+	border-radius: 50px;
+}
+.slide_section .left_content .slider-wrap .slick-prev {
+	position: absolute;
+	bottom: 40px;
+	left: 50px;
+	width: 40px;
+	height: 40px;
+	z-index: 10;
+}
+.slide_section .left_content .slider-wrap .slick-next {
+	position: absolute;
+	bottom: 40px;
+	left: 110px;
+	width: 40px;
+	height: 40px;
+	z-index: 10;
+}
+.slide_section .right_content {
+	width: 340px;
+}
+.slide_section .right_content .login_box {
+	height: 168px;
+	border: 1px solid rgb(228, 228, 228);
+	background-color: rgb(250, 250, 250);
+	padding: 32px 20px 20px;
+	border-radius: 4px;
+}
+.slide_section .right_content .login_box p {
+	font-size: 16px;
+	color: rbg(34, 34, 34);
+	margin-bottom: 5px;
+}
+.slide_section .right_content .login_box .login_button {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+.slide_section .right_content .login_box .login_button .login_btn {
+	background: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	border: 1px solid rgb(0, 0, 0);
+	border-radius: 4px;
+	font: 15px/46px "Noto Sans KR", sans-serif;
+	height: 48px;
+	width: 100%;
+	margin-top: 10px;
+	transition: 0.5s;
+}
+.slide_section .right_content .login_box .login_button .login_btn:hover {
+	background-color: rgb(63, 63, 63);
+	transition: 0.5s;
+}
+.slide_section .right_content .notice_box {
+	padding: 10px 20px 26px;
+	border: 1px solid rgb(228, 228, 228);
+	margin-top: 10px;
+	height: 75px;
+	width: 100%;
+	border-radius: 4px;
+}
+.slide_section .right_content .notice_box h1 {
+	color: rgb(0, 221, 109);
+	font-size: 13px;
+	font-family: Montserrat, serif;
+}
+.slide_section .right_content .notice_box .notice_list {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 14px;
+}
+.slide_section .right_content .notice_box .notice_list span:nth-of-type(1) {
+	color: rgb(34, 34, 34);
+	cursor: pointer;
+	width: 80%;
+	font-size: 14px;
+}
+.slide_section .right_content .notice_box .notice_list span:nth-of-type(2) {
+	font-size: 14px;
+	color: rgb(153, 153, 153);
+}
+.slide_section .right_content .notice_box .notice_list span:hover {
+	text-decoration: underline;
+}
 .youtube {
-  max-width: 1080px;
-  margin: 100px auto 0px;
+	max-width: 1080px;
+	margin: 100px auto 0px;
+}
+.youtube .wrap {
+	width: 100%;
 }
 .youtube .wrap p {
-  font: bold 20px/1 "Noto sans KR";
-  margin-bottom: 30px;
+	font: bold 20px/1 "Noto sans KR", sans-serif;
+	margin-bottom: 30px;
 }
-.youtube .wrap .playlist {
-  display: flex;
-  flex-wrap: wrap;
+
+.youtube .wrap .playlist article {
+	width: 100%;
+	padding: 20px 0px;
+	border-bottom: 1px solid #ddd;
 }
-.youtube .wrap .playlist .play {
-  width: 500px;
-  height: 300px;
-  background-color: #bbb;
-  margin-right: 20px;
-  margin-bottom: 20px;
+.youtube .wrap .playlist article::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.youtube .wrap .playlist article h2 {
+	width: 24%;
+	float: left;
+	padding-right: 20px;
+	font: 26px/1 "Noto sans KR", sans-serif;
+	color: #111;
+}
+.youtube .wrap .playlist article .txt {
+	width: 46%;
+	float: left;
+	padding-right: 20px;
+}
+.youtube .wrap .playlist article .txt p {
+	font: 14px/1.2 "arial";
+	color: #666;
+	margin-bottom: 40px;
+}
+.youtube .wrap .playlist article .txt span {
+	font: 12px/1 "arial";
+	color: rgb(104, 104, 249);
+}
+.youtube .wrap .playlist article .pic {
+	width: 30%;
+	height: 180px;
+	float: left;
+}
+.youtube .wrap .playlist article .pic img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.youtube .wrap .playlist article a img {
+	width: 100%;
+	object-fit: cover;
+	filter: grayscale(40%);
+}
+.youtube .wrap .playlist article .con {
+	width: 450px;
+	height: 120px;
+	position: absolute;
+	bottom: 2%;
+	background: #fff;
+	margin-bottom: 10px;
+}
+.youtube .wrap .playlist article .con::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.youtube.wrap .playlist article .con h2 {
+	font: 27px/1 "Noto sans KR", sans-serif;
+	margin-bottom: 25px;
+	letter-spacing: 3px;
+	color: #525252;
+	display: block;
+	margin: 36px 0;
+}
+.youtube.wrap .playlist article .con p {
+	display: none;
+}
+.youtube.wrap .playlist article .con span {
+	font: 15px/1 "Noto sans KR", sans-serif;
+	letter-spacing: 1px;
+}
+.youtube .wrap .playlist article:hover a img {
+	transition: 0.5s;
+	filter: grayscale(0);
+}
+aside {
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.9);
+	display: block;
+	box-sizing: border-box;
+	padding: 80px;
+}
+aside iframe {
+	width: 90%;
+	height: 90%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+aside span {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	color: #fff;
+	cursor: pointer;
 }
 
 .job_content {
-  max-width: 1080px;
-  margin: 100px auto 0px;
+	max-width: 1080px;
+	margin: 100px auto 0px;
 }
 .job_content .job_content_list {
-  display: flex;
-  margin-bottom: 6px;
-  justify-content: space-between;
+	display: flex;
+	margin-bottom: 6px;
+	justify-content: space-between;
 }
 .job_content .job_content_list h1 {
-  line-height: 40px;
+	line-height: 40px;
 }
 .job_content .job_content_list .links {
-  margin-left: auto;
-  margin-right: 10px;
-  margin-top: 8px;
-  text-decoration: underline;
+	margin-left: auto;
+	margin-right: 10px;
+	margin-top: 8px;
+	text-decoration: underline;
 }
 .job_content .job_content_list .links a {
-  line-height: 24px;
-  letter-spacing: -0.5px;
-  color: rgb(136, 136, 136);
+	line-height: 24px;
+	letter-spacing: -0.5px;
+	color: rgb(136, 136, 136);
 }
 .job_content .job_content_box_wrap {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
 }
 .job_content .job_content_box_wrap .job_content_box {
-  position: relative;
-  width: calc(25% - 20px);
-  padding: 10px;
-  max-width: 270px;
+	position: relative;
+	padding: 10px;
+	max-width: 270px;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .img_box {
-  width: 100%;
-  height: 166px;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  position: relative;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.img_box {
+	width: 100%;
+	height: 166px;
+	border-radius: 4px;
+	overflow: hidden;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	position: relative;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .img_box
-  img {
-  width: 250px;
-  height: 166px;
-  -o-object-fit: cover;
-  object-fit: cover;
-  transition: all 0.3s ease 0s;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.img_box
+	img {
+	width: 250px;
+	height: 166px;
+	-o-object-fit: cover;
+	object-fit: cover;
+	transition: all 0.3s ease 0s;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .img_box
-  img:hover {
-  transform: scale(1.5);
-  filter: grayscale(10);
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.img_box
+	img:hover {
+	transform: scale(1.5);
+	filter: grayscale(10);
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt {
-  padding: 12px 0px 36px;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt {
+	padding: 12px 0px 36px;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt
-  p {
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.5px;
-  color: rgb(68, 68, 68);
-  white-space: nowrap;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt
+	p {
+	font-size: 14px;
+	line-height: 24px;
+	letter-spacing: -0.5px;
+	color: rgb(68, 68, 68);
+	white-space: nowrap;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt
-  h4 {
-  margin-top: 6px;
-  font-size: 17px;
-  line-height: 1.4em;
-  letter-spacing: -0.5px;
-  font-weight: 500;
-  overflow: hidden;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt
+	h4 {
+	margin-top: 6px;
+	font-size: 17px;
+	line-height: 1.4em;
+	letter-spacing: -0.5px;
+	font-weight: 500;
+	overflow: hidden;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt
-  .langs {
-  display: flex;
-  margin-top: 8px;
-  color: rgb(153, 153, 153);
-  height: 18px;
-  font-family: Montserrat, "Noto Sans KR";
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt
+	.langs {
+	display: flex;
+	margin-top: 8px;
+	color: rgb(153, 153, 153);
+	height: 18px;
+	font-family: Montserrat, "Noto Sans KR";
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt
-  .langs
-  li {
-  margin-right: 5px;
-  font-size: 13px;
-  line-height: 18px;
-  letter-spacing: -0.5px;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt
+	.langs
+	li {
+	margin-right: 5px;
+	font-size: 13px;
+	line-height: 18px;
+	letter-spacing: -0.5px;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt
-  .location {
-  display: flex;
-  font-size: 13px;
-  color: rgb(153, 153, 153);
-  margin-top: 4px;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt
+	.location {
+	display: flex;
+	font-size: 13px;
+	color: rgb(153, 153, 153);
+	margin-top: 4px;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt
-  .location
-  li {
-  font-size: 13px;
-  line-height: 18px;
-  letter-spacing: -0.5px;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt
+	.location
+	li {
+	font-size: 13px;
+	line-height: 18px;
+	letter-spacing: -0.5px;
 }
 .job_content
-  .job_content_box_wrap
-  .job_content_box
-  .job_content_box_list
-  a
-  .content_txt
-  .location
-  li:nth-of-type(1) {
-  max-width: 58%;
-  overflow: hidden;
+	.job_content_box_wrap
+	.job_content_box
+	.job_content_box_list
+	a
+	.content_txt
+	.location
+	li:nth-of-type(1) {
+	max-width: 58%;
+	overflow: hidden;
 }
 
 .loginmodal {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	display: none;
 }
 .loginmodal .wrap {
-  min-width: 360px;
-  max-width: 700px;
-  margin: 0 auto;
-  border: 1px solid #bbb;
-  height: 500px;
-  padding: 40px 30px;
-  position: fixed;
-  z-index: 999;
-  inset: 80px;
-  background-color: rgb(255, 255, 255);
+	min-width: 360px;
+	max-width: 700px;
+	margin: 0 auto;
+	border: 1px solid #bbb;
+	height: 500px;
+	padding: 40px 30px;
+	position: fixed;
+	z-index: 999;
+	inset: 80px;
+	background-color: rgb(255, 255, 255);
 }
 .loginmodal .wrap .top {
-  width: 100%;
-  height: 64px;
-  position: relative;
+	width: 100%;
+	height: 64px;
+	position: relative;
 }
 .loginmodal .wrap .top #close {
-  position: absolute;
-  top: 20px;
-  z-index: 2;
-  right: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
+	position: absolute;
+	top: 20px;
+	z-index: 2;
+	right: 20px;
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 .loginmodal .wrap .login_txt p {
-  font: 25px/1.4 "Noto Sans KR", sans-serif;
+	font: 25px/1.4 "Noto Sans KR", sans-serif;
 }
 .loginmodal .wrap .login_txt p:nth-of-type(2) {
-  font-weight: bold;
-  margin-bottom: 30px;
+	font-weight: bold;
+	margin-bottom: 30px;
 }
 .loginmodal .wrap .login_form label {
-  display: block;
-  margin-bottom: 10px;
+	display: block;
+	margin-bottom: 10px;
 }
 .loginmodal .wrap .login_form #email {
-  width: 100%;
-  height: 40px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  margin-bottom: 20px;
+	width: 100%;
+	height: 40px;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	margin-bottom: 20px;
 }
 .loginmodal .wrap > button {
-  width: 100%;
-  height: 50px;
-  background-color: black;
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 20px;
+	width: 100%;
+	height: 50px;
+	background-color: black;
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 4px;
+	margin-bottom: 20px;
 }
 .loginmodal .wrap > button:hover {
-  background-color: rgb(39, 39, 39);
+	background-color: rgb(39, 39, 39);
 }
 .loginmodal .wrap .login_check {
-  position: relative;
+	position: relative;
 }
 .loginmodal .wrap .login_check #autologin {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
 }
 .loginmodal .wrap .login_check label[for="autologin"] {
-  font: 16px/20px "Noto Sans KR", sans-serif;
-  position: absolute;
-  top: 0;
+	font: 16px/20px "Noto Sans KR", sans-serif;
+	position: absolute;
+	top: 0;
 }
 .loginmodal .on {
-  display: block;
+	display: block;
 }
 
 .signModal {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	display: none;
 }
 .signModal .wrap {
-  min-width: 360px;
-  max-width: 700px;
-  margin: 0 auto;
-  border: 1px solid #bbb;
-  height: 900px;
-  padding: 40px 30px;
-  position: fixed;
-  z-index: 999;
-  inset: 80px;
-  background-color: rgb(255, 255, 255);
+	min-width: 360px;
+	max-width: 700px;
+	margin: 0 auto;
+	border: 1px solid #bbb;
+	height: 900px;
+	padding: 40px 30px;
+	position: fixed;
+	z-index: 999;
+	inset: 80px;
+	background-color: rgb(255, 255, 255);
 }
 .signModal .wrap > .top {
-  width: 100%;
-  height: 64px;
-  position: relative;
+	width: 100%;
+	height: 64px;
+	position: relative;
 }
 .signModal .wrap > .top > #closebtn {
-  position: absolute;
-  top: 20px;
-  z-index: 2;
-  right: 0px;
-  border: none;
-  background: none;
-  cursor: pointer;
+	position: absolute;
+	top: 20px;
+	z-index: 2;
+	right: 0px;
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 .signModal .wrap .sign_txt p {
-  font: bold 25px/1 "Noto Sans KR", sans-serif;
-  margin-bottom: 10px;
+	font: bold 25px/1 "Noto Sans KR", sans-serif;
+	margin-bottom: 10px;
 }
 .signModal .wrap .sign_form {
-  margin-top: 30px;
+	margin-top: 30px;
 }
 .signModal .wrap .sign_form label {
-  display: block;
-  margin-bottom: 10px;
-  position: relative;
+	display: block;
+	margin-bottom: 10px;
+	position: relative;
 }
 .signModal .wrap .sign_form label[for="email"]::after {
-  content: "";
-  display: block;
-  background-color: red;
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  position: absolute;
-  top: 8px;
-  left: 45px;
+	content: "";
+	display: block;
+	background-color: red;
+	width: 5px;
+	height: 5px;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 45px;
 }
 .signModal .wrap .sign_form input {
-  width: 100%;
-  height: 45px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 0px 10px;
+	width: 100%;
+	height: 45px;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	margin-bottom: 20px;
+	padding: 0px 10px;
 }
 .signModal .wrap .sign_form .emailform {
-  display: flex;
-  height: 45px;
-  margin-bottom: 20px;
+	display: flex;
+	height: 45px;
+	margin-bottom: 20px;
 }
 .signModal .wrap .sign_form .emailform #email {
-  width: 87%;
-  margin-right: 5px;
+	width: 87%;
+	margin-right: 5px;
 }
 .signModal .wrap .sign_form .emailform > button {
-  width: 13%;
-  height: 45px;
-  background-color: rgb(255, 255, 255);
-  color: black;
-  border: 1px solid #bbb;
-  margin: 0;
+	width: 13%;
+	height: 45px;
+	background-color: rgb(255, 255, 255);
+	color: black;
+	border: 1px solid #bbb;
+	margin: 0;
 }
 .signModal .wrap .sign_form .nameform label[for="username"]::after {
-  content: "";
-  display: block;
-  background-color: red;
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  position: absolute;
-  top: 8px;
-  left: 32px;
+	content: "";
+	display: block;
+	background-color: red;
+	width: 5px;
+	height: 5px;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 32px;
 }
 .signModal .wrap .sign_form .pwform {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 .signModal .wrap .sign_form .pwform label[for="pw"]::after {
-  content: "";
-  display: block;
-  background-color: red;
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  position: absolute;
-  top: 8px;
-  left: 60px;
+	content: "";
+	display: block;
+	background-color: red;
+	width: 5px;
+	height: 5px;
+	border-radius: 50px;
+	position: absolute;
+	top: 8px;
+	left: 60px;
 }
 .signModal .wrap .sign_check {
-  position: relative;
+	position: relative;
 }
 .signModal .wrap .sign_check input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	display: inline-block;
 }
 .signModal .wrap .sign_check label[for="autocheck"] {
-  vertical-align: top;
-  line-height: 20px;
-  font-weight: bold;
-  display: inline-block;
-  margin-bottom: 15px;
+	vertical-align: top;
+	line-height: 20px;
+	font-weight: bold;
+	display: inline-block;
+	margin-bottom: 15px;
 }
 .signModal .wrap .sign_check label[for="check"] {
-  display: inline-block;
-  vertical-align: top;
-  line-height: 20px;
+	display: inline-block;
+	vertical-align: top;
+	line-height: 20px;
 }
 .signModal .wrap .sign_check label[for="check"] span {
-  margin-left: 5px;
-  color: red;
+	margin-left: 5px;
+	color: red;
 }
 .signModal .wrap .sign_check .autocheckbox::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: rgb(215, 215, 215);
+	content: "";
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: rgb(215, 215, 215);
 }
 .signModal .wrap .sign_check .checklist {
-  margin-top: 15px;
-  margin-bottom: 30px;
+	margin-top: 15px;
+	margin-bottom: 30px;
 }
 .signModal .wrap > button {
-  width: 100%;
-  height: 50px;
-  background-color: rgb(92, 92, 92);
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  margin-top: 30px;
+	width: 100%;
+	height: 50px;
+	background-color: rgb(92, 92, 92);
+	color: rgb(255, 255, 255);
+	border: none;
+	border-radius: 4px;
+	margin-bottom: 20px;
+	margin-top: 30px;
 }
 .signModal .wrap > button:hover {
-  background-color: rgb(39, 39, 39);
+	background-color: rgb(39, 39, 39);
 }
 .signModal .on {
-  display: block;
+	display: block;
 }
 
 #footer {
-  background-color: rgb(251, 251, 251);
-  padding: 40px 0px 30px;
+	background-color: rgb(251, 251, 251);
+	padding: 40px 0px 30px;
 }
 #footer .inner {
-  max-width: 1060px;
-  position: relative;
-  margin: 0px auto;
-  padding: 24px 0px 60px;
-  text-align: left;
+	max-width: 1060px;
+	position: relative;
+	margin: 0px auto;
+	padding: 24px 0px 60px;
+	text-align: left;
 }
 #footer .inner .logo {
-  position: absolute;
-  left: 0px;
-  top: 24px;
-  width: 68px;
-  height: 24px;
+	position: absolute;
+	left: -65px;
+	top: 24px;
+}
+#footer .inner .logo a img {
+	width: 120px;
+	height: 50px;
 }
 #footer .inner .logo path {
-  fill: rgb(229, 229, 229);
+	fill: rgb(229, 229, 229);
 }
 #footer .inner .contents {
-  display: flex;
-  padding-left: 92px;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
+	display: flex;
+	padding-left: 92px;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
 }
 #footer .inner .contents .links_wrap {
-  display: flex;
-  width: 250px;
+	display: flex;
+	width: 250px;
 }
 #footer .inner .contents .links_wrap .links li {
-  display: inline-block;
-  margin-bottom: 8px;
+	display: inline-block;
+	margin-bottom: 8px;
 }
 #footer .inner .contents .links_wrap .links li a {
-  display: inline-block;
-  font-size: 14px;
-  color: rgb(68, 68, 68);
-  line-height: 24px;
-  letter-spacing: -0.5px;
+	display: inline-block;
+	font-size: 14px;
+	color: rgb(68, 68, 68);
+	line-height: 24px;
+	letter-spacing: -0.5px;
 }
 #footer .inner .contents .links_wrap .links li:nth-child(2n + 1) {
-  width: 140px;
+	width: 140px;
 }
 #footer .inner .contents .info {
-  display: inline-block;
-  font-size: 13px;
-  color: rgb(136, 136, 136);
-  line-height: 20px;
-  letter-spacing: -0.5px;
-  margin-right: 135px;
+	display: inline-block;
+	font-size: 13px;
+	color: rgb(136, 136, 136);
+	line-height: 20px;
+	letter-spacing: -0.5px;
+	margin-right: 135px;
 }
 #footer .inner .contents .info dd {
-  padding-bottom: 16px;
+	padding-bottom: 16px;
 }
 
 #popup {
-  width: 500px;
-  height: 500px;
-  padding: 40px;
-  box-sizing: border-box;
-  color: #fff;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-40%, -50%);
-  background-image: url(../img/nudge.jpg);
-  background-size: cover;
+	width: 500px;
+	height: 500px;
+	padding: 40px;
+	box-sizing: border-box;
+	color: #fff;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-40%, -50%);
+	background: url(../img/nudge.jpg) center/cover;
 }
 #popup .content {
-  width: 100%;
-  min-height: 420px;
+	width: 100%;
+	min-height: 420px;
 }
 #popup .content p {
-  font: bold 17px/1 "Noto Sans KR", sans-serif;
+	font: bold 17px/1 "Noto Sans KR", sans-serif;
 }
 #popup::after {
-  content: "";
-  display: block;
-  clear: both;
+	content: "";
+	display: block;
+	clear: both;
 }
 #popup .wrap {
-  float: left;
+	float: left;
 }
 #popup .wrap label {
-  font: bold 12px/1 "Noto Sans KR", sans-serif;
-  color: black;
-  margin-left: 4px;
+	font: bold 12px/1 "Noto Sans KR", sans-serif;
+	color: black;
+	margin-left: 4px;
 }
 #popup .close {
-  float: right;
-  font: 14px/1 "arial";
-  color: black;
+	float: right;
+	font: 14px/1 "arial";
+	color: black;
 }
 
 .on {
-  display: block;
+	display: block;
 }
 
-.answer {
-  width: 100%;
-  height: 900px;
-  background-color: rgb(245, 245, 248);
-  padding: 20px 0px 0px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
+.pop {
+	z-index: 11;
 }
-.answer .answer_box {
-  width: 800px;
-  margin: 0px auto 80px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 12px;
-  box-sizing: border-box;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 36px;
+.reply_header span {
+	margin-right: 10px;
 }
-.answer .answer_box .box_top {
-  box-sizing: border-box;
-  padding: 24px;
+.reply_header .txt1::after {
+	content: "";
+	display: inline-block;
+	background-color: #111;
+	width: 1px;
+	height: 13px;
+	margin-left: 5px;
 }
-.answer .answer_box .box_top .popular_category {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
+
+.reply_btn span {
+	margin-right: 10px;
 }
-.answer .answer_box .box_top .popular_category span {
-  display: inline-block;
-  padding: 7px 16px;
-  background-color: rgb(238, 241, 247);
-  border-radius: 300px;
-  line-height: 22px;
-  font-size: 14px;
-  font-weight: 500;
+.reply_btn a {
+	cursor: pointer;
+	background-color: #fff;
+	font: bold 14px/10px "Noto Sans KR";
+	padding: 4px;
+	border: 1px solid#bbb;
+	border-radius: 4px;
 }
-.answer .answer_box .box_top .popular_category .button {
-  padding: 8px 16px 0px 0px;
+
+.reply_btn button {
+	background-color: #fff;
+	margin-left: 5px;
+	padding: 3px;
+	font: bold 14px/20px "Noto Sans KR";
+	border-radius: 4px;
 }
-.answer .answer_box .box_top .popular_category .button button {
-  padding: 0px 28px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 22px;
-  height: 36px;
-  border-radius: 4px;
-  width: auto;
-  min-width: auto;
-  background-color: white;
-  border: 1px solid #bbb;
-  margin-left: 10px;
+
+.top-list-area {
+	width: 490px;
 }
-.answer .answer_box .box_top .title {
-  padding: 12px 0px 0px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 27px;
-  letter-spacing: -0.5px;
-  color: rgb(0, 0, 0);
-  white-space: pre-wrap;
-  word-break: break-all;
+.top-list-area .view-top {
+	width: 240px;
+	background-color: white;
 }
-.answer .answer_box .box_top .popular_info {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0px 0px;
+.top-list-area .view-top h4 {
+	font: bold 15px/1 "Noto Sans KR";
 }
-.answer .answer_box .box_top .popular_info span {
-  position: relative;
-  font-size: 13px;
-  line-height: 20px;
-  letter-spacing: -0.5px;
+.top-list-area .like-top {
+	width: 240px;
+	background-color: white;
 }
-.answer .answer_box .box_mid {
-  border-top: 1px solid rgb(228, 228, 228);
-  padding: 24px 24px;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 24px;
-  letter-spacing: -0.5px;
-  color: rgb(34, 34, 34);
-  white-space: pre-wrap;
-  word-break: break-all;
+
+.top-list-area .search_list {
+	position: absolute;
+	right: 0;
+	display: flex;
+	top: 39px;
+	display: none;
+	z-index: 10;
 }
-.answer .answer_box .box_btn {
-  padding: 0px 0px 24px;
-  border-bottom: 1px solid rgb(228, 228, 228);
-  position: relative;
+.top-list-area .search_list .on {
+	opacity: 1;
 }
-.answer .answer_box .box_btn button {
-  height: 36px;
-  padding: 0px 16px;
-  border: 1px solid rgb(228, 228, 228);
-  border-radius: 8px;
-  font-size: 14px;
-  line-height: 22px;
-  font-weight: 500;
-  color: rgb(34, 34, 34);
-  display: flex;
-  align-items: center;
-  margin: 0px auto;
-  background-color: white;
+
+.hidden {
+	opacity: 0;
 }
-.answer .answer_box .box_btn button span {
-  height: 16px;
-}
-.answer .answer_box .box_bottom {
-  padding: 24px 24px 0px;
-}
-.answer .answer_box .box_bottom .reply_title {
-  font-weight: 700;
-  color: rgb(0, 0, 0);
-  font-size: 15px;
-  line-height: 23px;
-  padding: 0px 0px 8px;
-}
-.answer .answer_box .box_bottom form .reply_form {
-  background-color: rgb(245, 245, 248);
-  border: 1px solid rgb(228, 228, 228);
-  border-radius: 8px;
-  padding: 16px 0px;
-}
-.answer .answer_box .box_bottom form .reply_form textarea {
-  padding: 0px 16px;
-  border: none;
-  width: 100%;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 24px;
-  letter-spacing: -0.5px;
-  color: rgb(34, 34, 34);
-  background-color: transparent;
-  height: 72px;
-  resize: none;
-}
-.answer .answer_box .box_bottom form .reply_form .reply_btn {
-  text-align: right;
-  padding: 8px 16px 0px 0px;
-}
-.answer .answer_box .box_bottom form .reply_form .reply_btn button {
-  padding: 0px 28px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 22px;
-  height: 36px;
-  border-radius: 4px;
-  color: rgb(255, 255, 255);
-  width: auto;
-  min-width: auto;
-  background-color: #c4c4c4;
-  border: none;
-}
-.answer .answer_box .box_bottom form .reply_txt {
-  padding: 24px 0px 36px;
-  text-align: center;
-}
-.answer .answer_box .box_bottom form .reply_txt .reply_answer {
-  padding: 0px 0px 8px;
-  font-size: 15px;
-  line-height: 20px;
-  color: rgb(153, 153, 153);
+.show {
+	opacity: 1;
 }

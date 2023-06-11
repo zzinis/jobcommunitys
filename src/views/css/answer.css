@@ -1,0 +1,173 @@
+.answer {
+	width: 100%;
+	height: 100vh;
+	background-color: rgb(245, 245, 248);
+	padding: 20px 0px 0px;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 2;
+}
+.answer .answer_wrap {
+	background-color: rgb(245, 245, 248);
+	padding: 50px;
+}
+.answer .answer_box {
+	width: 800px;
+	margin: 0px auto 80px;
+	background-color: rgb(255, 255, 255);
+	border-radius: 12px;
+	box-sizing: border-box;
+	box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 36px;
+	margin-bottom: 100px;
+}
+.answer .answer_box .box_top {
+	box-sizing: border-box;
+	padding: 24px;
+}
+.answer .answer_box .box_top .popular_category {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+.answer .answer_box .box_top .popular_category span {
+	display: inline-block;
+	padding: 7px 16px;
+	background-color: rgb(238, 241, 247);
+	border-radius: 300px;
+	line-height: 22px;
+	font-size: 14px;
+	font-weight: 500;
+}
+.answer .answer_box .box_top .popular_category .button {
+	padding: 8px 16px 0px 0px;
+}
+.answer .answer_box .box_top .popular_category .button button {
+	padding: 0px 28px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 22px;
+	height: 36px;
+	border-radius: 4px;
+	width: auto;
+	min-width: auto;
+	background-color: white;
+	border: 1px solid #bbb;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.answer .answer_box .box_top .title {
+	padding: 12px 0px 0px;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 27px;
+	letter-spacing: -0.5px;
+	color: rgb(0, 0, 0);
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+.answer .answer_box .box_top .popular_info {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px 0px 0px;
+}
+.answer .answer_box .box_top .popular_info span {
+	position: relative;
+	font-size: 13px;
+	line-height: 20px;
+	letter-spacing: -0.5px;
+}
+.answer .answer_box .box_mid {
+	border-top: 1px solid rgb(228, 228, 228);
+	padding: 24px 24px;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 24px;
+	letter-spacing: -0.5px;
+	color: rgb(34, 34, 34);
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+.answer .answer_box .box_btn {
+	padding: 0px 0px 24px;
+	border-bottom: 1px solid rgb(228, 228, 228);
+	position: relative;
+}
+.answer .answer_box .box_btn button {
+	height: 36px;
+	padding: 0px 16px;
+	border: 1px solid rgb(228, 228, 228);
+	border-radius: 8px;
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 500;
+	color: rgb(34, 34, 34);
+	display: flex;
+	align-items: center;
+	margin: 0px auto;
+	background-color: white;
+}
+.answer .answer_box .box_btn button span {
+	height: 16px;
+}
+.answer .answer_box .box_bottom {
+	padding: 24px 24px 0px;
+	height: 800px;
+}
+.answer .answer_box .box_bottom .reply_title {
+	font-weight: 700;
+	color: rgb(0, 0, 0);
+	font-size: 15px;
+	line-height: 23px;
+	padding: 0px 0px 8px;
+}
+.answer .answer_box .box_bottom form .reply_form {
+	background-color: rgb(245, 245, 248);
+	border: 1px solid rgb(228, 228, 228);
+	border-radius: 8px;
+	padding: 16px 0px;
+}
+.answer .answer_box .box_bottom form[name="comment-form"] {
+	width: 100%;
+	height: 700px;
+}
+.answer .answer_box .box_bottom form .reply_form textarea {
+	padding: 0px 16px;
+	border: none;
+	width: 100%;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 24px;
+	letter-spacing: -0.5px;
+	color: rgb(34, 34, 34);
+	background-color: transparent;
+	height: 72px;
+	resize: none;
+}
+.answer .answer_box .box_bottom form .reply_form .reply_btn {
+	text-align: right;
+	padding: 8px 16px 0px 0px;
+}
+.answer .answer_box .box_bottom form .reply_form .reply_btn button {
+	padding: 0px 28px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 22px;
+	height: 36px;
+	border-radius: 4px;
+	color: rgb(255, 255, 255);
+	width: auto;
+	min-width: auto;
+	background-color: #c4c4c4;
+	border: none;
+}
+.answer .answer_box .box_bottom form .reply_txt {
+	padding: 24px 0px 36px;
+	text-align: center;
+}
+.answer .answer_box .box_bottom form .reply_txt .reply_answer {
+	padding: 0px 0px 8px;
+	font-size: 15px;
+	line-height: 20px;
+	color: rgb(153, 153, 153);
+} /*# sourceMappingURL=answer.css.map */
