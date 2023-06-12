@@ -229,16 +229,20 @@
       var currentFill = secondPathElement.getAttribute("fill");
 
       if (currentFill === "#00dd6d") {
-        togglelikeQuestion(false);
-        secondPathElement.setAttribute("fill", "none");
+        axios({
+          url: document.getElementById("questionId").value + "/unlikes",
+          method: "PATCH",
+        }).then(function (res) {
+          var likeCountElement = document.getElementById("like-count");
+          likeCountElement.textContent =
+          res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
+          togglelikeQuestion(false);
+          secondPathElement.setAttribute("fill", "none");
+        }).catch(function(err){
+          alert(err.response.data.message);
+          return false;
+        });
       } else {
-        togglelikeQuestion(true);
-        secondPathElement.setAttribute("fill", "#00dd6d");
-      }
-    }
-    // 공감 데이터 처리
-    function togglelikeQuestion(like, heartElement) {
-      if (like) {
         axios({
           url: document.getElementById("questionId").value + "/likes",
           method: "PATCH",
@@ -246,15 +250,11 @@
           var likeCountElement = document.getElementById("like-count");
           likeCountElement.textContent =
             res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
-        });
-      } else {
-        axios({
-          url: document.getElementById("questionId").value + "/unlikes",
-          method: "PATCH",
-        }).then(function (res) {
-          var likeCountElement = document.getElementById("like-count");
-          likeCountElement.textContent =
-            res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
+            togglelikeQuestion(true);
+            secondPathElement.setAttribute("fill", "#00dd6d");
+        }).catch(function(err){
+          alert(err.response.data.message);
+          return false;
         });
       }
     }

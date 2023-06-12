@@ -2,21 +2,27 @@ const db = require("../models");
 const { Op } = require("sequelize");
 const sequelize = db.sequelize;
 const cookieParser = require("cookie-parser");
-const session = require("express-session");
+const jwt = require("jsonwebtoken");
+const secretKey = "jomcommunity-key";
+
 // 질문 전체 조회하기
 // 질문 리스트 조회 (카테고리별, 조회순, 공감순, 최신순)
 // 인기글 조회 (조회수별 공감수별 TOP 10)
 exports.getQuestions = async (req, res) => {
   try {
-    ////////////////////////////////////////////////////////////////////////////////////
-    // TODO 로그인 토큰 처리 예정
-    res.cookie("userId", "1", { maxAge: 10 * 60 * 60 * 1000 });
-    // const userIdAuth = req.cookies.userId; // 로그인한 유저 ID 값 (인증된 값)
-    // const userId = userIdAuth ? userIdAuth : null; // 현재 사용자의 ID
-    // const loginOrNot = userId ? true : false; // 현재 로그인한 상태를 확인하는 변수
-    req.session.userId = "1";
-    const loginOrNot = req.session.userId ? true : false; // 로그인 유무 판별
-    ////////////////////////////////////////////////////////////////////////////////////
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+    let userId = null;
+    let loginOrNot = false;
+    if (token) {
+      // 토큰이 존재하는 경우, 토큰을 검증하여 사용자 정보를 확인
+      const decoded = jwt.verify(token, secretKey);
+      userId = decoded.userId;
+      loginOrNot = true;
+    }
+
     const searchWord = req.query.word ? req.query.word : ""; // 검색어
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const limit = 6;
@@ -177,8 +183,14 @@ exports.getQuestions = async (req, res) => {
 // 질문 개별 조회
 exports.getQuestion = async (req, res) => {
   try {
-    const userIdAuth = req.cookies.userId; // 로그인한 유저 ID 값 (인증된 값)
-    const userId = userIdAuth ? userIdAuth : null; // 현재 사용자의 ID
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
+    console.log("token", token);
+    // 추출된 사용자 정보
+    const userId = token ? jwt.verify(token, secretKey).userId : null;
     const questionId = req.params.question_id;
     const loginOrNot = userId ? true : false; // 현재 로그인한 상태를 확인하는 변수
 
@@ -220,12 +232,10 @@ exports.getQuestion = async (req, res) => {
       ],
       order: [["answers", "id", "DESC"]],
     });
-
-    const yourQuestion = userId == result.user.id; // 현재 로그인한 회원의 게시물인지 확인하는 변수
-
     if (!result) {
       return res.status(404).send("존재하지 않는 질문입니다.");
     }
+    const yourQuestion = parseInt(userId) == parseInt(result.user_id); // 현재 로그인한 회원의 게시물인지 확인하는 변수
 
     // 조회수 증가
     result.views += 1;
@@ -241,6 +251,8 @@ exports.getQuestion = async (req, res) => {
 
     const isLiked = userFavorite > 0;
     const answers = result.answers;
+
+    // 본인이 작성한 댓글인지 확인
     // 현재 로그인한 사용자와 답변 작성자의 ID 비교하여 isYourAnswer 값 설정
     if (loginOrNot) {
       for (const answer of answers) {
@@ -264,15 +276,59 @@ exports.getQuestion = async (req, res) => {
 
 // 질문 작성 페이지 렌더링
 exports.getQuestionWritePage = async (req, res) => {
-  res.render("question/write", { patch: false });
+  // JWT 토큰
+  const token = req.cookies.authorization
+    ? req.cookies.authorization.split(" ")[1]
+    : null;
+
+  const decoded = jwt.verify(token, secretKey);
+
+  if (!token) {
+    // 로그인 안됨
+    return res
+      .status(401)
+      .send('<script>alert("로그인 후 이용해주세요.");</script>');
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      // 토큰 인증 실패
+      return res
+        .status(401)
+        .send('<script>alert("로그인 상태를 확인하여 주세요");</script>');
+    }
+
+    const loginOrNot = true;
+
+    const resData = {
+      patch: false,
+      loginOrNot: loginOrNot,
+    };
+    // 로그인 상태
+    res.render("question/write", resData);
+  });
 };
 
 // 질문 작성
 exports.postQuestion = async (req, res) => {
   try {
-    const userIdAuth = req.cookies.userId; // 로그인한 유저 ID 값 (인증된 값)
-    const userId = userIdAuth ? userIdAuth : null; // 현재 사용자의 ID
-    if (!userIdAuth) {
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
+    if (!token) {
+      return res
+        .status(401)
+        .send('<script>alert("로그인 상태를 확인하여 주세요");</script>');
+    }
+    // JWT 토큰을 검증하여 사용자 정보 추출
+    const decodedToken = jwt.verify(token, secretKey);
+
+    // 추출된 사용자 정보
+    const userId = decodedToken.userId;
+
+    if (!userId) {
       return res.status(404).send("로그인한 후 사용해주세요");
     }
     const result = await db.question.create({
@@ -290,10 +346,13 @@ exports.postQuestion = async (req, res) => {
     if (!result) {
       return res.status(404).send("질문 작성에 실패하였습니다.");
     }
+
     const questionId = result.dataValues.id;
     const resData = {
       message: "질문 작성이 완료되었습니다.",
       redirectURL: "/questions/" + questionId,
+      loginOrNot: true, // 로그인 상태임을 알려주기 위해 추가
+      userId: userId, // 로그인한 사용자 ID 전달
     };
     res.send(resData);
   } catch (error) {
@@ -304,11 +363,36 @@ exports.postQuestion = async (req, res) => {
 
 // 질문 수정 페이지
 exports.getQuestionPatchPage = async (req, res) => {
+  // JWT 토큰
+  const token = req.cookies.authorization
+    ? req.cookies.authorization.split(" ")[1]
+    : null;
+
+  if (!token) {
+    return res.status(401).json({ message: "인증 토큰이 필요합니다." });
+  }
+  // JWT 토큰을 검증하여 사용자 정보 추출
+  const decodedToken = jwt.verify(token, secretKey);
+
+  // 추출된 사용자 정보
+  const userId = decodedToken.userId;
+
   const questionId = req.params.question_id;
   const question = await db.question.findByPk(questionId);
+  if (!question) {
+    return res.status(404).send("존재하지 않는 질문입니다.");
+  }
+
+  // 작성자만 질문 수정 가능
+  if (question.userId !== userId) {
+    return res.status(403).send("권한이 없습니다.");
+  }
+
   const resData = {
     patch: true,
     question: question,
+    loginOrNot: true, // 로그인 상태임을 알려주기 위해 추가
+    userId: userId, // 로그인한 사용자 ID 전달
   };
   res.render("question/write", resData);
 };
@@ -317,28 +401,44 @@ exports.getQuestionPatchPage = async (req, res) => {
 exports.patchQuesiton = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const userIdAuth = req.cookies.userId; // 로그인한 유저 ID 값 (인증된 값)
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
+    if (!token) {
+      return res.status(401).json({ message: "인증 토큰이 필요합니다." });
+    }
+
+    // JWT 토큰을 검증하여 사용자 정보 추출
+    const decodedToken = jwt.verify(token, secretKey);
+
+    // 추출된 사용자 정보
+    const userId = decodedToken.userId;
+
     // 해당 질문이 존재하는지 조회
     const question = await db.question.findByPk(questionId);
+
     // 없으면 404 에러
     if (!question) {
       return res.status(404).send("존재하지 않는 질문입니다.");
     }
     // 작성자만 질문 수정
-    if (question.user_id !== parseInt(userIdAuth)) {
+    if (question.user_id !== parseInt(userId)) {
       return res.status(403).send("권한이 없습니다.");
     }
     // reqeust data
     const data = {
       title: req.body.title,
       content: req.body.content,
-      user_id: userIdAuth,
+      user_id: userId,
       updated_at: new Date(),
       newcomer: req.body.newcomer,
       question_pw: req.body.question_pw,
       category_id: req.body.categoryId,
     };
-    const result = await db.question.update(data, {
+    // 질문 업데이트
+    await db.question.update(data, {
       where: {
         id: questionId,
       },
@@ -358,7 +458,19 @@ exports.patchQuesiton = async (req, res) => {
 exports.deleteQuesiton = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const userIdAuth = req.cookies.userId; // 로그인한 유저 ID 값 (인증된 값)
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
+    if (!token) {
+      return res.status(401).json({ message: "인증 토큰이 필요합니다." });
+    }
+    // JWT 토큰을 검증하여 사용자 정보 추출
+    const decodedToken = jwt.verify(token, secretKey);
+
+    // 추출된 사용자 정보
+    const userId = decodedToken.userId;
 
     // 해당 질문이 존재하는지 조회
     const question = await db.question.findByPk(questionId);
@@ -368,7 +480,7 @@ exports.deleteQuesiton = async (req, res) => {
     }
 
     // 작성자만 질문 삭제
-    if (question.user_id !== parseInt(userIdAuth)) {
+    if (question.user_id !== parseInt(userId)) {
       return res.status(403).send("권한이 없습니다.");
     }
 
@@ -381,6 +493,7 @@ exports.deleteQuesiton = async (req, res) => {
         },
         transaction,
       });
+
       // 질문과 관련된 답변을 모두 삭제
       await db.answer.destroy({
         where: {
@@ -409,8 +522,19 @@ exports.deleteQuesiton = async (req, res) => {
 exports.likeQuestion = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const userIdAuth = req.cookies.userId; // 로그인한 유저 ID 값 (인증된 값)
-    const userId = userIdAuth;
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
+    if (!token) {
+      return res.status(401).json({ message: "로그인 후 사용해주세요" });
+    }
+
+    // JWT 토큰을 검증하여 사용자 정보 추출
+    const decodedToken = jwt.verify(token, secretKey);
+    // 추출된 사용자 정보
+    const userId = decodedToken.userId;
 
     // 질문이 존재하는지 확인
     const question = await db.question.findByPk(questionId);
@@ -463,8 +587,19 @@ exports.likeQuestion = async (req, res) => {
 exports.unlikeQuestion = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const userIdAuth = req.cookies.userId;
-    const userId = userIdAuth;
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
+    if (!token) {
+      return res.status(401).json({ message: "인증 토큰이 필요합니다." });
+    }
+    // JWT 토큰을 검증하여 사용자 정보 추출
+    const decodedToken = jwt.verify(token, secretKey);
+
+    // 추출된 사용자 정보
+    const userId = decodedToken.userId;
     // 질문 찾기
     const question = await db.question.findByPk(questionId);
     if (!question) {
@@ -477,7 +612,7 @@ exports.unlikeQuestion = async (req, res) => {
     });
 
     if (!favorite) {
-      return res.status(404).send("해당 공감을 찾을 수 없습니다.");
+      return res.status(404).send("공감하지 않은 게시물입니다.");
     }
 
     // Managed transaction를 이용해 원자적 처리

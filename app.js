@@ -8,22 +8,8 @@ const indexRouter = require("./src/routes/indexRouter");
 const { sequelize } = require("./src/models");
 
 const jwt = require("jsonwebtoken");
-const secretKey = "your-secret-key";
 const session = require("express-session");
-// TODO: 해당 부분 삭제
-// 세션 처리
-app.use(
-  session({
-    secret: "secretKey", // 쿠키의 secret값과 동일하게 설정하는 것이 좋음 (권장)
-    resave: false,
-    saveUninitialized: true,
-    name: "my-session",
-    // 쿠키 설정도 가능
-    // cookie: {
-    // maxAge: 60  * 1000,
-    // }
-  })
-);
+
 // TODO: 해당 부분 삭제
 // DB 동기화
 // sequelize 설정 - 동기화 진행
