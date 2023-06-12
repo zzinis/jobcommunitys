@@ -1,229 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script
-      src="https://kit.fontawesome.com/a5faf288a0.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.7.0.min.js"
-      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="/views/css/style.css" />
-    <title>Document</title>
-    <style>
-      .left_bottom li.on a {
-        font-weight: bold;
-      }
 
-      .content_tab li.on a {
-        font-weight: bold;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://kit.fontawesome.com/a5faf288a0.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="/views/css/style.css" />
+  <title>Document</title>
+  <style>
+    .left_bottom li.on a {
+      font-weight: bold;
+    }
 
-      .pagination {
-        padding-top: 10px;
-        display: inline-block;
-      }
+    .content_tab li.on a {
+      font-weight: bold;
+    }
 
-      .pagination a {
-        color: black;
-        float: left;
-        padding: 8px 16px;
-        text-decoration: none;
-      }
+    .pagination {
+      padding-top: 10px;
+      display: inline-block;
+    }
 
-      .pagination a.active {
-        background-color: white;
-        color: black;
-        border-radius: 5px;
-      }
+    .pagination a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
 
-      .pagination a:hover:not(.active) {
-        background-color: #ddd;
-        border-radius: 5px;
-      }
+    .pagination a.active {
+      background-color: white;
+      color: black;
+      border-radius: 5px;
+    }
 
-      button {
-        background-color: white;
-        border: 1px solid #bbb;
-      }
-    </style>
-  </head>
+    .pagination a:hover:not(.active) {
+      background-color: #ddd;
+      border-radius: 5px;
+    }
 
-  <body>
-    <header id="header">
-      <div class="wrap">
-        <div class="top_box">
-          <h1>
-            <a href="/"><img src="/views/img/logo1.png" alt="" /> </a>
-          </h1>
-          <nav class="search_box">
-            <input
-              type="text"
-              placeholder="검색어를 입력해주세요"
-              maxlength="50"
-              autocomplete="off"
-              onkeydown="handleKeyPress(event)"
-            />
-            <button class="search_button" onclick="searchQuestion()">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="1em"
-                viewBox="0 0 512 512"
-              >
-                <style>
-                  svg {
-                    fill: #022667;
-                  }
-                </style>
-                <path
-                  d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
-                />
-              </svg>
-            </button>
-          </nav>
-        </div>
-        <div class="bottom_box">
-          <ul class="nav_tab">
-            <li><a href="/jobinfo">직무 탐색</a></li>
-            <li><a href="/questions">취업 Q&A</a></li>
-          </ul>
-          <ul class="login_tab">
-            <li><button type="button" class="signBtn">회원가입</button></li>
-            <li><button type="button" class="loginBtns">로그인</button></li>
-          </ul>
-        </div>
+    button {
+      background-color: white;
+      border: 1px solid #bbb;
+    }
+
+    #header .wrap .bottom_box .nav_tab {
+      padding: 0;
+      height: 35px;
+    }
+
+    #header .wrap .bottom_box .login_tab {
+      padding: 0;
+      height: 35px;
+    }
+
+    #header .wrap .bottom_box {
+      align-items: end;
+    }
+  </style>
+</head>
+
+<body>
+  <header id="header">
+    <div class="wrap">
+      <div class="top_box">
+        <h1>
+          <a href="/"><img src="/views/img/logo1.png" alt="" /> </a>
+        </h1>
+        <nav class="search_box">
+          <input type="text" placeholder="검색어를 입력해주세요" maxlength="50" autocomplete="off"
+            onkeydown="handleKeyPress(event)" />
+          <button class="search_button" onclick="searchQuestion()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+              <style>
+                svg {
+                  fill: #022667;
+                }
+              </style>
+              <path
+                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+            </svg>
+          </button>
+        </nav>
       </div>
-    </header>
+      <div class="bottom_box">
+        <ul class="nav_tab">
+          <li><a href="/jobinfo">직무 탐색</a></li>
+          <li><a href="/questions">취업 Q&A</a></li>
+        </ul>
+        <ul class="login_tab">
+          <li><button type="button" class="signBtn">회원가입</button></li>
+          <li><button type="button" class="loginBtns">로그인</button></li>
+        </ul>
+      </div>
+    </div>
+  </header>
 
-    <!-- 컨텐츠 시작 -->
-    <section class="qna">
-      <div class="qna_content">
-        <div class="qna_content_wrap">
-          <div class="wrap_left">
-            <div class="qna_left_box">
-              <ul class="left_bottom" style="margin-bottom: 0px">
-                <li style="padding: 5px 24px">
-                  <select name="EDU_TYPE" id="EDU_TYPE" class="form-select form-select-lg" aria-label=".form-select-lg example">
-                    <option value="" <% if (searchType.EDU_TYPE === '') { %>selected<% } %>>학력조건</option>
-                    <option value="J00110" <% if (searchType.EDU_TYPE === 'J00110') { %>selected<% } %>>대학교</option>
-                    <option value="J00108" <% if (searchType.EDU_TYPE === 'J00108') { %>selected<% } %>>전문대학</option>
-                    <option value="J00100" <% if (searchType.EDU_TYPE === 'J00100') { %>selected<% } %>>관계없음</option>
-                    <option value="J00106" <% if (searchType.EDU_TYPE === 'J00106') { %>selected<% } %>>고등학교</option>
-                  </select>
-                </li>
-                <li style="padding: 5px 24px">
-                  <select name="EMP_TYPE" id="EMP_TYPE" class="form-select form-select-lg" aria-label=".form-select-lg example">
-                    <option value="" <% if (searchType.EMP_TYPE === '') { %>selected<% } %>>고용형태</option>
-                    <option value="J01102" <% if (searchType.EMP_TYPE === 'J01102') { %>selected<% } %>>계약직</option>
-                    <option value="J01101" <% if (searchType.EMP_TYPE === 'J01101') { %>selected<% } %>>상용직</option>
-                    <option value="J01103" <% if (searchType.EMP_TYPE === 'J01103') { %>selected<% } %>>계약직(기간제)</option>
-                    <option value="J01105" <% if (searchType.EMP_TYPE === 'J01105') { %>selected<% } %>>상용직(기간제)</option>
-                  </select>
-                  
-                </li>
-                <li style="padding: 5px 24px">
-                  <select name="CAR_TYPE" id="CAR_TYPE" class="form-select form-select-lg" aria-label=".form-select-lg example">
-                    <option value="" <% if (searchType.CAR_TYPE === '') { %>selected<% } %>>경력조건</option>
-                    <option value="J01301" <% if (searchType.CAR_TYPE === 'J01301') { %>selected<% } %>>신입</option>
-                    <option value="J01302" <% if (searchType.CAR_TYPE === 'J01302') { %>selected<% } %>>경력</option>
-                    <option value="J01300" <% if (searchType.CAR_TYPE === 'J01300') { %>selected<% } %>>무관</option>
-                  </select>
-                  
-                </li>
-              </ul>
-              <div class="left_top" style="padding: 0px 24px 24px 20px">
-                <button onclick="getJobInfo()"><a>검색</a></button>
-              </div>
+  <!-- 컨텐츠 시작 -->
+  <section class="qna">
+    <div class="qna_content">
+      <div class="qna_content_wrap">
+        <div class="wrap_left">
+          <div class="qna_left_box">
+            <ul class="left_bottom" style="margin-bottom: 0px">
+              <li style="padding: 5px 24px">
+                <select name="EDU_TYPE" id="EDU_TYPE" class="form-select form-select-lg"
+                  aria-label=".form-select-lg example">
+                  <option value="" <% if (searchType.EDU_TYPE==='' ) { %>selected<% } %>>학력조건</option>
+                  <option value="J00110" <% if (searchType.EDU_TYPE==='J00110' ) { %>selected<% } %>>대학교</option>
+                  <option value="J00108" <% if (searchType.EDU_TYPE==='J00108' ) { %>selected<% } %>>전문대학</option>
+                  <option value="J00100" <% if (searchType.EDU_TYPE==='J00100' ) { %>selected<% } %>>관계없음</option>
+                  <option value="J00106" <% if (searchType.EDU_TYPE==='J00106' ) { %>selected<% } %>>고등학교</option>
+                </select>
+              </li>
+              <li style="padding: 5px 24px">
+                <select name="EMP_TYPE" id="EMP_TYPE" class="form-select form-select-lg"
+                  aria-label=".form-select-lg example">
+                  <option value="" <% if (searchType.EMP_TYPE==='' ) { %>selected<% } %>>고용형태</option>
+                  <option value="J01102" <% if (searchType.EMP_TYPE==='J01102' ) { %>selected<% } %>>계약직</option>
+                  <option value="J01101" <% if (searchType.EMP_TYPE==='J01101' ) { %>selected<% } %>>상용직</option>
+                  <option value="J01103" <% if (searchType.EMP_TYPE==='J01103' ) { %>selected<% } %>>계약직(기간제)</option>
+                  <option value="J01105" <% if (searchType.EMP_TYPE==='J01105' ) { %>selected<% } %>>상용직(기간제)</option>
+                </select>
+
+              </li>
+              <li style="padding: 5px 24px">
+                <select name="CAR_TYPE" id="CAR_TYPE" class="form-select form-select-lg"
+                  aria-label=".form-select-lg example">
+                  <option value="" <% if (searchType.CAR_TYPE==='' ) { %>selected<% } %>>경력조건</option>
+                  <option value="J01301" <% if (searchType.CAR_TYPE==='J01301' ) { %>selected<% } %>>신입</option>
+                  <option value="J01302" <% if (searchType.CAR_TYPE==='J01302' ) { %>selected<% } %>>경력</option>
+                  <option value="J01300" <% if (searchType.CAR_TYPE==='J01300' ) { %>selected<% } %>>무관</option>
+                </select>
+
+              </li>
+            </ul>
+            <div class="left_top" style="padding: 0px 24px 24px 20px">
+              <button onclick="getJobInfo()"><a>검색</a></button>
             </div>
           </div>
+        </div>
 
-          <div class="wrap_right">
-            <!-- 컨텐츠 시작 -->
-            <div class="content_txtbox" style="margin: 0px">
-              <!-- 박스 시작 -->
-              <%if(row.length > 0) { %> <% row.forEach((r) => { %>
-              <div
-                class="txtbox_txt"
-                style="
+        <div class="wrap_right">
+          <!-- 컨텐츠 시작 -->
+          <div class="content_txtbox" style="margin: 0px">
+            <!-- 박스 시작 -->
+            <%if(row.length> 0) { %> <% row.forEach((r)=> { %>
+                <div class="txtbox_txt" style="
                   padding-bottom: 24px;
                   border-bottom: 1px solid rgb(228, 228, 228);
-                "
-              >
-                <div class="popular_category">
-                  <span><%=r.CAREER_CND_NM %></span>
-                  <span><%=r.ACDMCR_NM %></span>
-                  <span><%=r.EMPLYM_STLE_CMMN_MM %></span>
+                ">
+                  <div class="popular_category">
+                    <span>
+                      <%=r.CAREER_CND_NM %>
+                    </span>
+                    <span>
+                      <%=r.ACDMCR_NM %>
+                    </span>
+                    <span>
+                      <%=r.EMPLYM_STLE_CMMN_MM %>
+                    </span>
+                  </div>
+                  <div class="jobInfo_content" style="margin-top: 5px">
+                    <div style="font-size: 18px">
+                      <%=r.CMPNY_NM %>
+                    </div>
+                    <div>
+                      <%=r.DTY_CN %>
+                    </div>
+                  </div>
                 </div>
-                <div class="jobInfo_content" style="margin-top: 5px">
-                  <div style="font-size: 18px"><%=r.CMPNY_NM %></div>
-                  <div><%=r.DTY_CN %></div>
-                </div>
-              </div>
-              <% }) %> <% } %>
+                <% }) %>
+                  <% } %>
 
-              <!-- 박스 끝 -->
-            </div>
+                    <!-- 박스 끝 -->
+          </div>
 
-            <!-- 페이지네이션  -->
-            <!-- 페이지네이션  -->
-            <% if (page.totalPages> 1) { %>
-            <div
-              class="pagination"
-              style="text-align: center; display: flex; justify-content: center"
-            >
+          <!-- 페이지네이션  -->
+          <!-- 페이지네이션  -->
+          <% if (page.totalPages> 1) { %>
+            <div class="pagination" style="text-align: center; display: flex; justify-content: center">
               <% if (page.currentPage> 1) { %>
-              <a href="javascript:getJobInfo(<%= page.currentPage - 1 %>)">
-                <
-              </a>
-              <% } %> <% for (let i=page.startPage; i <=page.endPage; i++) { %>
-              <% if (i===page.currentPage) { %>
-              <a class="current active" href="javascript:getJobInfo(<%= i %>)"
-                ><b> <%= i %> </b></a
-              >
-              <% } else { %>
-              <a href="javascript:getJobInfo(<%= i %>)"> <%= i %> </a>
-              <% } %> <% } %> <% if (page.currentPage < page.totalPages) { %>
-              <a href="javascript:getJobInfo(<%= page.currentPage + 1 %>)">></a>
-              <% } %>
+                <a href="javascript:getJobInfo(<%= page.currentPage - 1 %>)">
+                  < </a>
+                    <% } %>
+                      <% for (let i=page.startPage; i <=page.endPage; i++) { %>
+                        <% if (i===page.currentPage) { %>
+                          <a class="current active" href="javascript:getJobInfo(<%= i %>)"><b>
+                              <%= i %>
+                            </b></a>
+                          <% } else { %>
+                            <a href="javascript:getJobInfo(<%= i %>)">
+                              <%= i %>
+                            </a>
+                            <% } %>
+                              <% } %>
+                                <% if (page.currentPage < page.totalPages) { %>
+                                  <a href="javascript:getJobInfo(<%= page.currentPage + 1 %>)">></a>
+                                  <% } %>
             </div>
             <% } %>
-          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <script>
-      function getJobInfo(page) {
-        const EDU_TYPE = document.getElementById("EDU_TYPE").value;
-        const EMP_TYPE = document.getElementById("EMP_TYPE").value;
-        const CAR_TYPE = document.getElementById("CAR_TYPE").value;
-        const PAGE_QUERY = page ? page : 1;
+  <script>
+    function getJobInfo(page) {
+      const EDU_TYPE = document.getElementById("EDU_TYPE").value;
+      const EMP_TYPE = document.getElementById("EMP_TYPE").value;
+      const CAR_TYPE = document.getElementById("CAR_TYPE").value;
+      const PAGE_QUERY = page ? page : 1;
 
-        if(EDU_TYPE == '' && EMP_TYPE == '' && CAR_TYPE== '' ) {
-          alert("검색값을 입력하여주세요");
-          return false;
-        }
+      if (EDU_TYPE == '' && EMP_TYPE == '' && CAR_TYPE == '') {
+        alert("검색값을 입력하여주세요");
+        return false;
+      }
 
-        const queryString = `EDU_TYPE=${encodeURIComponent(
-          EDU_TYPE
-        )}&EMP_TYPE=${encodeURIComponent(
-          EMP_TYPE
-        )}&CAR_TYPE=${encodeURIComponent(CAR_TYPE)}&page=${PAGE_QUERY}`;
-        const url = `/jobinfo?${queryString}`;
-        
-        axios
+      const queryString = `EDU_TYPE=${encodeURIComponent(
+        EDU_TYPE
+      )}&EMP_TYPE=${encodeURIComponent(
+        EMP_TYPE
+      )}&CAR_TYPE=${encodeURIComponent(CAR_TYPE)}&page=${PAGE_QUERY}`;
+      const url = `/jobinfo?${queryString}`;
+
+      axios
         .get(url)
         .then((res) => {
           console.log(res);
@@ -234,6 +242,7 @@
           alert("해당하는 데이터가 없습니다.");
         });
     }
-    </script>
-  </body>
+  </script>
+</body>
+
 </html>
