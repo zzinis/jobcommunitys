@@ -126,7 +126,6 @@ exports.patchAnswer = async (req, res) => {
         },
       }
     );
-    console.log(result);
     if (result === 0) {
       return res.status(404).send("존재하지 않는 답변입니다.");
     }
