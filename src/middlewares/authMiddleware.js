@@ -18,13 +18,19 @@ module.exports = async (req, res, next) => {
 
     // 3. authToken에 있는 userId에 해당하는 사용자가 db에 있는지 확인
     const user = await model.user.findByPk(userId);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "토큰에 해당하는 사용자가 없습니다." });
+    }
     res.locals.user = user;
 
     next();
   } catch (err) {
+    res.clearCookie("authorization"); //인증에 실패 할 경우 쿠키 삭제
     console.error(error);
     res
-      .status(400)
+      .status(401)
       .json({ errMessage: "로그인 후에 사용할 수 있는 기능입니다." });
   }
 };
