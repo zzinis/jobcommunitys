@@ -6,8 +6,8 @@ exports.getExternalData = async (req, res) => {
     const API_KEY = "6d425a6e6964706633346d76686c73"; // 인증키
     const API_TYPE = "json"; // 요청파일 타입
     const API_SERVICE = "GetJobInfo"; // 서비스명
-    const API_START_INDEX = 1; // 요청시작위치
-    const API_END_INDEX = 10; // 요청종료위치
+    let API_START_INDEX = 1; // 요청시작위치
+    let API_END_INDEX = 8; // 요청종료위치
 
     // 학력코드 (J00108:전문대학, J00104:중학교, J00106:고등학교, J00102:초등학교, J00110:대학_대학교, J00100:관계없음, J00114:박사과정)
     // education_type
@@ -44,12 +44,11 @@ exports.getExternalData = async (req, res) => {
       "/" +
       API_CAREER_CND_CMMN_CODE_SE;
 
-    console.log(REQ_URL);
     const response = await axios.get(REQ_URL);
 
     const resData = response.data.GetJobInfo;
     const data = {
-      list_total_count: resData.list_total_count,
+      total: resData.list_total_count,
       result_code: resData.RESULT.CODE,
       result_message: resData.RESULT.MESSAGE,
       row: resData.row,
@@ -62,22 +61,22 @@ exports.getExternalData = async (req, res) => {
       res.write(
         "<script>alert('해당하는 데이터가 없습니다') window.location = document.referrer;</script>"
       );
-      
+
       // res.redirect('/jobInfo');
       // 예를 들면, 사용자에게 오류 메시지를 표시하거나 로깅할 수 있습니다.
     } else {
       // 에러가 없는 경우 정상적인 처리 로직을 여기에 작성합니다.
-      console.log("데이터:", data);
-      
+      console.log("데이터:", data.row);
+
       // res.send(data);
-      res.render('jobInfo');
+      res.render("jobInfo", resData);
     }
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
 };
-/** 
+/**
  * 출력할 데이터
  * CMPNY_NM                   기업명칭
  * BSNS_SUMRY_CN              사업요약내용
@@ -96,7 +95,7 @@ exports.getExternalData = async (req, res) => {
  * MODEL_MTH_NM               전형방법
  * RCEPT_MTH_NM               접수방법
  * PRESENTN_PAPERS_NM         제출서류
- * MNGR_PHON_NO               담당 상담사 전화번호	
- * MNGR_INSTT_NM              담당 상담사 소속기관명	
- * BASS_ADRES_CN              기업 주소	
-*/
+ * MNGR_PHON_NO               담당 상담사 전화번호
+ * MNGR_INSTT_NM              담당 상담사 소속기관명
+ * BASS_ADRES_CN              기업 주소
+ */
