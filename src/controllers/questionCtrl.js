@@ -280,13 +280,15 @@ exports.getQuestionWritePage = async (req, res) => {
     ? req.cookies.authorization.split(" ")[1]
     : null;
 
-  const decoded = jwt.verify(token, secretKey);
+  // const decoded = jwt.verify(token, secretKey);
 
   if (!token) {
     // 로그인 안됨
     return res
       .status(401)
-      .send('<script>alert("로그인 후 이용해주세요.");</script>');
+      .send(
+        '<script>alert("로그인 후 이용해주세요.");history.back();</script>'
+      );
   }
 
   jwt.verify(token, secretKey, (err, decoded) => {
@@ -294,7 +296,9 @@ exports.getQuestionWritePage = async (req, res) => {
       // 토큰 인증 실패
       return res
         .status(401)
-        .send('<script>alert("로그인 상태를 확인하여 주세요");</script>');
+        .send(
+          '<script>alert("로그인 상태를 확인하여 주세요");history.back();</script>'
+        );
     }
 
     const loginOrNot = true;
@@ -319,7 +323,9 @@ exports.postQuestion = async (req, res) => {
     if (!token) {
       return res
         .status(401)
-        .send('<script>alert("로그인 상태를 확인하여 주세요");</script>');
+        .send(
+          '<script>alert("로그인 상태를 확인하여 주세요");history.back();</script>'
+        );
     }
     // JWT 토큰을 검증하여 사용자 정보 추출
     const decodedToken = jwt.verify(token, secretKey);
@@ -328,7 +334,11 @@ exports.postQuestion = async (req, res) => {
     const userId = decodedToken.userId;
 
     if (!userId) {
-      return res.status(404).send("로그인한 후 사용해주세요");
+      return res
+        .status(404)
+        .send(
+          '<script>alert("로그인 후 작성할 수 있습니다");history.back();</script>'
+        );
     }
     const result = await db.question.create({
       title: req.body.title,
