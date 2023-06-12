@@ -31,7 +31,11 @@ exports.getAnswers = async (req, res) => {
 exports.postAnswer = async (req, res) => {
   try {
     // 로그인 유무에 대한 처리
-    const token = req.cookies.token; // 토큰을 쿠키에서 가져옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
     const decodedToken = jwt.verify(token, secretKey);
     if (!token) {
       // 로그인 안됨
@@ -76,7 +80,11 @@ exports.postAnswer = async (req, res) => {
 // 답변 수정
 exports.patchAnswer = async (req, res) => {
   try {
-    const token = req.cookies.token; // 토큰을 쿠키에서 가져옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
     const decodedToken = jwt.verify(token, secretKey);
 
     if (!token) {
@@ -118,7 +126,7 @@ exports.patchAnswer = async (req, res) => {
         },
       }
     );
-
+    console.log(result);
     if (result === 0) {
       return res.status(404).send("존재하지 않는 답변입니다.");
     }
@@ -137,7 +145,11 @@ exports.patchAnswer = async (req, res) => {
 // 답변 삭제
 exports.deleteAnswer = async (req, res) => {
   try {
-    const token = req.cookies.token; // 토큰을 쿠키에서 가져옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
     const decodedToken = jwt.verify(token, secretKey);
 
     if (!token) {

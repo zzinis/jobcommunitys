@@ -10,7 +10,10 @@ const secretKey = "jomcommunity-key";
 // 인기글 조회 (조회수별 공감수별 TOP 10)
 exports.getQuestions = async (req, res) => {
   try {
-    const token = req.headers.authorization; // 클라이언트에서 전송된 JWT 토큰
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
     let userId = null;
     let loginOrNot = false;
     if (token) {
@@ -180,10 +183,14 @@ exports.getQuestions = async (req, res) => {
 // 질문 개별 조회
 exports.getQuestion = async (req, res) => {
   try {
-    const token = req.headers.authorization; // 헤더에서 JWT 토큰을 받아옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
 
+    console.log("token", token);
     // 추출된 사용자 정보
-    const userId = token ? wt.verify(token, secretKey).userId : null;
+    const userId = token ? jwt.verify(token, secretKey).userId : null;
     const questionId = req.params.question_id;
     const loginOrNot = userId ? true : false; // 현재 로그인한 상태를 확인하는 변수
 
@@ -225,12 +232,10 @@ exports.getQuestion = async (req, res) => {
       ],
       order: [["answers", "id", "DESC"]],
     });
-
-    const yourQuestion = parseInt(userId) == parseInt(result.user.id); // 현재 로그인한 회원의 게시물인지 확인하는 변수
-
     if (!result) {
       return res.status(404).send("존재하지 않는 질문입니다.");
     }
+    const yourQuestion = parseInt(userId) == parseInt(result.user_id); // 현재 로그인한 회원의 게시물인지 확인하는 변수
 
     // 조회수 증가
     result.views += 1;
@@ -271,8 +276,12 @@ exports.getQuestion = async (req, res) => {
 
 // 질문 작성 페이지 렌더링
 exports.getQuestionWritePage = async (req, res) => {
-  const token = req.cookies.authorization;
-  const decodedToken = jwt.verify(token, secretKey);
+  // JWT 토큰
+  const token = req.cookies.authorization
+    ? req.cookies.authorization.split(" ")[1]
+    : null;
+
+  const decoded = jwt.verify(token, secretKey);
 
   if (!token) {
     // 로그인 안됨
@@ -303,7 +312,11 @@ exports.getQuestionWritePage = async (req, res) => {
 // 질문 작성
 exports.postQuestion = async (req, res) => {
   try {
-    const token = req.headers.authorization; // 헤더에서 JWT 토큰을 받아옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
     if (!token) {
       return res
         .status(401)
@@ -350,7 +363,10 @@ exports.postQuestion = async (req, res) => {
 
 // 질문 수정 페이지
 exports.getQuestionPatchPage = async (req, res) => {
-  const token = req.headers.authorization; // 헤더에서 JWT 토큰을 받아옴
+  // JWT 토큰
+  const token = req.cookies.authorization
+    ? req.cookies.authorization.split(" ")[1]
+    : null;
 
   if (!token) {
     return res.status(401).json({ message: "인증 토큰이 필요합니다." });
@@ -385,7 +401,10 @@ exports.getQuestionPatchPage = async (req, res) => {
 exports.patchQuesiton = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const token = req.headers.authorization; // 헤더에서 JWT 토큰을 받아옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
 
     if (!token) {
       return res.status(401).json({ message: "인증 토큰이 필요합니다." });
@@ -439,7 +458,10 @@ exports.patchQuesiton = async (req, res) => {
 exports.deleteQuesiton = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const token = req.headers.authorization; // 헤더에서 JWT 토큰을 받아옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
 
     if (!token) {
       return res.status(401).json({ message: "인증 토큰이 필요합니다." });
@@ -500,7 +522,10 @@ exports.deleteQuesiton = async (req, res) => {
 exports.likeQuestion = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const token = req.headers.authorization; // 헤더에서 JWT 토큰을 받아옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
 
     if (!token) {
       return res.status(401).json({ message: "로그인 후 사용해주세요" });
@@ -562,7 +587,10 @@ exports.likeQuestion = async (req, res) => {
 exports.unlikeQuestion = async (req, res) => {
   try {
     const questionId = req.params.question_id;
-    const token = req.headers.authorization; // 헤더에서 JWT 토큰을 받아옴
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
 
     if (!token) {
       return res.status(401).json({ message: "인증 토큰이 필요합니다." });
@@ -584,7 +612,7 @@ exports.unlikeQuestion = async (req, res) => {
     });
 
     if (!favorite) {
-      return res.status(404).send("해당 공감을 찾을 수 없습니다.");
+      return res.status(404).send("공감하지 않은 게시물입니다.");
     }
 
     // Managed transaction를 이용해 원자적 처리

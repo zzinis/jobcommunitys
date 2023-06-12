@@ -6,7 +6,10 @@ const secretKey = "jomcommunity-key";
 
 exports.getMain = async (req, res) => {
   try {
-    const token = req.headers.authorization; // 클라이언트에서 전송된 JWT 토큰
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
 
     let userId = null;
     let loginOrNot = false;
@@ -48,7 +51,7 @@ exports.getMain = async (req, res) => {
       loginOrNot: loginOrNot,
       userId: userId,
     };
-    
+
     res.render("main", resData);
   } catch (err) {
     console.error(err);
