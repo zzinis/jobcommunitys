@@ -83,8 +83,6 @@ module.exports = {
           .json({ errMessage: "아이디나 비밀번호가 일치하지 않습니다." });
       }
 
-      // let expires = new Date();
-      // expires.setMinutes(expires.getMinutes() + 60);
       //jwt 를 이용한 토큰 발급
       const token = jwt.sign({ userId: user.id }, "jomcommunity-key", {
         expiresIn: "1h",
