@@ -49,8 +49,17 @@
           <li><a href="/questions">취업 Q&A</a></li>
         </ul>
         <ul class="login_tab">
-          <li><button type="button" class="signBtn">회원가입</button></li>
-          <li><button type="button" class="loginBtns">로그인</button></li>
+          <% if (!loginOrNot) { %>
+            <li><button type="button" class="signBtn">회원가입</button></li>
+            <li><button type="button" class="loginBtns">로그인</button></li>
+            <li style="display: none;"><button type="button" class="myPageBtn">마이페이지</button></li>
+            <li style="display: none;"><button type="button" class="logoutBtn">로그아웃</button></li>
+          <%} else { %>
+            <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
+            <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
+            <li><button type="button" class="myPageBtn">마이페이지</button></li>
+            <li><button type="button" class="logoutBtn">로그아웃</button></li>
+          <%} %>
         </ul>
       </div>
     </div>
@@ -187,6 +196,38 @@
   <input type="hidden" id="userId" value="<%= question.user.id %>" />
   <input type="hidden" id="answerId" />
   <script>
+    // 로그인창, 회원가입창 js
+    const loginbtn = document.querySelector('.login_btn');
+    const logintab = document.querySelector('.loginBtns')
+    const signtab = document.querySelector('.signBtn');
+
+    const closebtn = document.querySelector('#close');
+    const signclose = document.querySelector('#closebtn');
+    const signmodal = document.querySelector('.signModal');
+    const loginmodal = document.querySelector('.loginmodal');
+    logintab.addEventListener('click', function (e) {
+      e.preventDefault();
+      loginmodal.classList.add('on');
+    })
+    signtab.addEventListener('click', function (e) {
+      e.preventDefault();
+      signmodal.classList.add('on');
+    })
+
+    loginbtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      loginmodal.classList.add('on');
+    })
+    closebtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      loginmodal.classList.remove('on');
+
+    })
+    signclose.addEventListener('click', function (e) {
+      e.preventDefault();
+      signmodal.classList.remove('on');
+    })
+
     // 질문 삭제
     function deleteQuestion() {
       let qId = document.getElementById("questionId").value;
