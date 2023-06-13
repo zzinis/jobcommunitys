@@ -1,10 +1,26 @@
 const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const secretKey = "jomcommunity-key";
+
 exports.getExternalData = async (req, res) => {
   try {
+    // 로그인 유무 판별용
+    // JWT 토큰
+    const token = req.cookies.authorization
+      ? req.cookies.authorization.split(" ")[1]
+      : null;
+
+    let loginOrNot = false;
+    if (token) {
+      // 토큰이 존재하는 경우, 토큰을 검증하여 사용자 정보를 확인
+      const decoded = jwt.verify(token, secretKey);
+      userId = decoded.userId;
+      loginOrNot = true;
+    }
+
     const limit = 8; // 한 화면에 출력될 게시물 수
     const currentPage = req.query.page ? parseInt(req.query.page) : 1; // 현재 페이지
     // API 호출
-    // http://openapi.seoul.go.kr:8088/6d425a6e6964706633346d76686c73/JSON/GetJobInfo/1/5
     const API_URL = "http://openapi.seoul.go.kr:8088"; // api url
     const API_KEY = "6d425a6e6964706633346d76686c73"; // 인증키
     const API_TYPE = "json"; // 요청파일 타입
@@ -47,6 +63,7 @@ exports.getExternalData = async (req, res) => {
       API_EMPLYM_STLE_CMMN_CODE_SE +
       "/" +
       API_CAREER_CND_CMMN_CODE_SE;
+
     const response = await axios.get(REQ_URL);
 
     if (
@@ -90,6 +107,7 @@ exports.getExternalData = async (req, res) => {
           EMP_TYPE: API_EMPLYM_STLE_CMMN_CODE_SE,
           CAR_TYPE: API_CAREER_CND_CMMN_CODE_SE,
         },
+        loginOrNot: loginOrNot,
       };
       res.render("jobInfo", renderData);
     }

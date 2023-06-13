@@ -280,8 +280,6 @@ exports.getQuestionWritePage = async (req, res) => {
     ? req.cookies.authorization.split(" ")[1]
     : null;
 
-  // const decoded = jwt.verify(token, secretKey);
-
   if (!token) {
     // 로그인 안됨
     return res
