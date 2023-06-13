@@ -43,8 +43,10 @@
         <div class="emailform">
           <label for="email">이메일</label>
           <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요." required>
-          <button type="button">메일인증</button>
+          <button type="button" onclick="emailAuth()" id="emailAuthButton">메일인증</button>
         </div>
+        <div id="verificationCodeArea"></div>
+
         <div class="nameform">
           <label for="username">이름</label>
           <input type="text" name="username" id="username" placeholder="이름을 입력해주세요." required>
@@ -96,6 +98,7 @@
   </section>
 
   <script>
+    let authNum;
     // 로그인창, 회원가입창 js
     const loginbtn = document.querySelector('.login_btn');
     const logintab = document.querySelector('.loginBtns')
@@ -141,23 +144,54 @@
       var totalArr = $("input[name=check]").length;
       var checked = $("input[name=check]:checked").length;
 
-      if (totalArr != ckecked) {
+      if (totalArr != checked) {
         $("#autocheck").prop("checked", false);
       } else {
         $("#autocheck").prop("checked", true);
       }
     });
 
+
+    function emailAuth(){
+      
+      const email = document.getElementById('email').value;
+
+      axios.post('/users/email-auth' , email).then((res) => {
+        authNum = res.data.authNum
+        const verificationCodeInput = document.createElement('input');
+        verificationCodeInput.type = 'text';
+        verificationCodeInput.name = 'verificationCode';
+        verificationCodeInput.id = 'verificationCode';
+        verificationCodeInput.placeholder = '인증번호를 입력해 주세요.';
+        verificationCodeInput.required = true;
+
+        // 인증번호 입력창을 추가할 영역 가져오기
+        const verificationCodeArea = document.getElementById('verificationCodeArea');
+
+        // 인증번호 입력창 추가
+        verificationCodeArea.appendChild(verificationCodeInput);
+
+        // 메일인증 버튼 클릭 이벤트 해제
+        const emailAuthButton = document.getElementById('emailAuthButton');
+        emailAuthButton.disabled = true;
+
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
     function signup() {
       const email = document.getElementById('email').value;
       const username = document.getElementById('username').value;
       const pw = document.getElementById('pw').value;
       const nickname = document.getElementById('nickname').value;
-      
       const newcomer = document.getElementById('newcomer');
-
+      const verificationCodeInput = Number(document.getElementById('verificationCode').value);
       const newcomerChecked = newcomer.checked;
-
+      if(verificationCodeInput !== authNum){
+        alert("인증번호가 일치하지 않습니다.")
+        return;
+      }
       const data = { 
         email : email,
         username: username,
@@ -169,6 +203,7 @@
       axios.post('/users/signup', data).then((res)=> {
         const { message } = res.data
         alert(message)
+        window.location.href = '/users/signin';
       }).catch(err => {
         if(err.response){
           alert(err.response.data.message)
