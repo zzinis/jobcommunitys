@@ -1,0 +1,141 @@
+.profileform {
+	padding: 0;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 1060px;
+	margin: 0 auto;
+}
+.profileform .profile_wrap {
+	width: 100%;
+}
+
+.profileform .profile_wrap > form {
+	background-color: white;
+	z-index: 0;
+	width: 700px;
+	height: 601px;
+	margin: 0 auto;
+	max-width: 1080px;
+	padding: 40px;
+}
+
+.profileform .profile_wrap form h1 {
+	font: bold 28px/1 "Noto Sans KR", sans-serif;
+	margin-bottom: 45px;
+	text-align: center;
+	position: relative;
+}
+
+.profileform .profile_wrap form h1::after {
+	content: "";
+	display: block;
+	width: 50px;
+	height: 2px;
+	background-color: black;
+	text-align: center;
+	position: absolute;
+	left: 46%;
+	top: 40px;
+}
+
+.profileform .profile_wrap form div p {
+	font: bold 16px/1 "Noto Sans KR", sans-serif;
+	color: #333;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #333;
+	padding-bottom: 30px;
+}
+
+.profileform .profile_wrap form .profile {
+	width: 620px;
+	padding: 55px 0;
+	border-bottom: 1px solid #333;
+}
+
+.profileform .profile_wrap form .profile .profilerow label {
+	padding: 10px 10px;
+	width: 158px;
+	display: inline-block;
+}
+
+.profileform .profile_wrap form .profile .profilerow input[type="text"] {
+	height: 40px;
+	width: 280px;
+	border: 1px solid #dddddd;
+	margin-bottom: 15px;
+}
+
+.profileform .profile_wrap form .profile .profilerow input[type="password"] {
+	height: 40px;
+	width: 280px;
+	border: 1px solid #dddddd;
+	margin-bottom: 15px;
+}
+
+.profileform .profile_wrap form .profile .profilerow button {
+	width: 112px;
+	height: 40px;
+	line-height: 40px;
+	margin-left: 10px;
+	font-size: 14px;
+	color: #333;
+	padding: 0;
+	border: 1px solid #333;
+	background-color: white;
+	cursor: pointer;
+	transition: all 1s;
+}
+
+.profileform .profile_wrap form .profile .profilerows label {
+	padding: 10px 10px;
+	width: 158px;
+	display: inline-block;
+}
+.profileform .profile_wrap form .profile .profilerows label:nth-of-type(2) {
+	padding: 10px 10px;
+	width: 75px;
+	display: inline-block;
+}
+
+.profileform .profile_wrap form .profile .profilerows button {
+	width: 112px;
+	height: 40px;
+	line-height: 40px;
+	margin-left: 10px;
+	font-size: 14px;
+	color: #333;
+	padding: 0;
+	border: 1px solid #333;
+	background-color: white;
+	cursor: pointer;
+	transition: all 1s;
+}
+.profileform .profile_wrap form .profile .profilerows input[type="checkbox"] {
+	height: 20px;
+	width: 20px;
+	border: 1px solid #dddddd;
+	margin-bottom: 10px;
+	vertical-align: bottom;
+}
+
+.profileform .profile_wrap form .profile .profilerow button:hover {
+	color: white;
+	background-color: #333;
+	transition: all 1s;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+}
+
+.profileform .profile_wrap form .profile .profilerows button:hover {
+	color: white;
+	background-color: #333;
+	transition: all 1s;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+}
+
+#editemail,
+#editnickname,
+#editpassword {
+	margin-left: 160px;
+}
