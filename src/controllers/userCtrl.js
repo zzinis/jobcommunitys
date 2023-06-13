@@ -65,6 +65,29 @@ module.exports = {
     }
   },
 
+  emailAuth: async (req, res) => {
+    const sendEmail = require("../modules/emailSender");
+    const generateRandomNumber = (min, max) => {
+      const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+      return randomNum;
+    };
+    const authNum = generateRandomNumber(100000, 999999);
+    const content = {
+      from: "seong3546@gmail.com",
+      to: "4969bca12-5d8d47@inbox.mailtrap.io",
+      subject: "인증 메일 test",
+      html: `인증 번호를 입력해주세요. ${authNum}`,
+    };
+
+    try {
+      const success = await sendEmail(content);
+      res.send({ authNum });
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  },
+
   postSignin: async (req, res) => {
     try {
       const { email, password } = req.body;
