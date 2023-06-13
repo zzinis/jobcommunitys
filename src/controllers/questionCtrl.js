@@ -188,7 +188,6 @@ exports.getQuestion = async (req, res) => {
       ? req.cookies.authorization.split(" ")[1]
       : null;
 
-    console.log("token", token);
     // 추출된 사용자 정보
     const userId = token ? jwt.verify(token, secretKey).userId : null;
     const questionId = req.params.question_id;
