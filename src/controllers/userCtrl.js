@@ -14,7 +14,9 @@ module.exports = {
   },
   getUser: async (req, res) => {
     try {
-      const { id } = req.query;
+      const token = req.cookies.authorization.split(" ")[1];
+      const decodeToken = jwt.verify(token, "jomcommunity-key");
+      const id = decodeToken.userId;
       const user = await models.user.findOne({
         where: { id },
       });
@@ -102,15 +104,22 @@ module.exports = {
   updateUser: async (req, res) => {
     console.log(req.body);
     try {
-      const { id, email, username, password, newcomer, nickname } = req.body;
+      const token = req.cookies.authorization.split(" ")[1];
+      const decodeToken = jwt.verify(token, "jomcommunity-key");
+      const id = decodeToken.userId;
+      const { email, username, password, newcomer, nickname } = req.body;
+      console.log(email, username, password, newcomer, nickname);
+      const saltRounds = 10;
+      const hashedPw = password
+        ? await bcrypt.hash(password, saltRounds)
+        : undefined;
 
       await models.user.update(
-        { email, username, password, newcomer, nickname },
+        { email, username, password: hashedPw, newcomer, nickname },
         { where: { id } }
       );
       res.status(200).render("profile", { user: { id, password } });
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ errMessage: "수정 실패" });
     }
   },
@@ -122,10 +131,22 @@ module.exports = {
       await models.User.destroy({
         where: { id },
       });
-      res.status(200).json({ message: "탈퇴 완료" });
+      res.status(200).render("profile");
     } catch (err) {
       console.log(err);
       return res.status(400).json({ errMessage: "탈퇴 실패" });
+    }
+  },
+
+  postLogout: async (req, res) => {
+    // authorization 쿠키 삭제
+    // 결과값 나타내기
+    try {
+      res.clearCookie("authorization");
+      res.status(200).json({ message: "로그아웃 완료" });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ errMessage: "로그아웃 실패" });
     }
   },
 };
