@@ -53,7 +53,7 @@
         border-radius: 5px;
       }
 
-      button {
+      .pagination button {
         background-color: white;
         border: 1px solid #bbb;
       }
@@ -513,14 +513,14 @@
           link += `&sort=${sortString}`;
         }
 
-        if (value == "sort1" || value == "sort2" || value == "sort3") {
+        if (value == "sort0" || value == "sort1" || value == "sort2") {
           if (value == "sort0") sortValue = "reg_dt";
           if (value == "sort1") sortValue = "favorite";
           if (value == "sort2") sortValue = "views";
           link += `?category=${categoryString}`;
           link += `&sort=${sortValue}`;
         }
-        location.href = link;
+        window.location.href = link;
       }
 
       function searchQuestion() {

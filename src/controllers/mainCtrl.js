@@ -44,12 +44,17 @@ exports.getMain = async (req, res) => {
       order: [["favorite", "DESC"]],
       limit: 5,
     });
-
+    const userNickName = await db.user.findOne({
+      attributes: ["nickname"],
+      where: { id: userId },
+    });
+    console.log(userNickName);
     const resData = {
       viewsTops: viewsTops,
       favoriteTops: favoriteTops,
       loginOrNot: loginOrNot,
       userId: userId,
+      userNickName: userNickName,
     };
 
     res.render("main", resData);
