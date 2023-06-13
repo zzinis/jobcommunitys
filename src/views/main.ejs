@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <link rel="stylesheet" href="/views/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <title>MAIN PAGE</title>
 </head>
 
@@ -119,7 +120,7 @@
             <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
             <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
             <li><button type="button" class="myPageBtn" onclick="getMyPage()">마이페이지</button></li>
-            <li><button type="button" class="logoutBtn">로그아웃</button></li>
+            <li><button type="button" class="logoutBtn" onclick="logoutEvnt()">로그아웃</button></li>
           <%} %>
       </ul>
       </div>
@@ -553,6 +554,18 @@
         function getMyPage() {
           window.location.href = '/users/profile';
         }
+
+        function logoutEvnt() {
+          axios
+            .post("/users/logout")
+            .then(function(response) {
+              alert(response.data.message);
+            })
+            .catch(function(error) {
+              alert("로그아웃 실패" + error);
+              console.log("Logout failed: " + error);
+            });
+        }
         // 쿠키팝업
 
         let isCookie = document.cookie.indexOf("popup=done");
@@ -680,7 +693,17 @@
           $('.top-list-area').addClass('on');
         })
 
-
+        function logoutEvnt() {
+          axios
+            .post("/users/logout")
+            .then(function(response) {
+              alert('로그아웃 되었습니다.');
+            })
+            .catch(function(error) {
+              alert("로그아웃 실패" + error);
+              console.log("Logout failed: " + error);
+            });
+        }
 
 
 
