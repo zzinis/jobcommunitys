@@ -118,7 +118,7 @@
           <%} else { %>
             <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
             <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
-            <li><button type="button" class="myPageBtn">마이페이지</button></li>
+            <li><button type="button" class="myPageBtn" onclick="getMyPage()">마이페이지</button></li>
             <li><button type="button" class="logoutBtn">로그아웃</button></li>
           <%} %>
       </ul>
@@ -550,7 +550,9 @@
           signmodal.classList.remove('on');
         })
 
-
+        function getMyPage() {
+          window.location.href = '/users/profile';
+        }
         // 쿠키팝업
 
         let isCookie = document.cookie.indexOf("popup=done");

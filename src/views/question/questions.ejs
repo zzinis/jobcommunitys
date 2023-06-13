@@ -9,6 +9,7 @@
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
     <title>Document</title>
     <style>
       .left_bottom li.on a {
@@ -68,6 +69,7 @@
               <path
                 d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
             </svg>
+
             </button>
           </nav>
         </div>
@@ -85,7 +87,7 @@
             <%} else { %>
               <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
               <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
-              <li><button type="button" class="myPageBtn">마이페이지</button></li>
+              <li><button type="button" class="myPageBtn" onclick="getMyPage()">마이페이지</button></li>
               <li><button type="button" class="logoutBtn">로그아웃</button></li>
             <%} %>
           </ul>
@@ -105,14 +107,24 @@
 
           <div class="btn">
             <button class="left_btn">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <g clip-path="url(#clip0_2450_17212)">
                   <path
                     d="M39.5 20C39.5 30.7696 30.7696 39.5 20 39.5C9.23045 39.5 0.5 30.7696 0.5 20C0.5 9.23045 9.23045 0.5 20 0.5C30.7696 0.5 39.5 9.23045 39.5 20Z"
-                    stroke="#444444"></path>
-                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    stroke="#444444"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
                     d="M23.0899 26.8394C22.7645 27.1649 22.2368 27.1649 21.9114 26.8394L15.6614 20.5894C15.336 20.264 15.336 19.7363 15.6614 19.4109L21.9114 13.1609C22.2368 12.8355 22.7645 12.8355 23.0899 13.1609C23.4153 13.4863 23.4153 14.014 23.0899 14.3394L17.4292 20.0002L23.0899 25.6609C23.4153 25.9863 23.4153 26.514 23.0899 26.8394Z"
-                    fill="#444444"></path>
+                    fill="#444444"
+                  ></path>
                 </g>
                 <defs>
                   <clipPath id="clip0_2450_17212">
@@ -398,6 +410,9 @@
         e.preventDefault();
         signmodal.classList.remove("on");
       });
+      function getMyPage() {
+        window.location.href = "/users/profile";
+      }
       // 쿼리 스트링을 보내기 위한 함수
       function generateLink(value) {
         let link = "/questions";
