@@ -15,10 +15,11 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const { id } = req.query;
-      const user = await models.User.findOne({
+      const user = await models.user.findOne({
         where: { id },
       });
-      res.status(200).json({ data: user });
+      console.log(user);
+      res.status(200).render("profile", { user });
     } catch (err) {
       console.log(err);
       return res.status(400).json({ errMesage: "조회 실패" });
@@ -83,6 +84,8 @@ module.exports = {
           .json({ errMessage: "아이디나 비밀번호가 일치하지 않습니다." });
       }
 
+      // let expires = new Date();
+      // expires.setMinutes(expires.getMinutes() + 60);
       //jwt 를 이용한 토큰 발급
       const token = jwt.sign({ userId: user.id }, "jomcommunity-key", {
         expiresIn: "1h",
@@ -97,15 +100,15 @@ module.exports = {
   },
 
   updateUser: async (req, res) => {
+    console.log(req.body);
     try {
-      const { id } = req.query;
-      const { email, username, password, newcomer, nickname } = req.body;
+      const { id, email, username, password, newcomer, nickname } = req.body;
 
-      await models.User.update(
+      await models.user.update(
         { email, username, password, newcomer, nickname },
         { where: { id } }
       );
-      res.status(200).json({ message: "수정 완료" });
+      res.status(200).render("profile", { user: { id, password } });
     } catch (err) {
       console.log(err);
       return res.status(400).json({ errMessage: "수정 실패" });
