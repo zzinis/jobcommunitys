@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/views/css/style.css" />
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/views/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-  <title>Document</title>
-  <style>
-    .left_bottom li.on a {
-      font-weight: bold;
-    }
+    <title>Document</title>
+    <style>
+      .left_bottom li.on a {
+        font-weight: bold;
+      }
 
-    .content_tab li.on a {
-      font-weight: bold;
-    }
+      .content_tab li.on a {
+        font-weight: bold;
+      }
 
-    .pagination {
-      padding-top: 10px;
-      display: inline-block;
-    }
+      .pagination {
+        padding-top: 10px;
+        display: inline-block;
+      }
 
-    .pagination a {
-      color: black;
-      float: left;
-      padding: 8px 16px;
-      text-decoration: none;
-    }
+      .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+      }
 
-    .pagination a.active {
-      background-color: white;
-      color: black;
-      border-radius: 5px;
-    }
+      .pagination a.active {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+      }
 
-    .pagination a:hover:not(.active) {
-      background-color: #ddd;
-      border-radius: 5px;
-    }
+      .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+      }
 
-    button {
-      background-color: white;
-      border: 1px solid #bbb;
-    }
-  </style>
-</head>
+      button {
+        background-color: white;
+        border: 1px solid #bbb;
+      }
+    </style>
+  </head>
 
-<body>
-  <header id="header">
-    <div class="wrap">
-      <div class="top_box">
-        <h1><a href="/"><img src="/views/img/logo1.png" alt="">
+  <body>
+    <header id="header">
+      <div class="wrap">
+        <div class="top_box">
+          <h1><a href="/"><img src="/views/img/logo1.png" alt="">
           </a></h1>
         <nav class="search_box">
           <input type="text" placeholder="검색어를 입력해주세요" maxlength="50" autocomplete="off"
@@ -69,336 +68,381 @@
               <path
                 d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
             </svg>
-          </button>
-        </nav>
-      </div>
-      <div class="bottom_box">
-        <ul class="nav_tab">
-          <li><a href="/jobinfo">직무 탐색</a></li>
-          <li><a href="/questions">취업 Q&A</a></li>
-        </ul>
-        <ul class="login_tab">
-          <li><button type="button" class="signBtn">회원가입</button></li>
-          <li><button type="button" class="loginBtns">로그인</button></li>
-        </ul>
-      </div>
-    </div>
-  </header>
-  <section class="qna">
-    <div class="banner"></div>
-    <div class="qna_box">
-      <div class="top_txt">
-        <div class="top_txt_wrap">
-          <h2>
-            🏅
-            <span>인기글</span>
-          </h2>
+            </button>
+          </nav>
         </div>
+        <div class="bottom_box">
+          <ul class="nav_tab">
+            <li><a href="/jobinfo">직무 탐색</a></li>
+            <li><a href="/questions">취업 Q&A</a></li>
+          </ul>
+          <ul class="login_tab">
+            <% if (!loginOrNot) { %>
+              <li><button type="button" class="signBtn">회원가입</button></li>
+              <li><button type="button" class="loginBtns">로그인</button></li>
+              <li style="display: none;"><button type="button" class="myPageBtn">마이페이지</button></li>
+            <%} else { %>
+              <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
+              <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
+              <li><button type="button" class="myPageBtn">마이페이지</button></li>
+            <%} %>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <section class="qna">
+      <div class="banner"></div>
+      <div class="qna_box">
+        <div class="top_txt">
+          <div class="top_txt_wrap">
+            <h2>
+              🏅
+              <span>인기글</span>
+            </h2>
+          </div>
 
-        <div class="btn">
-          <button class="left_btn">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_2450_17212)">
-                <path
-                  d="M39.5 20C39.5 30.7696 30.7696 39.5 20 39.5C9.23045 39.5 0.5 30.7696 0.5 20C0.5 9.23045 9.23045 0.5 20 0.5C30.7696 0.5 39.5 9.23045 39.5 20Z"
-                  stroke="#444444"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M23.0899 26.8394C22.7645 27.1649 22.2368 27.1649 21.9114 26.8394L15.6614 20.5894C15.336 20.264 15.336 19.7363 15.6614 19.4109L21.9114 13.1609C22.2368 12.8355 22.7645 12.8355 23.0899 13.1609C23.4153 13.4863 23.4153 14.014 23.0899 14.3394L17.4292 20.0002L23.0899 25.6609C23.4153 25.9863 23.4153 26.514 23.0899 26.8394Z"
-                  fill="#444444"></path>
-              </g>
-              <defs>
-                <clipPath id="clip0_2450_17212">
-                  <rect width="40" height="40" fill="white"></rect>
-                </clipPath>
-              </defs>
-            </svg>
-          </button>
-          <button class="right_btn">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_2450_17215)">
-                <path
-                  d="M39.5 20C39.5 30.7696 30.7696 39.5 20 39.5C9.23045 39.5 0.5 30.7696 0.5 20C0.5 9.23045 9.23045 0.5 20 0.5C30.7696 0.5 39.5 9.23045 39.5 20Z"
-                  stroke="#444444"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M16.9111 13.1608C17.2365 12.8354 17.7641 12.8354 18.0896 13.1608L24.3396 19.4108C24.665 19.7363 24.665 20.2639 24.3396 20.5893L18.0896 26.8393C17.7641 27.1648 17.2365 27.1648 16.9111 26.8393C16.5856 26.5139 16.5856 25.9863 16.9111 25.6608L22.5718 20.0001L16.9111 14.3393C16.5856 14.0139 16.5856 13.4863 16.9111 13.1608Z"
-                  fill="#444444"></path>
-              </g>
-              <defs>
-                <clipPath id="clip0_2450_17215">
-                  <rect width="40" height="40" fill="white"></rect>
-                </clipPath>
-              </defs>
-            </svg>
-          </button>
+          <div class="btn">
+            <button class="left_btn">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_2450_17212)">
+                  <path
+                    d="M39.5 20C39.5 30.7696 30.7696 39.5 20 39.5C9.23045 39.5 0.5 30.7696 0.5 20C0.5 9.23045 9.23045 0.5 20 0.5C30.7696 0.5 39.5 9.23045 39.5 20Z"
+                    stroke="#444444"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M23.0899 26.8394C22.7645 27.1649 22.2368 27.1649 21.9114 26.8394L15.6614 20.5894C15.336 20.264 15.336 19.7363 15.6614 19.4109L21.9114 13.1609C22.2368 12.8355 22.7645 12.8355 23.0899 13.1609C23.4153 13.4863 23.4153 14.014 23.0899 14.3394L17.4292 20.0002L23.0899 25.6609C23.4153 25.9863 23.4153 26.514 23.0899 26.8394Z"
+                    fill="#444444"></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_2450_17212">
+                    <rect width="40" height="40" fill="white"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
+            <button class="right_btn">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_2450_17215)">
+                  <path
+                    d="M39.5 20C39.5 30.7696 30.7696 39.5 20 39.5C9.23045 39.5 0.5 30.7696 0.5 20C0.5 9.23045 9.23045 0.5 20 0.5C30.7696 0.5 39.5 9.23045 39.5 20Z"
+                    stroke="#444444"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M16.9111 13.1608C17.2365 12.8354 17.7641 12.8354 18.0896 13.1608L24.3396 19.4108C24.665 19.7363 24.665 20.2639 24.3396 20.5893L18.0896 26.8393C17.7641 27.1648 17.2365 27.1648 16.9111 26.8393C16.5856 26.5139 16.5856 25.9863 16.9111 25.6608L22.5718 20.0001L16.9111 14.3393C16.5856 14.0139 16.5856 13.4863 16.9111 13.1608Z"
+                    fill="#444444"></path>  
+                </g>
+                <defs>
+                  <clipPath id="clip0_2450_17215">
+                    <rect width="40" height="40" fill="white"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="qna_list">
-        <div class="slider-wraps">
-          <% popular.forEach((p)=> { %>
-            <div class="popular_card">
-              <a href="/questions/<%= p.id %>">
-                <div class="popular_category">
-                  <% if(p.category_id==1) { %>
-                    <span> 👔 취업 </span>
-                    <% } %>
-                      <% if(p.category_id==2) { %>
-                        <span> 🌳 커리어 </span>
-                        <% } %>
-                          <% if(p.category_id==3) { %>
-                            <span> 🚀 기술스택 </span>
-                            <% } %>
-                </div>
-                <div class="popular_name">
-                  <%=p.title %>
-                </div>
-                <div class="popular_info">
-                  <div class="popular_info_writer">
-                    <%= p.user.nickname%>
+        <div class="qna_list">
+          <div class="slider-wraps">
+            <% popular.forEach((p)=> { %>
+              <div class="popular_card">
+                <a href="/questions/<%= p.id %>">
+                  <div class="popular_category">
+                    <% if(p.category_id==1) { %>
+                      <span> 👔 취업 </span>
+                      <% } %>
+                        <% if(p.category_id==2) { %>
+                          <span> 🌳 커리어 </span>
+                          <% } %>
+                            <% if(p.category_id==3) { %>
+                              <span> 🚀 기술스택 </span>
+                              <% } %>
                   </div>
-                  <div class="popular_info_count">
-                    <div class="popular_info_like">
+                  <div class="popular_name">
+                    <%=p.title %>
+                  </div>
+                  <div class="popular_info">
+                    <div class="popular_info_writer">
+                      <%= p.user.nickname%>
+                    </div>
+                    <div class="popular_info_count">
+                      <div class="popular_info_like">
+                        <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M9.63478 4.32414L8.95864 5.02432C8.70739 5.28451 8.36121 5.43146 7.99951 5.43146C7.6378 5.43146 7.29162 5.28451 7.04037 5.02432L6.36423 4.32414C5.51806 3.44787 4.1661 3.44787 3.31993 4.32414C2.44848 5.22658 2.44848 6.70838 3.31993 7.61082L3.99408 8.30894L7.99951 12.4221L12.0029 8.311L12.0068 8.30698L12.6791 7.61082C13.0926 7.18281 13.333 6.59233 13.333 5.96748C13.333 5.34263 13.0928 4.75237 12.6793 4.32436C12.2675 3.89773 11.7186 3.66659 11.1569 3.66659C10.5953 3.66659 10.0466 3.8975 9.63478 4.32414ZM12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98423 7.06024 3.15135C7.15093 3.22814 7.23877 3.31034 7.32337 3.39794L7.99951 4.09812L8.67564 3.39794C8.7597 3.31085 8.84758 3.22864 8.93889 3.15148C9.5623 2.62464 10.3451 2.33325 11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719Z"
+                              fill="#A4A4A4"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
+                              fill="none"></path>
+                          </svg>
+                          <%=p.favorite%>
+                        </span>
+                      </div>
+                    </div>
+  
+                    <div class="popular_info_comment">
                       <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                           xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M9.63478 4.32414L8.95864 5.02432C8.70739 5.28451 8.36121 5.43146 7.99951 5.43146C7.6378 5.43146 7.29162 5.28451 7.04037 5.02432L6.36423 4.32414C5.51806 3.44787 4.1661 3.44787 3.31993 4.32414C2.44848 5.22658 2.44848 6.70838 3.31993 7.61082L3.99408 8.30894L7.99951 12.4221L12.0029 8.311L12.0068 8.30698L12.6791 7.61082C13.0926 7.18281 13.333 6.59233 13.333 5.96748C13.333 5.34263 13.0928 4.75237 12.6793 4.32436C12.2675 3.89773 11.7186 3.66659 11.1569 3.66659C10.5953 3.66659 10.0466 3.8975 9.63478 4.32414ZM12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98423 7.06024 3.15135C7.15093 3.22814 7.23877 3.31034 7.32337 3.39794L7.99951 4.09812L8.67564 3.39794C8.7597 3.31085 8.84758 3.22864 8.93889 3.15148C9.5623 2.62464 10.3451 2.33325 11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719Z"
+                            d="M8.00034 3.00008C5.23892 3.00008 3.00034 5.23866 3.00034 8.00008C3.00034 8.85871 3.21621 9.66493 3.59611 10.3694C3.67261 10.5113 3.69512 10.676 3.6595 10.8332L3.22343 12.757L5.06593 12.2964C5.23112 12.2552 5.40586 12.2786 5.55429 12.3621C6.27679 12.7682 7.11048 13.0001 8.00034 13.0001C10.7618 13.0001 13.0003 10.7615 13.0003 8.00008C13.0003 5.23866 10.7618 3.00008 8.00034 3.00008ZM1.66701 8.00008C1.66701 4.50228 4.50254 1.66675 8.00034 1.66675C11.4981 1.66675 14.3337 4.50228 14.3337 8.00008C14.3337 11.4979 11.4981 14.3334 8.00034 14.3334C6.97236 14.3334 6.00001 14.088 5.14029 13.6522L2.49535 14.3134C2.27071 14.3696 2.03303 14.3051 1.8675 14.1432C1.70197 13.9813 1.63231 13.7451 1.6835 13.5193L2.30564 10.7746C1.89643 9.93605 1.66701 8.99403 1.66701 8.00008Z"
                             fill="#A4A4A4"></path>
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
-                            fill="none"></path>
                         </svg>
-                        <%=p.favorite%>
+                        <%=p.answerCount%>
                       </span>
                     </div>
                   </div>
+                </a>
+              </div>
+              <% });%>
+          </div>
+        </div>
+      </div>
 
-                  <div class="popular_info_comment">
-                    <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M8.00034 3.00008C5.23892 3.00008 3.00034 5.23866 3.00034 8.00008C3.00034 8.85871 3.21621 9.66493 3.59611 10.3694C3.67261 10.5113 3.69512 10.676 3.6595 10.8332L3.22343 12.757L5.06593 12.2964C5.23112 12.2552 5.40586 12.2786 5.55429 12.3621C6.27679 12.7682 7.11048 13.0001 8.00034 13.0001C10.7618 13.0001 13.0003 10.7615 13.0003 8.00008C13.0003 5.23866 10.7618 3.00008 8.00034 3.00008ZM1.66701 8.00008C1.66701 4.50228 4.50254 1.66675 8.00034 1.66675C11.4981 1.66675 14.3337 4.50228 14.3337 8.00008C14.3337 11.4979 11.4981 14.3334 8.00034 14.3334C6.97236 14.3334 6.00001 14.088 5.14029 13.6522L2.49535 14.3134C2.27071 14.3696 2.03303 14.3051 1.8675 14.1432C1.70197 13.9813 1.63231 13.7451 1.6835 13.5193L2.30564 10.7746C1.89643 9.93605 1.66701 8.99403 1.66701 8.00008Z"
-                          fill="#A4A4A4"></path>
-                      </svg>
-                      <%=p.answerCount%>
-                    </span>
+      <div class="qna_content">
+        <div class="qna_content_wrap">
+          <div class="wrap_left">
+            <div class="qna_left_box">
+              <div class="left_top">
+                <button><a href="/questions/write">질문하기</a></button>
+              </div>
+              <ul class="left_bottom">
+                <li class="<%= category_id === '' ? 'on' : '' %>">
+                  <a onclick="generateLink('category0');">🌍 전체</a>
+                </li>
+                <li class="<%= category_id === 1 ? 'on' : '' %>">
+                  <a onclick="generateLink('category1')">👔 취업</a>
+                </li>
+                <li class="<%= category_id === 2 ? 'on' : '' %>">
+                  <a onclick="generateLink('category2')">🌳 커리어</a>
+                </li>
+                <li class="<%= category_id === 3 ? 'on' : '' %>">
+                  <a onclick="generateLink('category3')">🚀 기술스택</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="wrap_right">
+            <ul class="content_tab">
+              <li class="<%= sort === '' ? 'on' : '' %>">
+                <a onclick="generateLink('sort0')">최신순</a>
+              </li>
+              <li class="<%= sort === 'favorite' ? 'on' : '' %>">
+                <a onclick="generateLink('sort1')">공감순</a>
+              </li>
+              <li class="<%= sort === 'views' ? 'on' : '' %>">
+                <a onclick="generateLink('sort2')">조회순</a>
+              </li>
+            </ul>
+            <!-- 컨텐츠 시작 -->
+
+            <% if (questions.length> 0) { %>
+            <div class="content_txtbox">
+              <% questions.forEach((question)=> { %>
+              <a href="/questions/<%= question.id %>">
+                <div class="txtbox_txt">
+                  <div class="popular_category">
+                    <% if(question.category_id==1) { %>
+                    <span> 👔 취업 </span>
+                    <% } %> <% if(question.category_id==2) { %>
+                    <span> 🌳 커리어 </span>
+                    <% } %> <% if(question.category_id==3) { %>
+                    <span> 🚀 기술스택 </span>
+                    <% } %>
+                  </div>
+                  <div class="popular_name"><%= question.title %></div>
+                  <div class="popular_contents"><%= question.content %></div>
+                  <div class="popular_info">
+                    <div class="popular_info_writer">
+                      <span> <%= question.user.nickname %> </span>
+                    </div>
+                    <div class="popular_info_count">
+                      <div class="popular_info_like">
+                        <span
+                          ><svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M9.63478 4.32414L8.95864 5.02432C8.70739 5.28451 8.36121 5.43146 7.99951 5.43146C7.6378 5.43146 7.29162 5.28451 7.04037 5.02432L6.36423 4.32414C5.51806 3.44787 4.1661 3.44787 3.31993 4.32414C2.44848 5.22658 2.44848 6.70838 3.31993 7.61082L3.99408 8.30894L7.99951 12.4221L12.0029 8.311L12.0068 8.30698L12.6791 7.61082C13.0926 7.18281 13.333 6.59233 13.333 5.96748C13.333 5.34263 13.0928 4.75237 12.6793 4.32436C12.2675 3.89773 11.7186 3.66659 11.1569 3.66659C10.5953 3.66659 10.0466 3.8975 9.63478 4.32414ZM12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98423 7.06024 3.15135C7.15093 3.22814 7.23877 3.31034 7.32337 3.39794L7.99951 4.09812L8.67564 3.39794C8.7597 3.31085 8.84758 3.22864 8.93889 3.15148C9.5623 2.62464 10.3451 2.33325 11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719Z"
+                              fill="#A4A4A4"
+                            ></path>
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
+                              fill="none"
+                            ></path>
+                          </svg>
+                          <%= question.favorite %>
+                        </span>
+                      </div>
+                      <div class="popular_info_comment">
+                        <span
+                          ><svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M8.00034 3.00008C5.23892 3.00008 3.00034 5.23866 3.00034 8.00008C3.00034 8.85871 3.21621 9.66493 3.59611 10.3694C3.67261 10.5113 3.69512 10.676 3.6595 10.8332L3.22343 12.757L5.06593 12.2964C5.23112 12.2552 5.40586 12.2786 5.55429 12.3621C6.27679 12.7682 7.11048 13.0001 8.00034 13.0001C10.7618 13.0001 13.0003 10.7615 13.0003 8.00008C13.0003 5.23866 10.7618 3.00008 8.00034 3.00008ZM1.66701 8.00008C1.66701 4.50228 4.50254 1.66675 8.00034 1.66675C11.4981 1.66675 14.3337 4.50228 14.3337 8.00008C14.3337 11.4979 11.4981 14.3334 8.00034 14.3334C6.97236 14.3334 6.00001 14.088 5.14029 13.6522L2.49535 14.3134C2.27071 14.3696 2.03303 14.3051 1.8675 14.1432C1.70197 13.9813 1.63231 13.7451 1.6835 13.5193L2.30564 10.7746C1.89643 9.93605 1.66701 8.99403 1.66701 8.00008Z"
+                              fill="#A4A4A4"
+                            ></path>
+                          </svg>
+                          <%= question.answerCount %>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </a>
-            </div>
-            <% });%>
-        </div>
-      </div>
-    </div>
-
-    <div class="qna_content">
-      <div class="qna_content_wrap">
-        <div class="wrap_left">
-          <div class="qna_left_box">
-            <div class="left_top">
-              <button><a href="/questions/write">질문하기</a></button>
-            </div>
-            <ul class="left_bottom">
-              <li class="<%= category_id === '' ? 'on' : '' %>">
-                <a onclick="generateLink('category0');">🌍 전체</a>
-              </li>
-              <li class="<%= category_id === 1 ? 'on' : '' %>">
-                <a onclick="generateLink('category1')">👔 취업</a>
-              </li>
-              <li class="<%= category_id === 2 ? 'on' : '' %>">
-                <a onclick="generateLink('category2')">🌳 커리어</a>
-              </li>
-              <li class="<%= category_id === 3 ? 'on' : '' %>">
-                <a onclick="generateLink('category3')">🚀 기술스택</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="wrap_right">
-          <ul class="content_tab">
-            <li class="<%= sort === '' ? 'on' : '' %>">
-              <a onclick="generateLink('sort0')">최신순</a>
-            </li>
-            <li class="<%= sort === 'favorite' ? 'on' : '' %>">
-              <a onclick="generateLink('sort1')">공감순</a>
-            </li>
-            <li class="<%= sort === 'views' ? 'on' : '' %>">
-              <a onclick="generateLink('sort2')">조회순</a>
-            </li>
-          </ul>
-          <!-- 컨텐츠 시작 -->
-
-          <% if (questions.length> 0) { %>
-            <div class="content_txtbox">
-              <% questions.forEach((question)=> { %>
-                <a href="/questions/<%= question.id %>">
-                  <div class="txtbox_txt">
-                    <div class="popular_category">
-                      <% if(question.category_id==1) { %>
-                        <span> 👔 취업 </span>
-                        <% } %>
-                          <% if(question.category_id==2) { %>
-                            <span> 🌳 커리어 </span>
-                            <% } %>
-                              <% if(question.category_id==3) { %>
-                                <span> 🚀 기술스택 </span>
-                                <% } %>
-                    </div>
-                    <div class="popular_name">
-                      <%= question.title %>
-                    </div>
-                    <div class="popular_contents">
-                      <%= question.content %>
-                    </div>
-                    <div class="popular_info">
-                      <div class="popular_info_writer">
-                        <span>
-                          <%= question.user.nickname %>
-                        </span>
-                      </div>
-                      <div class="popular_info_count">
-                        <div class="popular_info_like">
-                          <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M9.63478 4.32414L8.95864 5.02432C8.70739 5.28451 8.36121 5.43146 7.99951 5.43146C7.6378 5.43146 7.29162 5.28451 7.04037 5.02432L6.36423 4.32414C5.51806 3.44787 4.1661 3.44787 3.31993 4.32414C2.44848 5.22658 2.44848 6.70838 3.31993 7.61082L3.99408 8.30894L7.99951 12.4221L12.0029 8.311L12.0068 8.30698L12.6791 7.61082C13.0926 7.18281 13.333 6.59233 13.333 5.96748C13.333 5.34263 13.0928 4.75237 12.6793 4.32436C12.2675 3.89773 11.7186 3.66659 11.1569 3.66659C10.5953 3.66659 10.0466 3.8975 9.63478 4.32414ZM12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98423 7.06024 3.15135C7.15093 3.22814 7.23877 3.31034 7.32337 3.39794L7.99951 4.09812L8.67564 3.39794C8.7597 3.31085 8.84758 3.22864 8.93889 3.15148C9.5623 2.62464 10.3451 2.33325 11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719Z"
-                                fill="#A4A4A4"></path>
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
-                                fill="none"></path>
-                            </svg>
-                            <%= question.favorite %>
-                          </span>
-                        </div>
-                        <div class="popular_info_comment">
-                          <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M8.00034 3.00008C5.23892 3.00008 3.00034 5.23866 3.00034 8.00008C3.00034 8.85871 3.21621 9.66493 3.59611 10.3694C3.67261 10.5113 3.69512 10.676 3.6595 10.8332L3.22343 12.757L5.06593 12.2964C5.23112 12.2552 5.40586 12.2786 5.55429 12.3621C6.27679 12.7682 7.11048 13.0001 8.00034 13.0001C10.7618 13.0001 13.0003 10.7615 13.0003 8.00008C13.0003 5.23866 10.7618 3.00008 8.00034 3.00008ZM1.66701 8.00008C1.66701 4.50228 4.50254 1.66675 8.00034 1.66675C11.4981 1.66675 14.3337 4.50228 14.3337 8.00008C14.3337 11.4979 11.4981 14.3334 8.00034 14.3334C6.97236 14.3334 6.00001 14.088 5.14029 13.6522L2.49535 14.3134C2.27071 14.3696 2.03303 14.3051 1.8675 14.1432C1.70197 13.9813 1.63231 13.7451 1.6835 13.5193L2.30564 10.7746C1.89643 9.93605 1.66701 8.99403 1.66701 8.00008Z"
-                                fill="#A4A4A4"></path>
-                            </svg>
-                            <%= question.answerCount %>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-                <% });%>
+              <% });%>
             </div>
             <% } %>
-              <!-- 페이지네이션  -->
-              <% if (totalPages> 1) { %>
-                <div class="pagination" style="text-align: center; display: flex; justify-content: center">
-                  <% if (currentPage> 1) { %>
-                    <a href="/questions?page=<%= currentPage - 1 %>">
-                      << </a>
-                        <% } %>
-                          <% for (let i=1; i <=totalPages; i++) { %>
-                            <% if (i===currentPage) { %>
-                              <a class="current active" href="/questions?page=<%= i %>"><b>
-                                  <%= i %>
-                                </b></a>
-                              <% } else { %>
-                                <a href="/questions?page=<%= i %>">
-                                  <%= i %>
-                                </a>
-                                <% } %>
-                                  <% } %>
-                                    <% if (currentPage < totalPages) { %>
-                                      <a href="/questions?page=<%= currentPage + 1 %>">></a>
-                                      <% } %>
-                </div>
-                <% } %>
+            <!-- 페이지네이션  -->
+            <% if (totalPages> 1) { %>
+            <div
+              class="pagination"
+              style="text-align: center; display: flex; justify-content: center"
+            >
+              <% if (currentPage> 1) { %>
+              <a href="/questions?page=<%= currentPage - 1 %>"> << </a>
+              <% } %> <% for (let i=1; i <=totalPages; i++) { %> <% if
+              (i===currentPage) { %>
+              <a class="current active" href="/questions?page=<%= i %>"
+                ><b> <%= i %> </b></a
+              >
+              <% } else { %>
+              <a href="/questions?page=<%= i %>"> <%= i %> </a>
+              <% } %> <% } %> <% if (currentPage < totalPages) { %>
+              <a href="/questions?page=<%= currentPage + 1 %>">></a>
+              <% } %>
+            </div>
+            <% } %>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- 쿼리스트링용 input -->
-    <input type="hidden" value="<%=sort %>" id="sort_input" />
-    <input type="hidden" value="<%=category_id %>" id="category_input" />
-  </section>
-  <script>
-    $(function () {
-      $(".slider-wraps").slick({
-        slide: "div", //슬라이드 되어야 할 태그
-        infinite: true, //무한 반복 옵션
-        slidesToShow: 3, // 한 화면에 보여질 컨텐츠 개수
-        slidesToScroll: 1, //스크롤 한번에 움직일 컨텐츠 개수
-        speed: 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-        arrows: true, // 옆으로 이동하는 화살표 표시 여부
-        dots: false, // 스크롤바 아래 점으로 페이지네이션 여부
-        autoplay: true, // 자동 스크롤 사용 여부
-        autoplaySpeed: 2000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
-        pauseOnHover: true, // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
-        vertical: false, // 세로 방향 슬라이드 옵션
-        prevArrow: $(".left_btn"),
-        nextArrow: $(".right_btn"),
-        draggable: true, //드래그 가능 여부
-        responsive: [
-          // 반응형 웹 구현 옵션
-          {
-            breakpoint: 960, //화면 사이즈 960px
-            settings: {
-              slidesToShow: 4,
+      <!-- 쿼리스트링용 input -->
+      <input type="hidden" value="<%=sort %>" id="sort_input" />
+      <input type="hidden" value="<%=category_id %>" id="category_input" />
+    </section>
+    <script>
+      $(function () {
+        $(".slider-wraps").slick({
+          slide: "div", //슬라이드 되어야 할 태그
+          infinite: true, //무한 반복 옵션
+          slidesToShow: 3, // 한 화면에 보여질 컨텐츠 개수
+          slidesToScroll: 1, //스크롤 한번에 움직일 컨텐츠 개수
+          speed: 500, // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+          arrows: true, // 옆으로 이동하는 화살표 표시 여부
+          dots: false, // 스크롤바 아래 점으로 페이지네이션 여부
+          autoplay: true, // 자동 스크롤 사용 여부
+          autoplaySpeed: 2000, // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+          pauseOnHover: true, // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
+          vertical: false, // 세로 방향 슬라이드 옵션
+          prevArrow: $(".left_btn"),
+          nextArrow: $(".right_btn"),
+          draggable: true, //드래그 가능 여부
+          responsive: [
+            // 반응형 웹 구현 옵션
+            {
+              breakpoint: 960, //화면 사이즈 960px
+              settings: {
+                slidesToShow: 4,
+              },
             },
-          },
-          {
-            breakpoint: 768, //화면 사이즈 768px
-            settings: {
-              slidesToShow: 5,
+            {
+              breakpoint: 768, //화면 사이즈 768px
+              settings: {
+                slidesToShow: 5,
+              },
             },
-          },
-        ],
+          ],
+        });
       });
-    });
+      // 로그인창, 회원가입창 js
+      const loginbtn = document.querySelector(".login_btn");
+      const logintab = document.querySelector(".loginBtns");
+      const signtab = document.querySelector(".signBtn");
 
-    // 쿼리 스트링을 보내기 위한 함수
-    function generateLink(value) {
-      let link = "/questions";
-      console.log("value", value);
-      let categoryInput = document.getElementById("category_input");
-      let categoryString =
-        categoryInput && categoryInput.value ? categoryInput.value : "";
-      let sortInput = document.getElementById("sort_input");
-      let sortString = sortInput && sortInput.value ? sortInput.value : "";
-      console.log("categoryString", categoryString);
-      console.log("sortString", sortString);
+      const closebtn = document.querySelector("#close");
+      const signclose = document.querySelector("#closebtn");
+      const signmodal = document.querySelector(".signModal");
+      const loginmodal = document.querySelector(".loginmodal");
+      logintab.addEventListener("click", function (e) {
+        e.preventDefault();
+        loginmodal.classList.add("on");
+      });
+      signtab.addEventListener("click", function (e) {
+        e.preventDefault();
+        signmodal.classList.add("on");
+      });
 
-      let categoryValue,
-        sortValue = "";
+      loginbtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        loginmodal.classList.add("on");
+      });
+      closebtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        loginmodal.classList.remove("on");
+      });
+      signclose.addEventListener("click", function (e) {
+        e.preventDefault();
+        signmodal.classList.remove("on");
+      });
+      // 쿼리 스트링을 보내기 위한 함수
+      function generateLink(value) {
+        let link = "/questions";
+        console.log("value", value);
+        let categoryInput = document.getElementById("category_input");
+        let categoryString =
+          categoryInput && categoryInput.value ? categoryInput.value : "";
+        let sortInput = document.getElementById("sort_input");
+        let sortString = sortInput && sortInput.value ? sortInput.value : "";
+        console.log("categoryString", categoryString);
+        console.log("sortString", sortString);
 
-      if (
-        value == "category1" ||
-        value == "category2" ||
-        value == "category3"
-      ) {
-        if (value == "category1") categoryValue = 1;
-        if (value == "category2") categoryValue = 2;
-        if (value == "category3") categoryValue = 3;
-        link += `?category=${categoryValue}`;
-        link += `&sort=${sortString}`;
+        let categoryValue,
+          sortValue = "";
+
+        if (
+          value == "category1" ||
+          value == "category2" ||
+          value == "category3"
+        ) {
+          if (value == "category1") categoryValue = 1;
+          if (value == "category2") categoryValue = 2;
+          if (value == "category3") categoryValue = 3;
+          link += `?category=${categoryValue}`;
+          link += `&sort=${sortString}`;
+        }
+
+        if (value == "sort1" || value == "sort2" || value == "sort3") {
+          if (value == "sort0") sortValue = "reg_dt";
+          if (value == "sort1") sortValue = "favorite";
+          if (value == "sort2") sortValue = "views";
+          link += `?category=${categoryString}`;
+          link += `&sort=${sortValue}`;
+        }
+        location.href = link;
       }
 
-      if (value == "sort1" || value == "sort2" || value == "sort3") {
-        if (value == "sort0") sortValue = "reg_dt";
-        if (value == "sort1") sortValue = "favorite";
-        if (value == "sort2") sortValue = "views";
-        link += `?category=${categoryString}`;
-        link += `&sort=${sortValue}`;
+      function searchQuestion() {
+        const word = document.querySelector(".search_box input").value;
+        window.location.href = `/questions/search?word=${word}`;
       }
-      location.href = link;
-    }
 
-    function searchQuestion() {
-      const word = document.querySelector(".search_box input").value;
-      window.location.href = `/questions/search?word=${word}`;
-    }
-
-    function handleKeyPress(event) {
-      if (event.key === "Enter") {
-        searchQuestion();
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          searchQuestion();
+        }
       }
-    }
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
