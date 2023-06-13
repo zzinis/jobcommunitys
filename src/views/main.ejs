@@ -697,7 +697,8 @@
           axios
             .post("/users/logout")
             .then(function(response) {
-              alert('로그아웃 되었습니다.');
+              alert("로그아웃 되었습니다.");
+              window.location.reload();
             })
             .catch(function(error) {
               alert("로그아웃 실패" + error);
