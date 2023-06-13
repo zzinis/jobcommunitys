@@ -48,7 +48,6 @@ exports.getMain = async (req, res) => {
       attributes: ["nickname"],
       where: { id: userId },
     });
-    console.log(userNickName);
     const resData = {
       viewsTops: viewsTops,
       favoriteTops: favoriteTops,

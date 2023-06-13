@@ -407,6 +407,109 @@
       <input type="hidden" value="<%=sort %>" id="sort_input" />
       <input type="hidden" value="<%=category_id %>" id="category_input" />
     </section>
+    <section class="signModal">
+      <div class="wrap">
+        <div class="top">
+          <button type="button" id="closebtn" value="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24">
+              <g fill="none" fill-rule="evenodd">
+                <g>
+                  <g>
+                    <path d="M0 0H24V24H0z" transform="translate(-316 -20) translate(316 20)"></path>
+                    <g stroke="#000" stroke-width="2">
+                      <path d="M16 0L0 16M0 0L16 16" transform="translate(-316 -20) translate(316 20) translate(4 4)">
+                      </path>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg></button>
+        </div>
+        <div class="sign_txt">
+          <p>회원가입</p>
+          <span>기업 고객이신 경우, 기업서비스에서 가입을 진행해주세요.</span>
+        </div>
+        <div class="sign_form">
+          <label for="email">이메일</label>
+          <div class="emailform">
+            <input type="text" name="email" id="email" placeholder="이메일을 입력해 주세요.">
+            <button type="button">메일인증</button>
+          </div>
+          <div class="nameform">
+            <label for="username">이름</label>
+            <input type="text" name="username" id="username" placeholder="이름을 입력해주세요.">
+          </div>
+          <div class="pwform">
+  
+            <label for="pw">비밀번호</label>
+            <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해 주세요.">
+          </div>
+  
+        </div>
+  
+        <div class="sign_check">
+          <div class="autocheckbox">
+            <input type="checkbox" name="autocheck" id="autocheck">
+            <label for="autocheck">전체 동의</label>
+          </div>
+          <ul class="checklist">
+            <li> <input type="checkbox" name="check">
+              <label for="check">만 15세 이상입니다<span>(필수)</span></label>
+            </li>
+            <li><input type="checkbox" name="check">
+              <label for="check">개인회원 이용약관 동의<span>(필수)</span></label>
+            </li>
+            <li><input type="checkbox" name="check">
+              <label for="check">개인정보 수집 및 이용 동의<span>(필수)</span></label>
+            </li>
+            <li><input type="checkbox" name="check">
+              <label for="check">마케팅 수신 동의</label>
+            </li>
+  
+          </ul>
+  
+        </div>
+  
+        <button type="button">회원가입</button>
+  
+      </div>
+    </section>
+    <section class="loginmodal">
+      <div class="wrap">
+        <div class="top">
+          <button type="button" id="close" value="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24">
+              <g fill="none" fill-rule="evenodd">
+                <g>
+                  <g>
+                    <path d="M0 0H24V24H0z" transform="translate(-316 -20) translate(316 20)"></path>
+                    <g stroke="#000" stroke-width="2">
+                      <path d="M16 0L0 16M0 0L16 16" transform="translate(-316 -20) translate(316 20) translate(4 4)">
+                      </path>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg></button>
+        </div>
+        <div class="login_txt">
+          <p>반가워요</p>
+          <p>점핏에서 커리어점프해요!</p>
+        </div>
+        <div class="login_form">
+          <label for="email">이메일</label>
+          <input type="text" name="email" id="email">
+        </div>
+        <button type="button">점핏 시작하기</button>
+        <div class="login_check">
+          <input type="checkbox" name="autologin" id="autologin">
+          <label for="autologin">자동 로그인</label>
+        </div>
+      </div>
+    </section>
+    <% include ('../signin.ejs')%>
+      <% include ('../signup.ejs')%>
+  
     <script>
       $(function () {
         $(".slider-wraps").slick({
@@ -442,7 +545,6 @@
         });
       });
       // 로그인창, 회원가입창 js
-      const loginbtn = document.querySelector(".login_btn");
       const logintab = document.querySelector(".loginBtns");
       const signtab = document.querySelector(".signBtn");
 
@@ -457,11 +559,6 @@
       signtab.addEventListener("click", function (e) {
         e.preventDefault();
         signmodal.classList.add("on");
-      });
-
-      loginbtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        loginmodal.classList.add("on");
       });
       closebtn.addEventListener("click", function (e) {
         e.preventDefault();

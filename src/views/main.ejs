@@ -198,7 +198,7 @@
             <p>다양한 혜택을 만나보세요.</p>
   
             <div class="login_button">
-              <button type="button" class="login_btn">회원가입 / 로그인</button>
+              <button type="button" class="login_btn" onclick="getLoginModal()">회원가입 / 로그인</button>
             </div>
           </div>
         <% } else { %>
@@ -355,7 +355,7 @@
       </div>
       <div class="sign_txt">
         <p>회원가입</p>
-        <span>기업 고객이신 경우, 기업서비스에서 가입을 진행해주세요.</ㄴp>
+        <span>기업 고객이신 경우, 기업서비스에서 가입을 진행해주세요.</span>
       </div>
       <div class="sign_form">
         <label for="email">이메일</label>
@@ -544,20 +544,19 @@
           e.preventDefault();
           signmodal.classList.add('on');
         })
-
-        loginbtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          loginmodal.classList.add('on');
-        })
         closebtn.addEventListener('click', function (e) {
           e.preventDefault();
           loginmodal.classList.remove('on');
-
         })
         signclose.addEventListener('click', function (e) {
           e.preventDefault();
           signmodal.classList.remove('on');
         })
+
+        function getLoginModal() {
+          e.preventDefault();
+          loginmodal.classList.add('on');
+        }
 
         function getMyPage() {
           window.location.href = '/users/profile';
