@@ -383,15 +383,13 @@ exports.getQuestionPatchPage = async (req, res) => {
 
   // 추출된 사용자 정보
   const userId = decodedToken.userId;
-
   const questionId = req.params.question_id;
   const question = await db.question.findByPk(questionId);
   if (!question) {
     return res.status(404).send("존재하지 않는 질문입니다.");
   }
-
   // 작성자만 질문 수정 가능
-  if (question.userId !== userId) {
+  if (question.user_id !== userId) {
     return res.status(403).send("권한이 없습니다.");
   }
 
