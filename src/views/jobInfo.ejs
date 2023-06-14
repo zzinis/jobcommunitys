@@ -101,12 +101,12 @@
             <li><button type="button" class="loginBtns">로그인</button></li>
             <li style="display: none;"><button type="button" class="myPageBtn">마이페이지</button></li>
             <li style="display: none;"><button type="button" class="logoutBtn">로그아웃</button></li>
-          <%} else { %>
-            <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
-            <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
-            <li><button type="button" class="myPageBtn" onclick="getMyPage()">마이페이지</button></li>
-            <li><button type="button" class="logoutBtn" onclick="logoutEvnt()">로그아웃</button></li>
-          <%} %>
+            <%} else { %>
+              <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
+              <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
+              <li><button type="button" class="myPageBtn" onclick="getMyPage()">마이페이지</button></li>
+              <li><button type="button" class="logoutBtn" onclick="logoutEvnt()">로그아웃</button></li>
+              <%} %>
         </ul>
       </div>
     </div>
@@ -307,13 +307,13 @@
       </div>
       <div class="login_txt">
         <p>반가워요</p>
-        <p>점핏에서 커리어점프해요!</p>
+        <p>커뮤니티에서 커리어점프해요!</p>
       </div>
       <div class="login_form">
         <label for="email">이메일</label>
         <input type="text" name="email" id="email">
       </div>
-      <button type="button">점핏 시작하기</button>
+      <button type="button">커뮤니티 시작하기</button>
       <div class="login_check">
         <input type="checkbox" name="autologin" id="autologin">
         <label for="autologin">자동 로그인</label>
@@ -323,77 +323,77 @@
   <% include ('signin.ejs')%>
     <% include ('signup.ejs')%>
 
-  <script>
-      // 로그인창, 회원가입창 js
-      const logintab = document.querySelector('.loginBtns')
-      const signtab = document.querySelector('.signBtn');
-  
-      const closebtn = document.querySelector('#close');
-      const signclose = document.querySelector('#closebtn');
-      const signmodal = document.querySelector('.signModal');
-      const loginmodal = document.querySelector('.loginmodal');
-      logintab.addEventListener('click', function (e) {
-        e.preventDefault();
-        loginmodal.classList.add('on');
-      })
-      signtab.addEventListener('click', function (e) {
-        e.preventDefault();
-        signmodal.classList.add('on');
-      })
-      closebtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        loginmodal.classList.remove('on');
-  
-      })
-      signclose.addEventListener('click', function (e) {
-        e.preventDefault();
-        signmodal.classList.remove('on');
-      })
-      function getMyPage() {
-        window.location.href = '/users/profile';
-      }
-      function logoutEvnt() {
-        axios
-          .post("/users/logout")
-          .then(function (response) {
-            alert("로그아웃 되었습니다.");
-            window.location.reload();
-          })
-          .catch(function (error) {
-            alert("로그아웃 실패" + error);
-            console.log("Logout failed: " + error);
-          });
-      }
-    function getJobInfo(page) {
-      const EDU_TYPE = document.getElementById("EDU_TYPE").value;
-      const EMP_TYPE = document.getElementById("EMP_TYPE").value;
-      const CAR_TYPE = document.getElementById("CAR_TYPE").value;
-      const PAGE_QUERY = page ? page : 1;
+      <script>
+        // 로그인창, 회원가입창 js
+        const logintab = document.querySelector('.loginBtns')
+        const signtab = document.querySelector('.signBtn');
 
-      if (EDU_TYPE == '' && EMP_TYPE == '' && CAR_TYPE == '' && page == '') {
-        alert("검색값을 입력하여주세요");
-        return false;
-      }
-
-      const queryString = `EDU_TYPE=${encodeURIComponent(
-        EDU_TYPE
-      )}&EMP_TYPE=${encodeURIComponent(
-        EMP_TYPE
-      )}&CAR_TYPE=${encodeURIComponent(CAR_TYPE)}&page=${PAGE_QUERY}`;
-      const url = `/jobinfo?${queryString}`;
-
-      axios
-        .get(url)
-        .then((res) => {
-          console.log(res);
-          window.location.href = url;
+        const closebtn = document.querySelector('#close');
+        const signclose = document.querySelector('#closebtn');
+        const signmodal = document.querySelector('.signModal');
+        const loginmodal = document.querySelector('.loginmodal');
+        logintab.addEventListener('click', function (e) {
+          e.preventDefault();
+          loginmodal.classList.add('on');
         })
-        .catch((error) => {
-          console.log();
-          alert("해당하는 데이터가 없습니다.");
-        });
-    }
-  </script>
+        signtab.addEventListener('click', function (e) {
+          e.preventDefault();
+          signmodal.classList.add('on');
+        })
+        closebtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          loginmodal.classList.remove('on');
+
+        })
+        signclose.addEventListener('click', function (e) {
+          e.preventDefault();
+          signmodal.classList.remove('on');
+        })
+        function getMyPage() {
+          window.location.href = '/users/profile';
+        }
+        function logoutEvnt() {
+          axios
+            .post("/users/logout")
+            .then(function (response) {
+              alert("로그아웃 되었습니다.");
+              window.location.reload();
+            })
+            .catch(function (error) {
+              alert("로그아웃 실패" + error);
+              console.log("Logout failed: " + error);
+            });
+        }
+        function getJobInfo(page) {
+          const EDU_TYPE = document.getElementById("EDU_TYPE").value;
+          const EMP_TYPE = document.getElementById("EMP_TYPE").value;
+          const CAR_TYPE = document.getElementById("CAR_TYPE").value;
+          const PAGE_QUERY = page ? page : 1;
+
+          if (EDU_TYPE == '' && EMP_TYPE == '' && CAR_TYPE == '' && page == '') {
+            alert("검색값을 입력하여주세요");
+            return false;
+          }
+
+          const queryString = `EDU_TYPE=${encodeURIComponent(
+            EDU_TYPE
+          )}&EMP_TYPE=${encodeURIComponent(
+            EMP_TYPE
+          )}&CAR_TYPE=${encodeURIComponent(CAR_TYPE)}&page=${PAGE_QUERY}`;
+          const url = `/jobinfo?${queryString}`;
+
+          axios
+            .get(url)
+            .then((res) => {
+              console.log(res);
+              window.location.href = url;
+            })
+            .catch((error) => {
+              console.log();
+              alert("해당하는 데이터가 없습니다.");
+            });
+        }
+      </script>
 </body>
 
 </html>
