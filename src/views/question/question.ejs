@@ -54,12 +54,12 @@
             <li><button type="button" class="loginBtns">로그인</button></li>
             <li style="display: none;"><button type="button" class="myPageBtn">마이페이지</button></li>
             <li style="display: none;"><button type="button" class="logoutBtn">로그아웃</button></li>
-          <%} else { %>
-            <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
-            <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
-            <li><button type="button" class="myPageBtn" onclick="getMyPage()">마이페이지</button></li>
-            <li><button type="button" class="logoutBtn" onclick="logoutEvnt()">로그아웃</button></li>
-          <%} %>
+            <%} else { %>
+              <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
+              <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
+              <li><button type="button" class="myPageBtn" onclick="getMyPage()">마이페이지</button></li>
+              <li><button type="button" class="logoutBtn" onclick="logoutEvnt()">로그아웃</button></li>
+              <%} %>
         </ul>
       </div>
     </div>
@@ -109,7 +109,7 @@
                 <% if(isLiked) { %>
                   <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
-                    fill="#00dd6d"></path>
+                    fill="#FA5858"></path>
                   <% } else { %>
                     <path fill-rule="evenodd" clip-rule="evenodd"
                       d="M11.1569 2.33325C12.0877 2.33325 12.9802 2.71625 13.6382 3.39794C14.2965 4.07931 14.6663 5.00364 14.6663 5.96748C14.6663 6.93131 14.2965 7.85564 13.6382 8.53701L12.9621 9.23719L8.95474 13.3523C8.43133 13.8898 7.56768 13.8898 7.04427 13.3523L3.03693 9.23719L2.36079 8.53701C0.990413 7.1179 0.990413 4.81706 2.36079 3.39794C3.64657 2.06643 5.68192 1.98424 7.06024 3.15135C7.06486 3.15525 7.06946 3.15917 7.07405 3.1631C7.15985 3.23651 7.24307 3.31479 7.32337 3.39794L7.9995 4.09812L8.67564 3.39794C8.7597 3.31085 8.84759 3.22864 8.93889 3.15148C8.94251 3.14842 8.94613 3.14537 8.94976 3.14233C9.57138 2.62127 10.3498 2.33325 11.1569 2.33325Z"
@@ -278,13 +278,13 @@
       </div>
       <div class="login_txt">
         <p>반가워요</p>
-        <p>점핏에서 커리어점프해요!</p>
+        <p>커뮤니티에서 커리어점프해요!</p>
       </div>
       <div class="login_form">
         <label for="email">이메일</label>
         <input type="text" name="email" id="email">
       </div>
-      <button type="button">점핏 시작하기</button>
+      <button type="button">커뮤니티 시작하기</button>
       <div class="login_check">
         <input type="checkbox" name="autologin" id="autologin">
         <label for="autologin">자동 로그인</label>
@@ -294,283 +294,281 @@
   <% include ('../signin.ejs')%>
     <% include ('../signup.ejs')%>
 
-  <input type="hidden" id="questionId" value="<%= question.id %>" />
-  <input type="hidden" id="userId" value="<%= question.user.id %>" />
-  <input type="hidden" id="answerId" />
-  <script>
-    // 로그인창, 회원가입창 js
-    const logintab = document.querySelector('.loginBtns')
-    const signtab = document.querySelector('.signBtn');
+      <input type="hidden" id="questionId" value="<%= question.id %>" />
+      <input type="hidden" id="userId" value="<%= question.user.id %>" />
+      <input type="hidden" id="answerId" />
+      <script>
+        // 로그인창, 회원가입창 js
+        const logintab = document.querySelector('.loginBtns')
+        const signtab = document.querySelector('.signBtn');
 
-    const closebtn = document.querySelector('#close');
-    const signclose = document.querySelector('#closebtn');
-    const signmodal = document.querySelector('.signModal');
-    const loginmodal = document.querySelector('.loginmodal');
-    logintab.addEventListener('click', function (e) {
-      e.preventDefault();
-      loginmodal.classList.add('on');
-    })
-    signtab.addEventListener('click', function (e) {
-      e.preventDefault();
-      signmodal.classList.add('on');
-    })
-    closebtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      loginmodal.classList.remove('on');
-
-    })
-    signclose.addEventListener('click', function (e) {
-      e.preventDefault();
-      signmodal.classList.remove('on');
-    })
-
-    function getMyPage() {
-      window.location.href = '/users/profile';
-    }
-    function logoutEvnt() {
-      axios
-        .post("/users/logout")
-        .then(function (response) {
-          alert("로그아웃 되었습니다.");
-          window.location.reload();
+        const closebtn = document.querySelector('#close');
+        const signclose = document.querySelector('#closebtn');
+        const signmodal = document.querySelector('.signModal');
+        const loginmodal = document.querySelector('.loginmodal');
+        logintab.addEventListener('click', function (e) {
+          e.preventDefault();
+          loginmodal.classList.add('on');
         })
-        .catch(function (error) {
-          alert("로그아웃 실패" + error);
-          console.log("Logout failed: " + error);
-        });
-    }
-    // 질문 삭제
-    function deleteQuestion() {
-      let qId = document.getElementById("questionId").value;
-      let userId = document.getElementById("userId").value;
-      console.log(qId);
-      const URL = "/questions/" + qId;
-      axios({
-        url: URL,
-        method: "DELETE",
-        data: { user_id: userId },
-      })
-        .then(function (res) {
-          alert(res.data);
-          window.location.href = "/questions";
+        signtab.addEventListener('click', function (e) {
+          e.preventDefault();
+          signmodal.classList.add('on');
         })
-        .catch(function (error) {
-          if (error.response) {
-            alert("서버 응답 오류입니다. 다시 시도해주세요.");
-          } else if (error.request) {
-            alert("요청 전송 오류입니다. 다시 시도해주세요.");
+        closebtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          loginmodal.classList.remove('on');
+
+        })
+        signclose.addEventListener('click', function (e) {
+          e.preventDefault();
+          signmodal.classList.remove('on');
+        })
+
+        function getMyPage() {
+          window.location.href = '/users/profile';
+        }
+        function logoutEvnt() {
+          axios
+            .post("/users/logout")
+            .then(function (response) {
+              alert("로그아웃 되었습니다.");
+              window.location.reload();
+            })
+            .catch(function (error) {
+              alert("로그아웃 실패" + error);
+              console.log("Logout failed: " + error);
+            });
+        }
+        // 질문 삭제
+        function deleteQuestion() {
+          let qId = document.getElementById("questionId").value;
+          let userId = document.getElementById("userId").value;
+          console.log(qId);
+          const URL = "/questions/" + qId;
+          axios({
+            url: URL,
+            method: "DELETE",
+            data: { user_id: userId },
+          })
+            .then(function (res) {
+              alert(res.data);
+              window.location.href = "/questions";
+            })
+            .catch(function (error) {
+              if (error.response) {
+                alert("서버 응답 오류입니다. 다시 시도해주세요.");
+              } else if (error.request) {
+                alert("요청 전송 오류입니다. 다시 시도해주세요.");
+              } else {
+                alert("오류가 발생했습니다. 다시 시도해주세요.");
+              }
+              window.location.href = "/questions"; // 메인 페이지 URL로 이동
+            });
+        }
+
+        // 질문 수정
+        function patchQuestion() {
+          const qId = document.getElementById("questionId").value;
+          window.location.href = "/questions/patch/" + qId;
+        }
+
+        // 공감 (하트 애니메이션 및 데이터 처리)
+        function toggleLike() {
+          var pathElements = document.querySelectorAll("#like-heart-button path");
+
+          var secondPathElement = pathElements[1];
+
+          var currentFill = secondPathElement.getAttribute("fill");
+
+          if (currentFill === "#FA5858") {
+            axios({
+              url: document.getElementById("questionId").value + "/unlikes",
+              method: "PATCH",
+            }).then(function (res) {
+              var likeCountElement = document.getElementById("like-count");
+              likeCountElement.textContent =
+                res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
+              secondPathElement.setAttribute("fill", "none");
+            }).catch(function (err) {
+              alert(err.response.data.message);
+              return false;
+            });
           } else {
-            alert("오류가 발생했습니다. 다시 시도해주세요.");
+            axios({
+              url: document.getElementById("questionId").value + "/likes",
+              method: "PATCH",
+            }).then(function (res) {
+              var likeCountElement = document.getElementById("like-count");
+              likeCountElement.textContent =
+                res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
+              secondPathElement.setAttribute("fill", "#FA5858");
+            }).catch(function (err) {
+              alert(err.response.data.message);
+              return false;
+            });
           }
-          window.location.href = "/questions"; // 메인 페이지 URL로 이동
-        });
-    }
+        }
 
-    // 질문 수정
-    function patchQuestion() {
-      const qId = document.getElementById("questionId").value;
-      window.location.href = "/questions/patch/" + qId;
-    }
+        // 답변 작성
+        function postAnswer() {
+          const form = document.forms["comment-form"];
+          const qId = document.getElementById("questionId").value;
+          const comment = form.comment.value;
 
-    // 공감 (하트 애니메이션 및 데이터 처리)
-    function toggleLike() {
-      var pathElements = document.querySelectorAll("#like-heart-button path");
-
-      var secondPathElement = pathElements[1];
-
-      var currentFill = secondPathElement.getAttribute("fill");
-
-      if (currentFill === "#00dd6d") {
-        axios({
-          url: document.getElementById("questionId").value + "/unlikes",
-          method: "PATCH",
-        }).then(function (res) {
-          var likeCountElement = document.getElementById("like-count");
-          likeCountElement.textContent =
-          res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
-          togglelikeQuestion(false);
-          secondPathElement.setAttribute("fill", "none");
-        }).catch(function(err){
-          alert(err.response.data.message);
-          return false;
-        });
-      } else {
-        axios({
-          url: document.getElementById("questionId").value + "/likes",
-          method: "PATCH",
-        }).then(function (res) {
-          var likeCountElement = document.getElementById("like-count");
-          likeCountElement.textContent =
-            res.data.countQuestionLike > 0 ? res.data.countQuestionLike : "";
-            togglelikeQuestion(true);
-            secondPathElement.setAttribute("fill", "#00dd6d");
-        }).catch(function(err){
-          alert(err.response.data.message);
-          return false;
-        });
-      }
-    }
-
-    // 답변 작성
-    function postAnswer() {
-      const form = document.forms["comment-form"];
-      const qId = document.getElementById("questionId").value;
-      const comment = form.comment.value;
-
-      if (!comment.length > 0) {
-        alert("댓글을 입력해주세요.");
-        return false;
-      }
-
-      const data = {
-        comment: comment,
-      };
-
-      const URL = `/questions/${qId}/answers`;
-      axios({
-        url: URL,
-        method: "POST",
-        data: data,
-      })
-        .then(function (response) {
-          alert(response.data.result);
-          window.location.href = response.data.redirectURL;
-        })
-        .catch(function (error) {
-          if (error.response) {
-            // 서버 응답 오류
-            alert(error.response.data);
-          } else if (error.request) {
-            // 요청 전송 오류
-            alert("요청 전송 오류입니다. 다시 시도해주세요.");
-          } else {
-            console.log(error);
+          if (!comment.length > 0) {
+            alert("댓글을 입력해주세요.");
+            return false;
           }
-        });
-    }
 
-    // 답변 수정 버튼 클릭시 이벤트
-    function editAnswer(buttonElement, answerId) {
-      document.getElementById("answerId").value = answerId;
-      var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
-      var answerContent = replyComment.querySelector("span").innerText;
+          const data = {
+            comment: comment,
+          };
 
-      var textarea = document.createElement("textarea");
-      textarea.value = answerContent;
-      textarea.name = "commentEdit";
-      textarea.maxLength = "3000";
+          const URL = `/questions/${qId}/answers`;
+          axios({
+            url: URL,
+            method: "POST",
+            data: data,
+          })
+            .then(function (response) {
+              alert(response.data.result);
+              window.location.href = response.data.redirectURL;
+            })
+            .catch(function (error) {
+              if (error.response) {
+                // 서버 응답 오류
+                alert(error.response.data);
+              } else if (error.request) {
+                // 요청 전송 오류
+                alert("요청 전송 오류입니다. 다시 시도해주세요.");
+              } else {
+                console.log(error);
+              }
+            });
+        }
 
-      var previousContentInput = document.createElement("input");
-      previousContentInput.type = "hidden";
-      previousContentInput.name = "previousContent";
-      previousContentInput.value = answerContent;
+        // 답변 수정 버튼 클릭시 이벤트
+        function editAnswer(buttonElement, answerId) {
+          document.getElementById("answerId").value = answerId;
+          var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
+          var answerContent = replyComment.querySelector("span").innerText;
 
-      var replyBtn = buttonElement.parentNode.parentNode;
-      replyBtn.innerHTML = '<button type="button" width="auto" style="background-color: #fff" style="border:1px solid #bbb" onclick="updateAnswer(this)">수정 완료</button><button type="button" width="auto" onclick="cancelEdit(this)">수정 취소</button>';
+          var textarea = document.createElement("textarea");
+          textarea.value = answerContent;
+          textarea.name = "commentEdit";
+          textarea.maxLength = "3000";
 
-      replyComment.innerHTML = '';
-      replyComment.appendChild(previousContentInput);
-      replyComment.appendChild(textarea);
-    }
+          var previousContentInput = document.createElement("input");
+          previousContentInput.type = "hidden";
+          previousContentInput.name = "previousContent";
+          previousContentInput.value = answerContent;
 
+          var replyBtn = buttonElement.parentNode.parentNode;
+          replyBtn.innerHTML = '<button type="button" width="auto" style="background-color: #fff" style="border:1px solid #bbb" onclick="updateAnswer(this)">수정 완료</button><button type="button" width="auto" onclick="cancelEdit(this)">수정 취소</button>';
 
-
-    // 수정 취소 버튼 클릭시 이벤트
-    function cancelEdit(buttonElement) {
-      let answerId = document.getElementById("answerId").value;
-      var replyContainer = document.getElementById("replyContainer");
-      var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
-      var previousContentInput = replyComment.querySelector("input[name='previousContent']");
-      var answerContent = previousContentInput.value;
-
-      // Restore the original answer content when canceling the edit
-      replyComment.innerHTML = '<span>' + answerContent + '</span>';
-
-      var replyBtn = buttonElement.parentNode;
-      replyBtn.innerHTML = '<span><a onclick="editAnswer(this, ' + answerId + ')">수정</a></span> <span><a onclick="deleteAnswer(this, ' + answerId + ')">삭제</a></span>';
-
-    }
+          replyComment.innerHTML = '';
+          replyComment.appendChild(previousContentInput);
+          replyComment.appendChild(textarea);
+        }
 
 
 
+        // 수정 취소 버튼 클릭시 이벤트
+        function cancelEdit(buttonElement) {
+          let answerId = document.getElementById("answerId").value;
+          var replyContainer = document.getElementById("replyContainer");
+          var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
+          var previousContentInput = replyComment.querySelector("input[name='previousContent']");
+          var answerContent = previousContentInput.value;
 
-    // 답변 수정 완료 버튼 클릭 이벤트 핸들러
-    function updateAnswer(buttonElement) {
-      let qId = document.getElementById("questionId").value;
-      let aId = document.getElementById("answerId").value;
-      const URL = `/questions/${qId}/answers/${aId}`;
+          // Restore the original answer content when canceling the edit
+          replyComment.innerHTML = '<span>' + answerContent + '</span>';
 
-      var replyContainer = document.getElementById("replyContainer");
-      var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
-      var answerContent = replyComment.querySelector("textarea[name='commentEdit']").value;
-      var previousContentInput = replyComment.querySelector("input[name='previousContent']");
+          var replyBtn = buttonElement.parentNode;
+          replyBtn.innerHTML = '<span><a onclick="editAnswer(this, ' + answerId + ')">수정</a></span> <span><a onclick="deleteAnswer(this, ' + answerId + ')">삭제</a></span>';
 
-      if (!previousContentInput) {
-        console.error("Previous content input not found.");
-        return;
-      }
+        }
 
-      axios
-        .patch(URL, { content: answerContent }) // Specify the ID of the answer to be updated
-        .then(function (response) {
-          console.log(response);
-          alert(response.data.result);
-          window.location.href = response.data.redirectURL;
-        })
-        .catch(function (error) {
-          console.error("Failed to update answer.", error);
-        });
-    }
 
-    // 답변 삭제 버튼 클릭 이벤트 핸들러
-    function deleteAnswer(index, answerId) {
 
-      var confirmDelete = confirm("답변을 삭제하시겠습니까?");
-      if (!confirmDelete) {
-        return;
-      }
-      let qId = document.getElementById("questionId").value;
-      const URL = `/questions/${qId}/answers/${answerId}`;
-      var replyContainer = document.getElementById("replyContainer");
-      var replyHeaders = replyContainer.querySelectorAll(".reply_header");
-      var replyComments = replyContainer.querySelectorAll(".reply_comment");
-      console.log(replyContainer);
-      if (replyHeaders.length <= index) {
-        console.error("Invalid index:", index);
-        return;
-      }
 
-      if (replyComments.length <= index) {
-        console.error("Invalid index:", index);
-        return;
-      }
-      var replyHeader = replyHeaders[index];
-      var replyComment = replyComments[index];
+        // 답변 수정 완료 버튼 클릭 이벤트 핸들러
+        function updateAnswer(buttonElement) {
+          let qId = document.getElementById("questionId").value;
+          let aId = document.getElementById("answerId").value;
+          const URL = `/questions/${qId}/answers/${aId}`;
 
-      // 답변 삭제 로직 수행
-      axios
-        .delete(URL)
-        .then(function (response) {
-          console.log(response);
-          alert(response.data.result);
-          window.location.href = response.data.redirectURL;
-        })
-        .catch(function (error) {
-          console.error("Failed to delete answer.", error);
-        });
-    }
+          var replyContainer = document.getElementById("replyContainer");
+          var replyComment = buttonElement.closest('.reply_header').nextElementSibling;
+          var answerContent = replyComment.querySelector("textarea[name='commentEdit']").value;
+          var previousContentInput = replyComment.querySelector("input[name='previousContent']");
 
-    function searchQuestion() {
-      const word = document.querySelector('.search_box input').value
-      window.location.href = `/questions/search?word=${word}`
-    }
+          if (!previousContentInput) {
+            console.error("Previous content input not found.");
+            return;
+          }
 
-    function handleKeyPress(event) {
-      if (event.key === 'Enter') {
-        searchQuestion();
-      }
-    }
-  </script>
+          axios
+            .patch(URL, { content: answerContent }) // Specify the ID of the answer to be updated
+            .then(function (response) {
+              console.log(response);
+              alert(response.data.result);
+              window.location.href = response.data.redirectURL;
+            })
+            .catch(function (error) {
+              console.error("Failed to update answer.", error);
+            });
+        }
+
+        // 답변 삭제 버튼 클릭 이벤트 핸들러
+        function deleteAnswer(index, answerId) {
+
+          var confirmDelete = confirm("답변을 삭제하시겠습니까?");
+          if (!confirmDelete) {
+            return;
+          }
+          let qId = document.getElementById("questionId").value;
+          const URL = `/questions/${qId}/answers/${answerId}`;
+          var replyContainer = document.getElementById("replyContainer");
+          var replyHeaders = replyContainer.querySelectorAll(".reply_header");
+          var replyComments = replyContainer.querySelectorAll(".reply_comment");
+          console.log(replyContainer);
+          if (replyHeaders.length <= index) {
+            console.error("Invalid index:", index);
+            return;
+          }
+
+          if (replyComments.length <= index) {
+            console.error("Invalid index:", index);
+            return;
+          }
+          var replyHeader = replyHeaders[index];
+          var replyComment = replyComments[index];
+
+          // 답변 삭제 로직 수행
+          axios
+            .delete(URL)
+            .then(function (response) {
+              console.log(response);
+              alert(response.data.result);
+              window.location.href = response.data.redirectURL;
+            })
+            .catch(function (error) {
+              console.error("Failed to delete answer.", error);
+            });
+        }
+
+        function searchQuestion() {
+          const word = document.querySelector('.search_box input').value
+          window.location.href = `/questions/search?word=${word}`
+        }
+
+        function handleKeyPress(event) {
+          if (event.key === 'Enter') {
+            searchQuestion();
+          }
+        }
+      </script>
 </body>
 
 </html>

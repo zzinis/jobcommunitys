@@ -75,6 +75,12 @@
 	padding: 10px 4px;
 	font: 400 16px/24px "Noto Sans KR", sans-serif;
 	letter-spacing: -0.5px;
+	transition: all 0.5s;
+}
+#header .wrap .bottom_box .nav_tab li a:hover {
+	border-bottom: 2px solid #111;
+	padding-bottom: 5px;
+	transition: all 0.5s;
 }
 #header .wrap .bottom_box .login_tab {
 	display: flex;
@@ -460,7 +466,7 @@
 	padding: 10px 20px 26px;
 	border: 1px solid rgb(228, 228, 228);
 	margin-top: 10px;
-	height: 75px;
+	height: 83px;
 	width: 100%;
 	border-radius: 4px;
 }
@@ -499,10 +505,27 @@
 	margin-bottom: 30px;
 }
 
-.youtube .wrap .playlist article {
+.youtube .wrap .playlist {
+	display: flex;
 	width: 100%;
-	padding: 20px 0px;
-	border-bottom: 1px solid #ddd;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.youtube .wrap .playlist article {
+	width: 350px;
+	padding: 20px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+	/* border-bottom: 1px solid #ddd; */
+	/* background-color: #d8d7ca8c; */
+	border: 1px solid black;
+	filter: opacity(0.5);
+	transition: all 0.5s;
+	cursor: pointer;
+}
+.youtube .wrap .playlist article:hover {
+	filter: opacity(1);
 }
 .youtube .wrap .playlist article::after {
 	content: "";
@@ -510,30 +533,24 @@
 	clear: both;
 }
 .youtube .wrap .playlist article h2 {
-	width: 24%;
-	float: left;
-	padding-right: 20px;
-	font: 26px/1 "Noto sans KR", sans-serif;
+	font: 18px/1 "Noto sans KR", sans-serif;
+	margin-bottom: 20px;
 	color: #111;
 }
 .youtube .wrap .playlist article .txt {
-	width: 46%;
-	float: left;
-	padding-right: 20px;
+	margin-top: 30px;
 }
 .youtube .wrap .playlist article .txt p {
-	font: 14px/1.2 "arial";
+	font: 14px/1.2 "" Noto Sans KR ", sans-serif";
 	color: #666;
 	margin-bottom: 40px;
 }
 .youtube .wrap .playlist article .txt span {
-	font: 12px/1 "arial";
-	color: rgb(104, 104, 249);
+	font: 12px/1 "" Noto Sans KR ", sans-serif";
+	color: black;
 }
 .youtube .wrap .playlist article .pic {
-	width: 30%;
 	height: 180px;
-	float: left;
 }
 .youtube .wrap .playlist article .pic img {
 	width: 100%;
@@ -616,6 +633,7 @@ aside span {
 }
 .job_content .job_content_list h1 {
 	line-height: 40px;
+	font-size: 18px;
 }
 .job_content .job_content_list .links {
 	margin-left: auto;
@@ -1099,7 +1117,7 @@ aside span {
 }
 #popup .close {
 	float: right;
-	font: 14px/1 "arial";
+	font: 14px/1 "" Noto Sans KR ", sans-serif";
 	color: black;
 }
 
@@ -1174,4 +1192,28 @@ aside span {
 }
 .show {
 	opacity: 1;
+}
+
+.clicked {
+	font-weight: bold;
+}
+
+.map {
+	max-width: 1060px;
+	margin: 30px auto;
+}
+
+#map:hover {
+	filter: opacity(1);
+	transition: all 0.5s;
+}
+
+#map {
+	filter: opacity(0.5);
+	transition: all 0.5s;
+}
+
+.map p {
+	font: bold 18px/1 "Noto Sans KR";
+	margin-bottom: 20px;
 }

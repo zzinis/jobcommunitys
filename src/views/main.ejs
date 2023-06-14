@@ -12,6 +12,8 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <link rel="stylesheet" href="/views/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6af8aac364c21039d1ece9c41aa80b34&libraries=services,clusterer"></script>
   <title>MAIN PAGE</title>
 </head>
 
@@ -115,12 +117,12 @@
             <li><button type="button" class="signBtn">회원가입</button></li>
             <li><button type="button" class="loginBtns">로그인</button></li>
             <li style="display: none;"><button type="button" class="logoutBtn">로그아웃</button></li>
-          <%} else { %>
-            <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
-            <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
-            <li><button type="button" class="logoutBtn" onclick="logoutEvnt()">로그아웃</button></li>
-          <%} %>
-      </ul>
+            <%} else { %>
+              <li style="display: none;"><button type="button" class="signBtn">회원가입</button></li>
+              <li style="display: none;"><button type="button" class="loginBtns">로그인</button></li>
+              <li><button type="button" class="logoutBtn" onclick="logoutEvnt()">로그아웃</button></li>
+              <%} %>
+        </ul>
       </div>
     </div>
 
@@ -196,29 +198,31 @@
           <div class="login_box">
             <p>회원가입/로그인하고</p>
             <p>다양한 혜택을 만나보세요.</p>
-  
+
             <div class="login_button">
               <button type="button" class="login_btn" onclick="getLoginModal()">회원가입 / 로그인</button>
             </div>
           </div>
-        <% } else { %>
-          <div class="login_box">
-            <p><%= userNickName.nickname %> 님 환영합니다!</p>
-            <p>다양한 채용정보를 만나보세요.</p>
-            <div class="login_button">
-              <button type="button" class="login_btn" onclick="getMyPage()">마이페이지</button>
+          <% } else { %>
+            <div class="login_box">
+              <p>
+                <%= userNickName.nickname %> 님 환영합니다!
+              </p>
+              <p>다양한 채용정보를 만나보세요.</p>
+              <div class="login_button">
+                <button type="button" class="login_btn" onclick="getMyPage()">마이페이지</button>
+              </div>
             </div>
-          </div>
-        <% } %>
+            <% } %>
 
-        <div class="notice_box">
-          <h1>NOTICE</h1>
-          <div class="notice_list">
-            <span>[공지] 개인정보 처리방침 개정에 대해</span>
-            <span>2023-06</span>
-          </div>
+              <div class="notice_box">
+                <h1>NOTICE</h1>
+                <div class="notice_list">
+                  <span>[공지] 개인정보 처리방침 개정에 대해</span>
+                  <span>2023-06</span>
+                </div>
 
-        </div>
+              </div>
 
       </div>
     </div>
@@ -335,6 +339,12 @@
       </div>
     </div>
   </section>
+
+  <section class="map">
+    <p>지도</p>
+    <div id="map" style="width:100%; height:400px;"></div>
+
+  </section>
   <section class="signModal">
     <div class="wrap">
       <div class="top">
@@ -422,13 +432,13 @@
       </div>
       <div class="login_txt">
         <p>반가워요</p>
-        <p>점핏에서 커리어점프해요!</p>
+        <p>커뮤니티에서 커리어점프해요!</p>
       </div>
       <div class="login_form">
         <label for="email">이메일</label>
         <input type="text" name="email" id="email">
       </div>
-      <button type="button">점핏 시작하기</button>
+      <button type="button">커뮤니티 시작하기</button>
       <div class="login_check">
         <input type="checkbox" name="autologin" id="autologin">
         <label for="autologin">자동 로그인</label>
@@ -438,6 +448,7 @@
   <% include ('signin.ejs')%>
     <% include ('signup.ejs')%>
 
+
       <footer id="footer">
         <div class="inner">
           <span class="logo"><a href="/"><img src="views/img/logo3.png" alt=""></a></span>
@@ -446,7 +457,7 @@
               <ul class="links">
                 <li><a href="#">서비스 소개</a></li>
                 <li><a href="#">기업 서비스</a></li>
-                <li><a href="#">점핏Team</a></li>
+                <li><a href="#">커뮤니티Team</a></li>
               </ul>
               <ul class="links">
                 <li><a href="#">이용약관</a></li>
@@ -456,14 +467,14 @@
             </div>
             <dl class="info">
               <dd>
-                점핏 고객센터 : 02-2025-2733 (평일 09:00 - 18:00, 점심시간 12:00 - 13:00, 주말·공휴일 휴무)<br>
-                이메일 : help@jumpit.co.kr / Fax : 02-6937-0036
+                커뮤니티 고객센터 : 02-1234-5678 (평일 09:00 - 18:00, 점심시간 12:00 - 13:00, 주말·공휴일 휴무)<br>
+                이메일 : help@community.co.kr / Fax : 02-1234-5679
               </dd>
               <dd>
-                (주)사람인, 우 : 08378, 서울특별시 구로구 디지털로34길 43, 14층(구로동, 코오롱싸이언스밸리 1차), 대표 : 김용환<br>
-                사업자등록 : 113-86-00917 / 직업정보제공사업 : 서울 관악 제 2005-6호 / 통신판매업 : 제 2339호
+                (주)Communi, 우 : 12345, 서울특별시 구로구 123, 5층, 대표 : 홍김동<br>
+                사업자등록 : 123-45-67
               </dd>
-              <dd>Copyright (c) (주)사람인. All rights reserved.</dd>
+              <dd>Copyright (c) (주)커뮤니. All rights reserved.</dd>
             </dl>
           </div>
         </div>
@@ -554,7 +565,6 @@
         })
 
         function getLoginModal() {
-          e.preventDefault();
           loginmodal.classList.add('on');
         }
 
@@ -565,10 +575,10 @@
         function logoutEvnt() {
           axios
             .post("/users/logout")
-            .then(function(response) {
+            .then(function (response) {
               alert(response.data.message);
             })
-            .catch(function(error) {
+            .catch(function (error) {
               alert("로그아웃 실패" + error);
               console.log("Logout failed: " + error);
             });
@@ -653,15 +663,16 @@
 
             tags += `
         <article>
-          <h2>${tit.length > 50 ? tit.substr(0, 50) + '...' : tit}</h2>
-          <div class='txt'>
-            <p>${desc.length > 200 ? desc.substr(0, 200) + '...' : desc}</p>
-            <span>${date.split('T')[0].split('-').join('.')}</span>
-          </div>  
+          <h2>${tit.length > 20 ? tit.substr(0, 20) + '...' : tit}</h2>
           <div class='pic'>
             <img class='thumb' src=${item.snippet.thumbnails.standard.url} alt=${item.snippet.resourceId.videoId
               } />
-          </div>          
+          </div>   
+          <div class='txt'>
+     
+            <span>${date.split('T')[0].split('-').join('.')}</span>
+          </div>  
+       
         </article>
       `;
           });
@@ -703,15 +714,63 @@
         function logoutEvnt() {
           axios
             .post("/users/logout")
-            .then(function(response) {
+            .then(function (response) {
               alert("로그아웃 되었습니다.");
               window.location.reload();
             })
-            .catch(function(error) {
+            .catch(function (error) {
               alert("로그아웃 실패" + error);
               console.log("Logout failed: " + error);
             });
         }
+        // kakaomap
+        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+          center: new kakao.maps.LatLng(37.54339940537533, 126.95189774960758), //지도의 중심좌표.
+          level: 3 //지도의 레벨(확대, 축소 정도)
+          // disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+        };
+
+        var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+        var imageSrc = 'img/marker.png', // 마커이미지의 주소입니다    
+          imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+          imageOption = { offset: new kakao.maps.Point(27, 69) };
+
+        // 마커가 표시될 위치입니다 
+        var markerPosition = new kakao.maps.LatLng(37.54339940537533, 126.95189774960758);
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+          position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+        // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+        // marker.setMap(null);    
+
+        // 지도에 클릭 이벤트를 등록합니다
+        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+
+          // 클릭한 위도, 경도 정보를 가져옵니다 
+          var latlng = mouseEvent.latLng;
+
+          // 마커 위치를 클릭한 위치로 옮깁니다
+          marker.setPosition(latlng);
+
+          // 마우스로 클릭한 위치의 위도와 경도를 표시할 메세지
+          var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+          message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+          // 'clickLatlng'라는 아이디값을 가진 <div> 태그의 innerHTML 으로 위 메세지를 설정합니다.
+          var resultDiv = document.getElementById('clickLatlng');
+          resultDiv.innerHTML = message;
+
+        });
+
+
 
 
 
