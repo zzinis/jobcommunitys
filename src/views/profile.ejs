@@ -216,22 +216,19 @@
       cb.checked = false;
     });
 
-    element.checked = true;
-  }
-  function postlogout() {
-    console.log("first");
-    axios({
-      method: "POST",
-      url: "/users/profile",
-      data: {
-        id: form.id.value,
-      },
-    }).then((res) => {
-      console.log("second");
-      alert("로그아웃 완료되었습니다.");
-    });
-    window.location.href = "/";
-  }
-</script>
-
+      element.checked = true;
+    }
+    function postlogout() {
+      axios({
+        method: "post",
+        url: "/users",
+        data: {
+          id: form.id.value,
+        },
+      }).then((res) => {
+        alert("로그아웃 완료되었습니다.");
+      });
+      window.location.href = "/";
+    }
+  </script>
 </html>

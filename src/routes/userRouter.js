@@ -10,6 +10,7 @@ router.get("/profile", userCtrl.getUser);
 router.post("/signin", userCtrl.postSignin);
 router.post("/signup", userCtrl.postSignup);
 router.post("/email-auth", userCtrl.emailAuth);
+router.post("/", userCtrl.postLogout);
 
 router.patch("/profile", authMiddleware, userCtrl.updateUser);
 router.delete("/", authMiddleware, userCtrl.getUser);
