@@ -713,7 +713,7 @@
 
         function logoutEvnt() {
           axios
-            .post("/users/logout")
+            .post("/users")
             .then(function (response) {
               alert("로그아웃 되었습니다.");
               window.location.reload();
