@@ -1,6 +1,6 @@
 .answer {
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	background-color: rgb(245, 245, 248);
 	padding: 20px 0px 0px;
 	box-sizing: border-box;
@@ -10,6 +10,8 @@
 .answer .answer_wrap {
 	background-color: rgb(245, 245, 248);
 	padding: 50px;
+	height: 100%;
+	box-sizing: content-box;
 }
 .answer .answer_box {
 	width: 800px;
@@ -111,8 +113,7 @@
 	height: 16px;
 }
 .answer .answer_box .box_bottom {
-	padding: 24px 24px 0px;
-	height: 800px;
+	padding: 24px 24px 24px;
 }
 .answer .answer_box .box_bottom .reply_title {
 	font-weight: 700;
@@ -129,7 +130,7 @@
 }
 .answer .answer_box .box_bottom form[name="comment-form"] {
 	width: 100%;
-	height: 700px;
+	height: 100%;
 }
 .answer .answer_box .box_bottom form .reply_form textarea {
 	padding: 0px 16px;

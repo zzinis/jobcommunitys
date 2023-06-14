@@ -37,6 +37,7 @@
 }
 .qna .qna_box .top_txt .btn button {
 	background: none;
+	border: none;
 }
 .qna .qna_box .top_txt .btn button svg {
 	fill: white;
