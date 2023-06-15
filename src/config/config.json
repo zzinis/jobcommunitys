@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "freedb_job-root",
-    "password": "hm$MDA5kSF3ftYH",
+    "username": "kdtuser",
+    "password": "1234",
     "database": "freedb_jobcommunity",
-    "host": "sql.freedb.tech",
+    "host": "kdt7-backend",
     "dialect": "mysql",
     "timezone": "Asia/Seoul"
   },
