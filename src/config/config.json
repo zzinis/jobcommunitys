@@ -2,22 +2,23 @@
   "development": {
     "username": "kdtuser",
     "password": "1234",
-    "database": "freedb_jobcommunity",
-    "host": "kdt7-backend",
+    "database": "kdt7-backend",
+    "host": "sql.freedb.tech",
     "dialect": "mysql",
-    "timezone": "Asia/Seoul"
+    "timezone": "Asia/Seoul",
+    "port": 8000
   },
   "test": {
-    "username": "freedb_job-root",
-    "password": "hm$MDA5kSF3ftYH",
-    "database": "freedb_jobcommunity",
+    "username": "kdtuser",
+    "password": "1234",
+    "database": "kdt7-backend",
     "host": "sql.freedb.tech",
     "dialect": "mysql"
   },
   "production": {
-    "username": "freedb_job-root",
-    "password": "hm$MDA5kSF3ftYH",
-    "database": "freedb_jobcommunity",
+    "username": "kdtuser",
+    "password": "1234",
+    "database": "kdt7-backend",
     "host": "sql.freedb.tech",
     "dialect": "mysql"
   }
